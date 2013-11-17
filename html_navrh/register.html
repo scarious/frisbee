@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYr2Hd6_FhH1YQCtDf4-8AGRM5qN4JiEY&sensor=true">
+</script>
+<script type="text/javascript">	
+	function initialize() {
+	   var mapOptions = {
+	    zoom: 12,
+	    center: new google.maps.LatLng(48.72099560, 21.25774770),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	  }
+	  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+	    		
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<title>Domovská stránka</title>
+</head>
+
+<body onload="initialize">
+
+<div id="wrapper">
+	<div id="topMenu">
+		<div class="topMenuItem"><a href="index.html">Domov</a></div>
+		<div class="topMenuItem"><a href="players.html">Hráči</a></div>
+		<div class="topMenuItem"><a href="teams.html">Tímy</a></div>
+		<div class="topMenuItem"><a href="tournaments.html">Turnaje</a></div>
+		<div class="topMenuItem"><a href="profile.html">Profil</a></div>
+	</div>
+	<div id="loginArea">
+		<a href="login.html">Prihlásenie</a><a href="register.html">Registrácia</a>
+	</div>
+	<div id="content">
+		<h2><b>Registrácia ::</b></h2>
+		<div id="centerContent">
+			<table>
+				<tr><td>Meno:</td><td><input type="text"/></td></tr>
+				<tr><td>Heslo:</td><td><input type="password"/></td></tr>
+				<tr><td>Heslo znova:</td><td><input type="password"/></td></tr>
+				<tr><td>E-mail:</td><td><input type="password"/></td></tr>
+				<tr><td></td><td><input type="button" value="Registruj"/></td></tr>
+			</table>
+			 
+			<br/>alebo<br/><br/>
+			<img src="images/loginFB.png" alt="Facebook login"/>
+		</div>
+		
+	</div>
+	<div id="footer">
+		TEXT TEXT TEXT
+	</div>
+
+</div>
+
+</body>
+
+</html>

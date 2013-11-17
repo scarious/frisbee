@@ -4,6 +4,8 @@ import java.util.List;
 
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
+import sk.frisbee.domain.Roster;
+import sk.frisbee.domain.Team;
 import sk.frisbee.domain.User;
 
 /* Users Data access object - interface */
@@ -24,17 +26,23 @@ public interface UsersDao {
 	
 	public User getUser(Integer id);
 	
-	/** Len pre tablulku user - informacie pre prihlasenie */
+	
 	public List<Address> getAllAddressData();
 	
 	public Address getAddresForUserId(Integer id);
 	
+	public Roster getRoster();
+	
+	public List<Team> getPlayersTeams();
+	
 	/** INSERT */
-	public void addPlayer(Player player);
+	public void addPlayer(Integer user_id, Player player);
 	
 	public void addUser(User user);
 	
 	public void addAddress(Address address);
+	
+	public void addTeamToPlayer(Integer player_id, Team team);
 	
 	/** UPDATE */
 	public void updatePlayer(Player updatedPlayer);
@@ -49,5 +57,7 @@ public interface UsersDao {
 	public void removeUser(Integer id);
 	
 	public void removeAddress(Integer id);
+	
+	public void removePlayerFromTeam(Integer id);
 
 }

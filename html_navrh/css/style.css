@@ -1,0 +1,194 @@
+﻿html { height: 100% }
+  
+body {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	background: white;
+	height: 100%;	
+}
+
+a {
+	text-decoration:none;
+}
+
+#map-canvas { width: 480pt;height : 320pt }
+
+#wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	width: 75%;
+	min-width: 620pt;
+	border: 1px solid gray;
+}
+
+#topMenu {
+	width: auto;
+	background-color:#0099CC;
+	border-bottom: 4pt solid #336699;
+}
+
+.topMenuItem {
+	min-width: 85pt;
+	width: 17%;
+	height: 45pt;
+	text-align:center;
+	display: inline-block;
+	font-size: 22pt;
+	padding-top: 11pt;
+}
+
+.topMenuItem:hover {
+	background-color: #336699;
+}
+
+.topMenuItem a{
+	color: white;
+}
+
+
+.topMenuItem a:visited{
+	color: white;
+}
+
+.topMenuItem a:hover{
+	color: #CCFFCC;
+}
+
+#loginArea {
+	background-color: #336699;
+	text-align: right;
+	color: white;
+	padding: 1pt;
+}
+
+#loginArea a{
+	color: white;
+	padding-left: 5pt;
+}
+
+
+#content {
+	width: 100%;	
+}
+
+#centerContent{
+	width:auto;
+	display: table;
+	margin: 0 auto;
+}
+
+.topFiveMain {
+	min-width: 150pt;
+	height: 150pt;
+	display: inline-block;
+	padding: 2pt;
+}
+
+.topFiveMain table {
+	border: 1pt solid #CCCCCC;
+}
+
+#profileInfo {
+	height: auto;
+	min-width: 225pt;
+	display: inline-block;
+}
+
+#profileAvatar {
+	width: 150pt;
+	display: inline-block;
+}
+
+#profileAvatarImg {
+	width: 150pt;
+}
+
+.boldTextTd{
+	font-weight:bold;
+}
+
+#cal{
+	
+	float: left;	
+}
+
+#tournamentsList{
+	display: inline-block;
+	border-left: 1pt solid gray ;
+	clear:both;
+}
+
+.grayRow {
+	background-color:#CCCCCC;
+	text-align:center;
+}
+
+#profileTeamTreningy {
+	margin-left: 15pt;
+	display:inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#footer {
+	text-align:center;
+	padding: 1pt;
+	font-size: 10pt;
+	background:#0099CC;
+	color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

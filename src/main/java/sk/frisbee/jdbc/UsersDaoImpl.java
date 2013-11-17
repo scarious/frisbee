@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
+import sk.frisbee.domain.Roster;
+import sk.frisbee.domain.Team;
 import sk.frisbee.domain.User;
 
 public class UsersDaoImpl implements UsersDao {
@@ -80,11 +82,6 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public void addPlayer(Player player) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void addUser(User user) {
 		// TODO Auto-generated method stub
 		
@@ -128,6 +125,36 @@ public class UsersDaoImpl implements UsersDao {
 
 	@Override
 	public void removeAddress(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public Roster getRoster() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Team> getPlayersTeams() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addPlayer(Integer user_id, Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addTeamToPlayer(Integer player_id, Team team) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removePlayerFromTeam(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}

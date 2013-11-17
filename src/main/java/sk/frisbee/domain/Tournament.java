@@ -37,6 +37,8 @@ public class Tournament implements Serializable {
 	private List<Team> teams = new ArrayList<Team>(); 
 	
 	private List<Player> players = new ArrayList<Player>();
+	
+	private List<TRoster> tRosters = new ArrayList<TRoster>();
 
 	public Long getId_tournament() {
 		return tournament_id;
@@ -136,6 +138,14 @@ public class Tournament implements Serializable {
 
 	public void setPlayers(List<Player> players) {
 		this.players = players;
+	}
+
+	public List<TRoster> gettRosters() {
+		return tRosters;
+	}
+
+	public void settRosters(List<TRoster> tRosters) {
+		this.tRosters = tRosters;
 	}
 	
 }

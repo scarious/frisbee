@@ -2,7 +2,9 @@ package sk.frisbee.jdbc;
 
 import java.util.List;
 
+import sk.frisbee.domain.Player;
 import sk.frisbee.domain.Team;
+import sk.frisbee.domain.Tournament;
 
 public class TeamsDaoImpl implements TeamsDao {
 
@@ -40,6 +42,18 @@ public class TeamsDaoImpl implements TeamsDao {
 	public void deleteTeam(Integer id) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Player> getPlayersInTeam() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Tournament> getTeamTournaments() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
