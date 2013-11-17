@@ -32,11 +32,11 @@
 				<p>TOP Hráči<br/></p>
 				<table>
 					<tr class="grayRow"><td>Poradie</td><td>Prezývka</td><td>Skóre</td></tr>
-					<tr><td>1.</td><td>Player 1</td><td>1000</td></tr>
-					<tr><td>2.</td><td>Player 2</td><td>900</td></tr>
-					<tr><td>3.</td><td>Player 3</td><td>845</td></tr>
-					<tr><td>4.</td><td>Player 4</td><td>700</td></tr>
-					<tr><td>5.</td><td>Player 5</td><td>500</td></tr>
+					
+					<c:forEach var="user" items="${usersList}">
+					<tr><td>0</td><td>${user.firstName}</td><td></td></tr>
+					
+					</c:forEach>
 				</table>
 				<a href="playersTop.html">Viac...</a>
 			</div>

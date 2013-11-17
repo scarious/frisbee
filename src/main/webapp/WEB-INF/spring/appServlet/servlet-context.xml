@@ -21,8 +21,21 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="sk.frisbee.aplikacia" />
+	<!-- telling container to take care of annotations stuff -->  
+ 	<context:annotation-config />  
 	
+	<context:component-scan base-package="sk.frisbee." />
 	
+	<beans:bean id="usersDao" class="sk.frisbee.jdbc.JdbcUsersDao"/>	
+	
+		
+	
+	<beans:bean id="dataSource" 
+	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />  
+  		<beans:property name="url" value="jdbc:mysql://localhost:3306/frisbee" />  
+ 		<beans:property name="username" value="root" />  
+ 		<beans:property name="password" value="root" />
+	</beans:bean>
 	
 </beans:beans>
