@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sk.frisbee.domain.User;
+import sk.frisbee.jdbc.JdbcUsersDao;
 import sk.frisbee.jdbc.UsersDao;
 
 /**
@@ -25,7 +26,7 @@ public class IndexController {
 	
 	
 	 @Autowired  
-	 UsersDao usersdao;
+	 JdbcUsersDao usersdao;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.

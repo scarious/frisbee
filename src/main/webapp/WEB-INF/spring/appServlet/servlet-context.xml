@@ -28,8 +28,6 @@
 	
 	<beans:bean id="usersDao" class="sk.frisbee.jdbc.JdbcUsersDao"/>	
 	
-		
-	
 	<beans:bean id="dataSource" 
 	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />  

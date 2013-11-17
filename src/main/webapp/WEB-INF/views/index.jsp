@@ -33,8 +33,8 @@
 				<table>
 					<tr class="grayRow"><td>Poradie</td><td>Prezývka</td><td>Skóre</td></tr>
 					
-					<c:forEach var="user" items="${usersList}">
-					<tr><td>0</td><td>${user.firstName}</td><td></td></tr>
+					<c:forEach var="users" items="${usersList}">
+					<tr><td>0</td><td>${users.firstName}</td><td></td></tr>
 					
 					</c:forEach>
 				</table>

@@ -10,7 +10,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+
 import sk.frisbee.domain.User;
 
 public class JdbcUsersDao implements UsersDao {
@@ -20,13 +21,18 @@ public class JdbcUsersDao implements UsersDao {
 	@Autowired  
 	DataSource dataSource;
 
+	public void setDataSource(DataSource dataSource){
+		this.dataSource = dataSource;
+	}
+	
 	@Override
 	public List<User> getAllUsersList() {
 		logger.info("getting users from DB");
+		
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-		List<User> usersList = jdbcTemplate.query(
-				"select meno from frisbee.profil_hrac",
+		List<User> usersList = (List<User>) jdbcTemplate.query(
+				"SELECT * FROM profil_hrac;",
 				new UsersMapper());
 		jdbcTemplate = null;	
 		return usersList;
@@ -44,11 +50,11 @@ public class JdbcUsersDao implements UsersDao {
 		return null;
 	}
 	
-	private static class UsersMapper implements ParameterizedRowMapper<User>{
+	private static class UsersMapper implements RowMapper<User>{
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			User user = new User();
-			user.setFirstName(rs.getString("meno"));
+			user.setFirstName(rs.getString(3));
 			return user;	
 		}
 		
