@@ -26,7 +26,7 @@
 	
 	<context:component-scan base-package="sk.frisbee." />
 	
-	<beans:bean id="usersDao" class="sk.frisbee.jdbc.JdbcUsersDao"/>	
+	<beans:bean id="usersDao" class="sk.frisbee.jdbc.UsersDaoImpl"/>	
 	
 	<beans:bean id="dataSource" 
 	class="org.springframework.jdbc.datasource.DriverManagerDataSource">

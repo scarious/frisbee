@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import sk.frisbee.domain.Player;
 import sk.frisbee.domain.User;
-import sk.frisbee.jdbc.JdbcUsersDao;
+import sk.frisbee.jdbc.UsersDaoImpl;
 import sk.frisbee.jdbc.UsersDao;
 
 /**
@@ -26,7 +27,7 @@ public class IndexController {
 	
 	
 	 @Autowired  
-	 JdbcUsersDao usersdao;
+	 UsersDaoImpl usersdao;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -39,9 +40,9 @@ public class IndexController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		
 		String formattedDate = dateFormat.format(date);
-		List<User> usersList = usersdao.getAllUsersList();
+		List<Player> usersList = usersdao.getAllPlayerData();
 		
-		for(User s : usersList){
+		for(Player s : usersList){
 			logger.info("A" + s.getFirstName());
 		}
 		
