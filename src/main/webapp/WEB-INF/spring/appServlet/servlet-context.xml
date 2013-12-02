@@ -21,6 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
 	<!-- telling container to take care of annotations stuff -->  
  	<context:annotation-config />  
 	

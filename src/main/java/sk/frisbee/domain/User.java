@@ -16,6 +16,8 @@ public class User implements Serializable {
 
 	private String username;
 
+	private String facebookID;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -36,6 +38,7 @@ public class User implements Serializable {
 		return user_id;
 	}
 
+	
 	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
 	}
@@ -46,6 +49,10 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getFacebookId() {
+		return facebookID;
 	}
 
 }

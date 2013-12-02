@@ -4,7 +4,6 @@ import java.util.List;
 
 import sk.frisbee.domain.Game;
 import sk.frisbee.domain.Player;
-import sk.frisbee.domain.Roster;
 import sk.frisbee.domain.TRoster;
 import sk.frisbee.domain.Team;
 import sk.frisbee.domain.Tournament;

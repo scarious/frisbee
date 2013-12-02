@@ -1,10 +1,5 @@
 package sk.frisbee.jdbc;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.Statement;
 import java.util.List;
 
 import sk.frisbee.domain.Statistics;

@@ -34,11 +34,11 @@
 					<tr class="grayRow"><td>Poradie</td><td>Prezývka</td><td>Skóre</td></tr>
 					
 					<c:forEach var="users" items="${usersList}">
-					<tr><td>0</td><td>${users.firstName}</td><td></td></tr>
+					<tr><td>0</td><td>${users.username}</td><td></td></tr>
 					
 					</c:forEach>
 				</table>
-				<a href="playersTop.html">Viac...</a>
+				<a href="playersTop">Viac...</a>
 			</div>
 			<div class="topFiveMain">
 				<p>TOP Tímy<br/></p>
@@ -50,7 +50,7 @@
 					<tr><td>4.</td><td>Team 4</td><td>1000</td></tr>
 					<tr><td>5.</td><td>Team 5</td><td>1000</td></tr>
 				</table>
-				<a href="teamsTop.html">Viac...</a>
+				<a href="teamsTop">Viac...</a>
 			</div>
 			<div class="topFiveMain">
 				<p>Najbližšie turnaje<br/></p>
@@ -62,17 +62,15 @@
 					<tr><td>1.1.2014</td><td>Turnaj 4</td><td>SK</td><td>KE</td></tr>
 					<tr><td>1.1.2014</td><td>Turnaj 5</td><td>SK</td><td>KE</td></tr>
 				</table>
-				<a href="tournaments.html">Viac...</a>
+				<a href="tournaments">Viac...</a>
 			</div>
 		<br/><br/>
 		<h3>Najbližšie turnaje na mape:</h3>
-		<div id="map-canvas" />
+		<div id="map-canvas" ></div>
 		</div>
 		
 	</div>
-	<div id="footer">
-		The time on the server is ${serverTime}.
-	</div>
+	<c:import url="import/footer.jsp"></c:import>
 
 </div>
 

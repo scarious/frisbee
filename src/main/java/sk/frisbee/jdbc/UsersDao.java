@@ -33,10 +33,10 @@ public interface UsersDao {
 	
 	public Roster getRoster();
 	
-	public List<Team> getPlayersTeams();
+	public List<Team> getPlayersTeams(Integer player_id);
 	
 	/** INSERT */
-	public void addPlayer(Integer user_id, Player player);
+	public void addPlayer(Player player);
 	
 	public void addUser(User user);
 	

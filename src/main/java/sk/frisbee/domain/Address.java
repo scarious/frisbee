@@ -21,13 +21,12 @@ public class Address implements Serializable {
         super();
     }
 
-    public Address(Address source) {
-        super();
-        this.street = source.street;
-        this.houseNumber = source.houseNumber;
-        this.city = source.city;
-        this.postalCode = source.postalCode;
-        this.country = source.country;
+    public Address(String street, String houseNumber, String city, String postalCode, String country) {
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.country = country;
     }
 
     public String getStreet() {
