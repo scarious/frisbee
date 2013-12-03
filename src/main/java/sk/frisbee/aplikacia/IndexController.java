@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -219,10 +219,36 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("register", "date", date);
 		
-		
+		maw.addObject("command", new User());
 		maw.addObject("pageTitle", "Register");
 		
 		maw.addObject("serverTime", formattedDate );
+		
+		return maw;
+	}
+	
+	@RequestMapping(value = "/register/addUser", method = RequestMethod.POST)
+	public ModelAndView addUser(@ModelAttribute User user, 
+			   ModelMap model) {
+		
+		
+		model.addAttribute("username", user.getUsername());
+		model.addAttribute("password", user.getPassword());
+		model.addAttribute("username", user.getUsername());
+		
+		user.setEmailAddress(user.getEmailAddress().replace("@", "(at)"));
+		user.setEmailAddress(user.getEmailAddress().replace(".", "(dot)"));
+		usersDao.addUser(user);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		String formattedDate = dateFormat.format(date);
+		ModelAndView maw = new ModelAndView("index", "date", date);
+		
+		
+		maw.addObject("pageTitle", "Register");
+		
+		maw.addObject("Registrovany", formattedDate );
 		
 		return maw;
 	}

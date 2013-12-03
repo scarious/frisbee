@@ -8,5 +8,5 @@
 		<div class="topMenuItem"><a href="profile">Profil</a></div>
 </div>
 <div id="loginArea">
-		<a href="login.html">Prihlásenie</a><a href="register.html">Registrácia</a>
+		<a href="login">Prihlásenie</a><a href="register">Registrácia</a>
 </div>

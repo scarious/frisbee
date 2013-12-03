@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -16,14 +17,14 @@
 	<div id="content">
 	<h2><b>Registrácia ::</b></h2>
 		<div id="centerContent">
+			<form:form method="POST" action="/aplikacia/register/addUser">
 			<table>
-				<tr><td>Meno:</td><td><input type="text"/></td></tr>
-				<tr><td>Heslo:</td><td><input type="password"/></td></tr>
-				<tr><td>Heslo znova:</td><td><input type="password"/></td></tr>
-				<tr><td>E-mail:</td><td><input type="password"/></td></tr>
-				<tr><td></td><td><input type="button" value="Registruj"/></td></tr>
+				<tr><td>Meno:</td><td><form:input path="username"/></td></tr>
+				<tr><td>Heslo:</td><td><form:input path="password"/></td></tr>
+				<tr><td>E-mail:</td><td><form:input path="emailAddress"/></td></tr>
+				<tr><td></td><td><input type="submit" value="Registruj"/></td></tr>
 			</table>
-			 
+			</form:form> 
 			<br/>alebo<br/><br/>
 			<img src='<c:url value="/resources/images/loginFB.png"></c:url>' alt="Facebook login"/>
 		</div>

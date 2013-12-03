@@ -161,10 +161,10 @@ public class UsersDaoImpl implements UsersDao {
 	public void addUser(User user) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		String SQL = "INSERT INTO login_data (`login`, `heslo`, `email`, `facebook_id`)" + 
-		"VALUES (" + user.getUsername()  + "," +
-				user.getPassword() + "," +
-				user.getEmailAddress() + "," +
-				user.getFacebookId() +")";
+		"VALUES (\"" + user.getUsername()  + "\"," +
+				"\"" +user.getPassword() + "\"," +
+				"\"" +user.getEmailAddress() + "\"," +
+				"\"" +user.getFacebookId() +"\")";
 	   jdbcTemplate.execute(SQL);
 	   jdbcTemplate = null;
 	}
@@ -244,16 +244,16 @@ public class UsersDaoImpl implements UsersDao {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		String SQL = "INSERT INTO login_data (`meno`,`priezvisko`,`discipliny`,`mesto`,`krajina`,`datum_narodenia`,`pohlavie`,`vyska`,`dominantna_ruka`,`aktivny_od`)" + 
 		"VALUES (" + 
-				player.getFirstName() + "," +
-				player.getLastName() + "," +
-				player.getDisciplines() + "," +
-				player.getAddress().getCity() + "," +
-				player.getAddress().getCountry() + "," +
-				player.getDateOfBirth().toString() + "," +
-				player.getPohlavie() + "," +
+				"\"" + player.getFirstName() + "\"," +
+				"\"" + player.getLastName() + "\"," +
+				"\"" + player.getDisciplines() + "\"," +
+				"\"" + player.getAddress().getCity() + "\"," +
+				"\"" + player.getAddress().getCountry() + "\"," +
+				"\"" + player.getDateOfBirth().toString() + "\"," +
+				"\"" + player.getPohlavie() + "\"," +
 				player.getHeight() + "," +
-				player.getDominantHand() +
-				player.getActiveSince().toString() +")";
+				"\"" + player.getDominantHand() + "\"," +
+				"\"" + player.getActiveSince().toString() +"\")";
 	   jdbcTemplate.execute(SQL);
 	   jdbcTemplate = null;
 		
