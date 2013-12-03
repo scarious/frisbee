@@ -29,7 +29,7 @@ public interface UsersDao {
 	
 	public List<Address> getAllAddressData();
 	
-	public Address getAddresForUserId(Integer id);
+	public Address getAddresForPlayerId(Integer id);
 	
 	public Roster getRoster();
 	
@@ -40,8 +40,6 @@ public interface UsersDao {
 	
 	public void addUser(User user);
 	
-	public void addAddress(Address address);
-	
 	public void addTeamToPlayer(Integer player_id, Team team);
 	
 	/** UPDATE */
@@ -49,14 +47,10 @@ public interface UsersDao {
 	
 	public void updateUser(User updatedUser);
 	
-	public void updateAddress(Address updatedAddress);
-	
 	/** DELETE */
 	public void removePlayer(Integer id);
 	
 	public void removeUser(Integer id);
-	
-	public void removeAddress(Integer id);
 	
 	public void removePlayerFromTeam(Integer id);
 

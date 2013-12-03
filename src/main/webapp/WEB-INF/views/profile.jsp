@@ -17,16 +17,17 @@
 	<h2>PROFIL Hráča ::</h2>
 		<div id="profileInfo">		
 			<table>
-				<tr><td class="boldTextTd">Meno:</td><td>Meno Priezvisko</td></tr>
-				<tr><td class="boldTextTd">Prezývka:</td><td>asdf123</td></tr>
-				<tr><td class="boldTextTd">Mesto:</td><td>KE</td></tr>
+				<tr><td class="boldTextTd">Meno:</td><td>${player.firstName}</td></tr>
+				<tr><td class="boldTextTd">Priezvisko:</td><td>${player.lastName}</td></tr>
+				<tr><td class="boldTextTd">Mesto:</td><td>${playerAddress.city}</td></tr>
+				<tr><td class="boldTextTd">Krajina:</td><td>${playerAddress.country}</td></tr>
 				<tr><td class="boldTextTd">Vek:</td><td>20</td></tr>
 				<tr><td class="boldTextTd">Rating:</td><td>123</td></tr>
 				<tr><td class="boldTextTd">Číslo dresu:</td><td>99</td></tr>
 				<tr><td class="boldTextTd">Hráčom od:</td><td>1.1.2013</td></tr>
 				<tr><td class="boldTextTd">Pozícia v hre:</td><td>handler/middle/long</td></tr>
-				<tr><td class="boldTextTd">Tím(y):</td><td>Tím 1<br/>Tím 2</td></tr>
-				<tr><td><a href="index">Upraviť</a></td><td></td></tr>
+				<tr><td class="boldTextTd">Tím(y):</td><td><br/></td></tr>
+				<tr><td><a href="profile/edit">Upraviť</a></td><td></td></tr>
 			</table>
 		</div>
 		<div id="profileAvatar"><img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/></div>	

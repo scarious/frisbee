@@ -9,9 +9,9 @@ public class StatisticsPlayer implements Serializable {
 	 */
 	private static final long serialVersionUID = 7001876560007030579L;
 
-	private Long player_id;
+	private Integer player_id;
 
-	private Long stat_id;
+	private Integer stat_id;
 	
 	private Integer points;
 	
@@ -24,6 +24,8 @@ public class StatisticsPlayer implements Serializable {
 	private Integer drops;
 	
 	private Integer defences;
+	
+	private String name;
 
 	public Integer getPoints() {
 		return points;
@@ -73,16 +75,28 @@ public class StatisticsPlayer implements Serializable {
 		this.defences = defences;
 	}
 
-	public Long getPlayer_id() {
+	public Integer getPlayer_id() {
 		return player_id;
 	}
 
-	public void setPlayer_id(Long player_id) {
+	public void setPlayerid(Integer player_id) {
 		this.player_id = player_id;
 	}
 
-	public Long getStat_id() {
+	public Integer getStat_id() {
 		return stat_id;
 	}
 
+	public void setStatid(Integer stat_id) {
+		this.stat_id =  stat_id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }

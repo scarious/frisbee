@@ -18,7 +18,9 @@ public class Team  implements Serializable {
 
     private String name;
     
-    private Integer disciplines;
+    private String disciplines;
+    
+    private Integer phone;
     
     private String city, contact_name, contact_email, contact_fb, trainings;
     
@@ -40,7 +42,7 @@ public class Team  implements Serializable {
 		this.name = name;
 	}
 
-	public Long getUser_id() {
+	public Long getPlayerId() {
 		return user_id;
 	}
 
@@ -48,11 +50,11 @@ public class Team  implements Serializable {
 		this.user_id = user_id;
 	}
 
-	public Integer getDisciplines() {
+	public String getDisciplines() {
 		return disciplines;
 	}
 
-	public void setDisciplines(Integer disciplines) {
+	public void setDisciplines(String disciplines) {
 		this.disciplines = disciplines;
 	}
 
@@ -118,5 +120,9 @@ public class Team  implements Serializable {
 
 	public void setContact_email(String contact_email) {
 		this.contact_email = contact_email;
+	}
+
+	public Integer getContactPhone() {
+		return phone;
 	}
 }

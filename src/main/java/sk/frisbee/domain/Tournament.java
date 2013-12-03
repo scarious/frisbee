@@ -18,7 +18,7 @@ public class Tournament implements Serializable {
 	
 	private String name;
 	
-	private Integer disciplines;
+	private String disciplines;
 	
 	private String surface;
 	
@@ -40,6 +40,8 @@ public class Tournament implements Serializable {
 	
 	private List<TRoster> tRosters = new ArrayList<TRoster>();
 
+	private String gps_coord;
+
 	public Long getId_tournament() {
 		return tournament_id;
 	}
@@ -60,12 +62,12 @@ public class Tournament implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getDisciplines() {
+	public String getDisciplines() {
 		return disciplines;
 	}
 
-	public void setDisciplines(Integer disciplines) {
-		this.disciplines = disciplines;
+	public void setDisciplines(String string) {
+		this.disciplines = string;
 	}
 
 	public String getSurface() {
@@ -146,6 +148,14 @@ public class Tournament implements Serializable {
 
 	public void settRosters(List<TRoster> tRosters) {
 		this.tRosters = tRosters;
+	}
+
+	public String getGps() {
+		return gps_coord;
+	}
+	
+	public void setGps(String gps){
+		this.gps_coord = gps;
 	}
 	
 }

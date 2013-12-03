@@ -8,16 +8,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.jdbc.StringUtils;
+
+import sk.frisbee.domain.Address;
+import sk.frisbee.domain.Player;
+import sk.frisbee.domain.StatisticsPlayer;
 import sk.frisbee.domain.User;
+import sk.frisbee.jdbc.StatisticsDaoImpl;
 import sk.frisbee.jdbc.UsersDaoImpl;
 
 /**
  * Handles requests for the application home page.
  */
+
 @Controller
 public class IndexController {
 	
@@ -25,43 +35,43 @@ public class IndexController {
 	
 	
 	 @Autowired  
-	 UsersDaoImpl usersdao;
+	 UsersDaoImpl usersDao;
+	 
+	 @Autowired  
+	 StatisticsDaoImpl statsDao;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value={"/index", "/", "/aplikacia/"})
-	public ModelAndView getIndex() {
+	public String getIndex(ModelMap map) {
 		logger.info("Welcome home! The client locale is {}.");
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		
 		String formattedDate = dateFormat.format(date);
-		List<User> usersList = usersdao.getAllUserData();
+		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		
-		for(User s : usersList){
-			logger.info("A" + s.getUsername());
-		}
+		//ModelAndView maw = new ModelAndView("index", "topUsersList", topUsersList);
+		map.addAttribute("topUsersList", topUsersList);
+		map.addAttribute("pageTitle", "Index");
+		map.addAttribute("serverTime", formattedDate);
+		//maw.addObject("pageTitle", "Index");
 		
-		ModelAndView maw = new ModelAndView("index", "usersList", usersList);
+		//maw.addObject("serverTime", formattedDate );
 		
-
-		
-		maw.addObject("pageTitle", "Index");
-		
-		maw.addObject("serverTime", formattedDate );
-		
-		return maw;
+		return "index";
 	}
 	
-	@RequestMapping(value = "/playersTop", method = RequestMethod.GET)
+	@RequestMapping(value = "/playersTop")
 	public ModelAndView getTopPlayers() {
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
-		ModelAndView maw = new ModelAndView("playersTop", "date", date);
+		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
+		ModelAndView maw = new ModelAndView("playersTop", "topUsersList", topUsersList);
 		
 		
 		maw.addObject("pageTitle", "Top Players");
@@ -113,6 +123,7 @@ public class IndexController {
 		ModelAndView maw = new ModelAndView("players", "date", date);
 		
 		
+		
 		maw.addObject("pageTitle", "Login");
 		
 		maw.addObject("serverTime", formattedDate );
@@ -121,13 +132,22 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public ModelAndView getProfile(Integer player_id) {
+	public ModelAndView getProfile(@RequestParam(value = "id", required = false) String player_id) {
+		Integer player_idd = 1;
+		
+		if(!StringUtils.isNullOrEmpty(player_id)) 
+		player_idd = Integer.parseInt(player_id);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
-		ModelAndView maw = new ModelAndView("profile", "date", date);
+		Player player = usersDao.getPlayer(player_idd);	
 		
+		ModelAndView maw = new ModelAndView("profile", "player", player);
+		
+		Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
+		
+		maw.addObject("playerAddress", playerAddress);
 		
 		maw.addObject("pageTitle", "Profil");
 		
@@ -135,6 +155,29 @@ public class IndexController {
 		
 		return maw;
 	}
+	
+	@RequestMapping(value = "/profile/edit")
+	public ModelAndView getProfileEdit() {
+		Integer player_idd = 1;
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		String formattedDate = dateFormat.format(date);
+		Player player = usersDao.getPlayer(player_idd);	
+		
+		ModelAndView maw = new ModelAndView("profile", "player", player);
+		
+		Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
+		
+		maw.addObject("playerAddress", playerAddress);
+		
+		maw.addObject("pageTitle", "Profil");
+		
+		maw.addObject("serverTime", formattedDate );
+		
+		return maw;
+	}
+	
 	
 	@RequestMapping(value = "/profileTeam", method = RequestMethod.GET)
 	public ModelAndView getTeamProfile() {

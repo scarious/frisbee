@@ -12,7 +12,7 @@ public interface TeamsDao {
 	
 	public List<Team> getTeamsData(Integer count);
 	
-	public List<Player> getPlayersInTeam();
+	public List<Player> getPlayersInTeam(Integer id);
 	
 	public List<Tournament> getTeamTournaments();
 	

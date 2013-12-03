@@ -69,7 +69,7 @@ public class UsersDaoImpl implements UsersDao {
 		@Override
 		public Player mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Player player = new Player();
-			player.setPlayerId(rs.getLong("id_player"));
+			player.setPlayerId(rs.getLong("id_hrac"));
 			player.setUserId(rs.getLong("id_user"));
 			player.setFirstName(rs.getString("meno"));
 			player.setLastName(rs.getString("priezvisko"));
@@ -102,11 +102,12 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public Player getPlayer(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		Player player = (Player) jdbcTemplate.query(
+		//String SQL = "SELECT * FROM profil_hrac WHERE id_hrac = " + id + "LIMIT 1";
+		List<Player> player = (List<Player>) jdbcTemplate.query(
 				"SELECT * FROM profil_hrac WHERE id_hrac = " + id,
 				new PlayerMapper());
 		jdbcTemplate = null;	
-		return player;
+		return player.get(0);
 	}
 
 	@Override
@@ -139,11 +140,11 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public Address getAddresForUserId(Integer id) {
+	public Address getAddresForPlayerId(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "SELECT mesto,krajina FROM profil_hrac WHERE id_user=" + id;
-		Address address = (Address) jdbcTemplate.query(SQL, new AddressMapper());
-		return address;
+		String SQL = "SELECT mesto,krajina FROM profil_hrac WHERE id_hrac=" + id;
+		List<Address> address = (List<Address>) jdbcTemplate.query(SQL, new AddressMapper());
+		return address.get(0);
 	}
 
 	private static class AddressMapper implements RowMapper<Address>{
@@ -169,11 +170,6 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public void addAddress(Address address) {
-		//String SQL = "";
-	}
-
-	@Override
 	public void updatePlayer(Player updatedPlayer) {
 		// TODO Auto-generated method stub
 	}
@@ -189,11 +185,6 @@ public class UsersDaoImpl implements UsersDao {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute(SQL);
 		jdbcTemplate = null;
-	}
-
-	@Override
-	public void updateAddress(Address updatedAddress) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -213,17 +204,22 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public void removeAddress(Integer id) {
-		// TODO Auto-generated method stub
-	}
-	
-	@Override
 	public Roster getRoster() {
-		//JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		//String SQL = "SELECT * FROM supiska_timy "
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		String SQL = "SELECT * FROM supiska_timy, profil_hrac WHERE profil_hrac.id_hrac = supiska_timy.id_hrac"
+				+ "GROUP BY id_supiska";
 		return null;
 	}
 
+	private static class RosterMapper implements RowMapper<Roster>{
+		@Override
+		public Roster mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Roster roster = new Roster();
+			
+			return roster;	
+		}
+	}
+	
 	@Override
 	public List<Team> getPlayersTeams(Integer player_id) {
 		String SQL = "SELECT * FROM timy_hraca WHERE id_hrac=" + player_id;
@@ -271,7 +267,7 @@ public class UsersDaoImpl implements UsersDao {
 				team.getDisciplines() + "," +
 				team.getCity() + 
 				team.getContact_name() +
-				"null" +
+				team.getContactPhone() +
 				team.getContact_email() +
 				team.getContact_fb() +
 				team.getInformation() +

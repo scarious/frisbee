@@ -20,6 +20,6 @@ public interface SearchDao {
 	
 	public List<Game> searchGames(String keyword);
 	
-	public List<Statistics> searchStatistics(String keyword);
+	public Statistics searchStatistics(String keyword);
 
 }

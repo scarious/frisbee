@@ -9,7 +9,7 @@ import sk.frisbee.domain.StatisticsTournament;
 
 public interface StatisticsDao {
 
-	public List<Statistics> getAllStats();
+	public Statistics getAllStats();
 	
 	public List<StatisticsTeam> getAllTeamStats();
 	
