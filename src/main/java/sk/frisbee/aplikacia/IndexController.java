@@ -4,9 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -144,7 +143,15 @@ public class IndexController {
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ModelAndView getProfile(@RequestParam(value = "id", required = false) String player_id) {
-		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Authentication loggedUser = SecurityContextHolder.getContext().getAuthentication();
+		String loggedUserName = loggedUser.getName();
+		
+		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
+		//System.out.println("Profil IDcka uid " + loggedUserData.getUser_id());
+		
+		Player loggedPlayerData = (Player) usersDao.getPlayer(loggedUserData.getUser_id());
+		
+		//System.out.println("Profil " + loggedPlayerData.getPlayer_id() + " Pohl" + loggedPlayerData.getPohlavie());
 		Integer player_idd = 1;
 		
 		if(!StringUtils.isNullOrEmpty(player_id)) 
@@ -155,7 +162,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		Player player = usersDao.getPlayer(player_idd);	
 		
-		ModelAndView maw = new ModelAndView("profile", "player", player);
+		ModelAndView maw = new ModelAndView("profile", "loggedPlayerData", loggedPlayerData);
 		
 		Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
 		
@@ -168,7 +175,7 @@ public class IndexController {
 		return maw;
 	}
 	
-	@RequestMapping(value = "/profile/edit")
+	@RequestMapping(value = "/profileEdit")
 	public ModelAndView getProfileEdit() {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Integer player_idd = 1;
@@ -240,7 +247,7 @@ public class IndexController {
 		return maw;
 	}
 	
-	@RequestMapping(value = "/register/addUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/registerAddUser", method = RequestMethod.POST)
 	public ModelAndView addUser(@ModelAttribute User user, 
 			   ModelMap model) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();

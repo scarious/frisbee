@@ -36,6 +36,8 @@ public interface UsersDao {
 	
 	public List<Team> getPlayersTeams(Integer player_id);
 	
+	public Player getPlayerByUserId(Integer id_user);
+	
 	/** INSERT */
 	public void addPlayer(Player player);
 	
@@ -54,5 +56,7 @@ public interface UsersDao {
 	public void removeUser(Integer id);
 	
 	public void removePlayerFromTeam(Integer id);
+
+	
 
 }

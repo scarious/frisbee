@@ -35,7 +35,7 @@ public class Player implements Serializable {
     
     private List<Team> teams = new ArrayList<Team>();
 
-	private String Pohlavie; 
+	private String pohlavie; 
 
     public Integer getPlayer_id() {
         return this.player_id;
@@ -127,11 +127,11 @@ public class Player implements Serializable {
 	}
 
 	public String getPohlavie() {
-		return Pohlavie;
+		return pohlavie;
 	}
 	
 	public void setPohlavie(String Pohlavie) {
-		this.Pohlavie = Pohlavie;
+		this.pohlavie = Pohlavie;
 	}
    
 }

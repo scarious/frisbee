@@ -91,6 +91,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			player.setPohlavie(rs.getString("pohlavie"));
 			player.setHeight(rs.getInt("vyska"));
 			player.setDominantHand(rs.getString("dominantna_ruka"));
 			//player.setTeams(null);
@@ -115,6 +116,19 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 		//String SQL = "SELECT * FROM profil_hrac WHERE id_hrac = " + id + "LIMIT 1";
 		List<Player> player = (List<Player>) jdbcTemplate.query(
 				"SELECT * FROM profil_hrac WHERE id_hrac = " + id,
+				new PlayerMapper());
+		jdbcTemplate = null;	
+		if(player.size() == 0) return null;
+		
+		return player.get(0);
+	}
+	
+	@Override
+	public Player getPlayerByUserId(Integer id_user) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		//String SQL = "SELECT * FROM profil_hrac WHERE id_hrac = " + id + "LIMIT 1";
+		List<Player> player = (List<Player>) jdbcTemplate.query(
+				"SELECT * FROM profil_hrac WHERE id_user = " + id_user,
 				new PlayerMapper());
 		jdbcTemplate = null;	
 		return player.get(0);

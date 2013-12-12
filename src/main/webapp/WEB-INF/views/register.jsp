@@ -17,7 +17,7 @@
 	<div id="content">
 	<h2><b>Registrácia ::</b></h2>
 		<div id="centerContent">
-			<form:form method="POST" action="/aplikacia/register/addUser">
+			<form:form method="POST" action="/aplikacia/registerAddUser">
 			<table>
 				<tr><td>Meno:</td><td><form:input path="username"/></td></tr>
 				<tr><td>Heslo:</td><td><form:input path="password"/></td></tr>

@@ -14,6 +14,14 @@
 <div id="wrapper">
 	<c:import url="import/menu.jsp"></c:import>
 	<div id="content">
+	<c:if test="${empty loggedPlayerData}">
+    	<div id="profileInfoNoData">
+    		Nemas este profil !
+    		<a href="profileNew">Vytvor ho kliknutim sem!</a>
+    	</div>
+	</c:if>
+	
+	<c:if test="${not empty loggedPlayerData}">
 	<h2>PROFIL Hráča ::</h2>
 		<div id="profileInfo">		
 			<table>
@@ -38,6 +46,7 @@
 				<tr style="text-align:center"><td>20</td><td>15</td><td>5</td></tr>
 			</table>
 		</div>	
+	</c:if>
 	</div>
 	<c:import url="import/footer.jsp"></c:import>
 
