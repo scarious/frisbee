@@ -1,6 +1,7 @@
 package sk.frisbee.domain;
 
-public class Schedule {
 
+public class Schedule {
+	
 	
 }
