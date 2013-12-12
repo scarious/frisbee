@@ -132,8 +132,8 @@ public class TeamsDaoImpl implements TeamsDao {
 		@Override
 		public Player mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Player player = new Player();
-			player.setPlayerId(rs.getLong("id_hrac"));
-			player.setUserId(rs.getLong("id_user"));
+			player.setPlayerId(rs.getInt("id_hrac"));
+			player.setUserId(rs.getInt("id_user"));
 			player.setFirstName(rs.getString("meno"));
 			player.setLastName(rs.getString("priezvisko"));
 			player.setDisciplines(rs.getString("discipliny"));

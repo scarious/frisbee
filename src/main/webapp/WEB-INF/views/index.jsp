@@ -25,7 +25,6 @@
 <body onload="initialize">
 <div id="wrapper">
 	<c:import url="import/menu.jsp"></c:import>
-	Prihlaseny: ${loggedName}
 	<div id="content">
 		<div id="centerContent">
 			<div class="topFiveMain">

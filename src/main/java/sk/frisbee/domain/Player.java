@@ -13,11 +13,11 @@ public class Player implements Serializable {
 	 */
 	private static final long serialVersionUID = 6341141042415792923L;
 
-	private Long player_id;
+	private Integer player_id;
     
-    private Long user_id;
+    private Integer user_id;
     
-    private int height;
+    private Integer height;
 
     private String firstName;
     
@@ -37,19 +37,19 @@ public class Player implements Serializable {
 
 	private String Pohlavie; 
 
-    public Long getPlayerId() {
+    public Integer getPlayer_id() {
         return this.player_id;
     }
 
-    public Long getUserId() {
+    public Integer getUser_id() {
         return this.user_id;
     }
     
-    public void setPlayerId(Long player_id) {
+    public void setPlayerId(Integer player_id) {
         this.player_id = player_id;
     }
     
-    public void setUserId(Long user_id) {
+    public void setUserId(Integer user_id) {
         this.user_id = user_id;
     }
     
@@ -127,11 +127,10 @@ public class Player implements Serializable {
 	}
 
 	public String getPohlavie() {
-		// TODO Auto-generated method stub
 		return Pohlavie;
 	}
 	
-	public void setPohlavie() {
+	public void setPohlavie(String Pohlavie) {
 		this.Pohlavie = Pohlavie;
 	}
    

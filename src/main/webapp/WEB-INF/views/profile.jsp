@@ -27,7 +27,7 @@
 				<tr><td class="boldTextTd">Hráčom od:</td><td>1.1.2013</td></tr>
 				<tr><td class="boldTextTd">Pozícia v hre:</td><td>handler/middle/long</td></tr>
 				<tr><td class="boldTextTd">Tím(y):</td><td><br/></td></tr>
-				<tr><td><a href="profile/edit">Upraviť</a></td><td></td></tr>
+				<tr><td><a href="profileEdit">Upraviť</a></td><td></td></tr>
 			</table>
 		</div>
 		<div id="profileAvatar"><img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/></div>	

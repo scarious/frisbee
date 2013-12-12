@@ -30,6 +30,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Authentication authenticate(Authentication authentication)	throws AuthenticationException {
 		

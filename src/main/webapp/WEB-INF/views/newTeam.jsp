@@ -42,23 +42,20 @@
 			</table>
 			<br/>
 			<table>
+				
 				<tr><td><p>Pridaj hráčov:<br/><small><a href="#">Obnov zoznam</a></small></p></td><td>
-						<form name="myform">
+						
 						<select id="zoznamHracov" multiple="multiple" size="6">
-							<option>Nick hraca 1</option>
-							<option>Nick hraca 2</option>
-							<option>Nick hraca 3</option>
-							<option>Nick hraca 4</option>
-							<option>Nick hraca 5</option>
-							<option>Nick hraca 6</option>
-							<option>Nick hraca 7</option>
+							<c:forEach var="players" items="${playerData}">
+							<option value="${players.player_id}">${players.firstName} ${players.lastName}</option>
+							</c:forEach>
 						</select>
 						<script type="text/javascript">
 							<!--
 							var myfilter = new filterlist(document.getElementById("zoznamHracov"));
 							//-->
 							</script>
-						</form>
+						
 				</td><td>Rýchle hľadanie<br/><input id="textBoxSearch" type="text" value="" onkeyup="myfilter.set(this.value);"/></td>
 				<td><br/><input type="button" value="Pridaj" onclick="
 															var selected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex];

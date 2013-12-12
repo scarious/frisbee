@@ -56,7 +56,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			User user = new User();
-			user.setUser_id(rs.getLong("id_user"));
+			user.setUser_id(rs.getInt("id_user"));
 			user.setUsername(rs.getString("login"));
 			user.setPassword(rs.getString("heslo"));
 			user.setEmailAddress(rs.getString("email"));
@@ -79,8 +79,8 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 		@Override
 		public Player mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Player player = new Player();
-			player.setPlayerId(rs.getLong("id_hrac"));
-			player.setUserId(rs.getLong("id_user"));
+			player.setPlayerId(rs.getInt("id_hrac"));
+			player.setUserId(rs.getInt("id_user"));
 			player.setFirstName(rs.getString("meno"));
 			player.setLastName(rs.getString("priezvisko"));
 			player.setDisciplines(rs.getString("discipliny"));
@@ -99,7 +99,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	}
 
 	@Override
-	public List<Player> getPlayerData(int count) {
+	public List<Player> getPlayerData(Integer count) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		List<Player> playersList = (List<Player>) jdbcTemplate.query(
 				"SELECT * FROM profil_hrac LIMIT 0, " + count,
@@ -131,7 +131,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	}
 
 	@Override
-	public List<User> getUserData(int count) {
+	public List<User> getUserData(Integer count) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		List<User> userList = (List<User>) jdbcTemplate.query(
 				"SELECT * FROM login_data LIMIT 0," + count,

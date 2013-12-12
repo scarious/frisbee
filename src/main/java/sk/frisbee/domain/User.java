@@ -13,7 +13,7 @@ public class User implements UserDetails {
 	 */
 	private static final long serialVersionUID = -3879861738556743663L;
 
-	private Long user_id;
+	private int user_id;
 
 	private String password;
 
@@ -47,12 +47,12 @@ public class User implements UserDetails {
 		this.emailAddress = emailAddress;
 	}
 
-	public Long getUser_id() {
+	public int getUser_id() {
 		return user_id;
 	}
 
 	
-	public void setUser_id(Long user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
 

@@ -15,14 +15,14 @@ public interface UsersDao {
 	/** Len pre tablulku profil hraca */
 	public List<Player> getAllPlayerData();
 	
-	public List<Player> getPlayerData(int count);
+	public List<Player> getPlayerData(Integer count);
 	
 	public Player getPlayer(Integer id);
 	
 	/** Len pre tablulku user - informacie pre prihlasenie */
 	public List<User> getAllUserData();
 	
-	public List<User> getUserData(int count);
+	public List<User> getUserData(Integer count);
 	
 	public User getUser(Integer id);
 	

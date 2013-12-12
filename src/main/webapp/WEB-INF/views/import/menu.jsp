@@ -9,7 +9,9 @@
 		<div class="topMenuItem"><a href="profile">Profil</a></div>
 </div>
 <div id="loginArea">
+		
 		<sec:authorize access="hasRole('ROLE_USER')">
+		<b>Prihlásený ako: </b> ${loggedUserName}
 		<a href='<c:url value="j_spring_security_logout" />'>Logout</a> 
 		</sec:authorize>
 		<sec:authorize access="isAnonymous()">
