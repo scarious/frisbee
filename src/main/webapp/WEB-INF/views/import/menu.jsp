@@ -6,7 +6,9 @@
 		<div class="topMenuItem"><a href="players">Hráči</a></div>
 		<div class="topMenuItem"><a href="teams">Tímy</a></div>
 		<div class="topMenuItem"><a href="tournaments">Turnaje</a></div>
+		<sec:authorize access="hasRole('ROLE_USER')">
 		<div class="topMenuItem"><a href="profile">Profil</a></div>
+		</sec:authorize>
 </div>
 <div id="loginArea">
 		
