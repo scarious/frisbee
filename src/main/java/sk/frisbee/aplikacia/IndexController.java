@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mysql.jdbc.StringUtils;
@@ -29,6 +30,7 @@ import sk.frisbee.jdbc.UsersDaoImpl;
  */
 
 @Controller
+@SessionAttributes("meno")
 public class IndexController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
@@ -44,19 +46,21 @@ public class IndexController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value={"/index", "/", "/aplikacia/"})
-	public String getIndex(ModelMap map) {
+	public String getIndex(ModelMap map, User user) {
 		logger.info("Welcome home! The client locale is {}.");
-		
+		System.out.println(usersDao.getUser(1).getUsername());
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		
 		String formattedDate = dateFormat.format(date);
+		String loggedName = user.getUsername();
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		
 		//ModelAndView maw = new ModelAndView("index", "topUsersList", topUsersList);
 		map.addAttribute("topUsersList", topUsersList);
 		map.addAttribute("pageTitle", "Index");
 		map.addAttribute("serverTime", formattedDate);
+		map.addAttribute("loggedName", loggedName);
 		//maw.addObject("pageTitle", "Index");
 		
 		//maw.addObject("serverTime", formattedDate );
@@ -85,18 +89,24 @@ public class IndexController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView getLogin() {
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-		String formattedDate = dateFormat.format(date);
-		ModelAndView maw = new ModelAndView("login", "date", date);
-		
-		
-		maw.addObject("pageTitle", "Login");
-		
-		maw.addObject("serverTime", formattedDate );
-		
-		return maw;
+		ModelAndView modelAndView = new ModelAndView("login");
+		  return modelAndView;  
 	}
+	
+	 @RequestMapping(value="/login", params="errorLogin")  
+	 public String loginerror(ModelMap model) {  
+	   
+	  model.addAttribute("loginFailed", true);
+	  return "login";  
+	   
+	 }  
+	   
+	 @RequestMapping(value="/logout", method = RequestMethod.GET)  
+	 public String logout(ModelMap model) {  
+	   
+	  return "login";  
+	   
+	 }  
 	
 	@RequestMapping(value = "/newTeam", method = RequestMethod.GET)
 	public ModelAndView getNewTeam() {

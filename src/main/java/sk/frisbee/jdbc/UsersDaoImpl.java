@@ -11,8 +11,13 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
@@ -20,13 +25,18 @@ import sk.frisbee.domain.Roster;
 import sk.frisbee.domain.Team;
 import sk.frisbee.domain.User;
 
-public class UsersDaoImpl implements UsersDao {
+@Component
+@Repository
+public class UsersDaoImpl implements UsersDao, UserDetailsService {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired  
+	@Qualifier("dataSource")
 	DataSource dataSource;
 
+	
+	
 	public void setDataSource(DataSource dataSource){
 		this.dataSource = dataSource;
 	}
@@ -35,11 +45,11 @@ public class UsersDaoImpl implements UsersDao {
 	public User getUser(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		//String SQL = "SELECT * FROM login_data WHERE id_user = " + id;
-		User user = (User) jdbcTemplate.query(
+		List<User> user = (List<User>) jdbcTemplate.query(
 				"SELECT * FROM login_data WHERE id_user = " + id,
 				new UserMapper());
 		jdbcTemplate = null;
-		return user;
+		return user.get(0);
 	}
 	
 	private static class UserMapper implements RowMapper<User>{
@@ -283,6 +293,22 @@ public class UsersDaoImpl implements UsersDao {
 		String SQL = "DELETE FROM timy_hraca WHERE id_hrac = " + id;
 		jdbcTemplate.execute(SQL);
 		jdbcTemplate = null;
+	}
+
+	@Override
+	public User getUserByUsername(String login) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		//String SQL = "SELECT * FROM login_data WHERE id_user = " + id;
+		List<User> user = (List<User>) jdbcTemplate.query(
+				"SELECT * FROM login_data WHERE login = \"" + login + "\"",
+				new UserMapper());
+		jdbcTemplate = null;
+		return user.get(0);
+	}
+
+	@Override
+	public User loadUserByUsername(String arg0) throws UsernameNotFoundException {
+		return getUserByUsername(arg0);
 	}
 	
 	

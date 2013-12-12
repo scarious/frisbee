@@ -26,6 +26,7 @@ public interface UsersDao {
 	
 	public User getUser(Integer id);
 	
+	public User getUserByUsername(String login);
 	
 	public List<Address> getAllAddressData();
 	
