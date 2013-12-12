@@ -1,0 +1,31 @@
+----------------------------------------------------
+CO ESTE TREBA SPRAVIT (aj malickosti)
+--------
+Profil - uprava profilu, novy profil
+Prihlasenie FB - zbytocne zatial
+Skontrolovat vsetky DB selecty a metody (plno chyb tam je)
+Index - tabulka hraci, usporiadat podla skore
+Skore - vymysliet ako sa bude hodnotit vlastne
+Index - top timy, najblizsie turnaje dorobit
+Hraci - vyhladavanie, (najlepsi su ale usporiadanie podla skore ako index)
+Timy - vyhladavanie, najlepsie timy (ako index)
+Pridat tim - formu stringu s treningami uz mame, len insert do DB
+Turnaje - vyhladavanie, kalendar najst nejaky JS a implementovat
+Turnaje - vypis najblizsich, profil turnaja
+Profil Fotka - zatial bude asi stacit len link nahodit na fotku
+Turnaje - novy turnaj
+Parsovanie datumu z db - teraz nemoze spravne sparsovat 
+Registracia - kontrola vstupov a overenie 2x zadaneho hesla
+Profil - vypnutie editacie pri prezerani cudzieho profilu
+
+
+
+
+
+
+
+---------------------- -----------------------------
+CO JE UROBENE (prekopirovat z hora)
+
+Login -prihlasovanie (funguje vsetko, netreba nic menit)
+Registracia - jednoducha

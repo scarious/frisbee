@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -86,8 +88,12 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 			player.setDisciplines(rs.getString("discipliny"));
 			player.setAddress(new Address(null, null, rs.getString("mesto"), null, rs.getString("krajina")));
 			try {
-				player.setDateOfBirth(DateFormat.getInstance().parse(rs.getString("datum_narodenia")));
-				player.setActiveSince(DateFormat.getInstance().parse(rs.getString("aktivny_od")));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date dNar = sdf.parse(rs.getString("datum_narodenia"));
+				player.setDateOfBirth(dNar);
+				Date dActive = sdf.parse(rs.getString("aktivny_od"));
+				player.setActiveSince(dActive);
+				sdf = null; dNar = null; dActive = null;
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

@@ -8,6 +8,7 @@
   
   	<http auto-config="true" use-expressions="true">  
 	 <intercept-url pattern="/newTeam" access="hasRole('ROLE_USER')"/>
+	  <intercept-url pattern="/profile" access="hasRole('ROLE_USER')"/>
 	 <intercept-url pattern="/tournamentsNew" access="hasRole('ROLE_USER')"/>
 	 <form-login login-page="/login" default-target-url="/index"
 	 authentication-failure-url="/login.go?errorLogin"/>

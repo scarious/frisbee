@@ -87,6 +87,7 @@ public class IndexController {
 	public ModelAndView getLogin() {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		ModelAndView modelAndView = new ModelAndView("login");
+		modelAndView.addObject("loggedUserName", loggedUserName);
 		  return modelAndView;  
 	}
 	
