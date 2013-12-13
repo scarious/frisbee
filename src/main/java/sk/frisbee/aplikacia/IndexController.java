@@ -204,15 +204,28 @@ public class IndexController {
 		return maw;
 	}
 	
+	/*
+	 * Stranka s tabulkou vsetkych timov zoradenych podla skore
+	 */
 	@RequestMapping(value = "/teamsTop", method = RequestMethod.GET)
 	public ModelAndView getTopTeams() {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
+		
+		//Vytvorenie zoznamu najlepsich timov, nacitanie statistiky z DB + ziskanie nazvu timov pre danu statistiku podla id
+		List<StatisticsTeam> topTeamsList = statsDao.getAllTeamStats();
+		List<Team> topTeamsListData = new ArrayList<Team>();
+		for(StatisticsTeam s : topTeamsList){
+			topTeamsListData.add(teamsDao.getTeam(s.getTeam_id()));
+		}
+		
 		ModelAndView maw = new ModelAndView("teamsTop", "date", date);
 		
 		
+		maw.addObject("topTeamsList", topTeamsList);
+		maw.addObject("topTeamsListData", topTeamsListData);
 		maw.addObject("pageTitle", "teamsTop");
 		
 		maw.addObject("serverTime", formattedDate );

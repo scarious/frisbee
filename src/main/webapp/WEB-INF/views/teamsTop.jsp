@@ -17,13 +17,21 @@
 	<div class="topPlayers">
 			<h2>TOP Tímy ::</h2> <h3><a href="teams">Vyhľadávanie</a>&nbsp;:&nbsp;<a href="teamsTop">Najlepšie tímy</a>&nbsp;:&nbsp;<a href="newTeam">Vytvor nový tím</a></h3>
 			<table id="centerContent">
-				<tr class="grayRow"><td>Poradie</td><td>Názov tímu</td><td>Skóre</td><td>SK</td><td>Profil tímu</td></tr>
-				<tr><td>1.</td><td>Team 1</td><td>1000</td><td>SK</td><td><a href="profileTeam.html">Profil tímu</a></td></tr>
-				<tr><td>2.</td><td>Team 2</td><td>1000</td><td>SK</td><td><a href="profileTeam.html">Profil tímu</a></td></tr>
-				<tr><td>3.</td><td>Team 3</td><td>1000</td><td>SK</td><td><a href="profileTeam.html">Profil tímu</a></td></tr>
-				<tr><td>4.</td><td>Team 4</td><td>1000</td><td>SK</td><td><a href="profileTeam.html">Profil tímu</a></td></tr>
-				<tr><td>5.</td><td>Team 5</td><td>1000</td><td>SK</td><td><a href="profileTeam.html">Profil tímu</a></td></tr>				
+				<tr class="grayRow"><td>Poradie</td><td>Názov tímu</td><td>Skóre</td><td>Mesto</td><td>Profil tímu</td></tr>
+				
+				<c:forEach var="teams" items="${topTeamsList}" varStatus="status">	
+				<tr><td></td><td>${topTeamsListData[status.index].name}</td><td>${teams.points}</td><td>${topTeamsListData[status.index].city}</td><td><a href="profileTeam.html?id=${teams.team_id}">Profil tímu</a></td></tr>
+				</c:forEach>
+				
 			</table>
+			
+			<script type="text/javascript">
+						var table = document.getElementById('centerContent');
+						var totalRows = table.getElementsByTagName("tr").length;
+						for(var i=0;i<totalRows;i++){
+							table.rows[i+1].cells[0].innerHTML = i+1;
+						}
+					</script>
 		</div>
 		
 
