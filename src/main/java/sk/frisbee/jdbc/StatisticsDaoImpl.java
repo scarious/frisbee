@@ -42,7 +42,7 @@ public class StatisticsDaoImpl implements StatisticsDao{
 	@Override
 	public List<StatisticsTeam> getAllTeamStats() {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM frisbee.statistika_tim";
+		String SQL = "SELECT * FROM frisbee.statistika_tim ORDER BY body DESC";
 		List<StatisticsTeam> stats = (List<StatisticsTeam>) jdbcTemplate.query(SQL, new TeamStatsMapper());
 		jdbcTemplate = null;
 		return stats;
@@ -106,7 +106,7 @@ public class StatisticsDaoImpl implements StatisticsDao{
 			StatisticsTeam stats = new StatisticsTeam();
 			stats.setPoints(rs.getInt("body"));
 			stats.setPasses(rs.getInt("prihravky"));
-			stats.setTeam_id(rs.getLong("id_tim"));
+			stats.setTeam_id(rs.getInt("id_tim"));
 			stats.setBreaks(rs.getInt("breaky"));
 			stats.setTurnovers(rs.getInt("turnovery"));
 			stats.setDiscarded(rs.getInt("zahodenie"));

@@ -9,9 +9,9 @@ public class StatisticsTeam implements Serializable {
 	 */
 	private static final long serialVersionUID = 7400588445419567407L;
 
-	private Long team_id;
+	private Integer team_id;
 	
-	private Long stat_id;
+	private Integer stat_id;
 
 	private Integer passes;
 
@@ -29,11 +29,11 @@ public class StatisticsTeam implements Serializable {
 
 	private Integer defences;
 
-	public Long getTeam_id() {
+	public Integer getTeam_id() {
 		return team_id;
 	}
 
-	public void setTeam_id(Long team_id) {
+	public void setTeam_id(Integer team_id) {
 		this.team_id = team_id;
 	}
 
@@ -101,7 +101,7 @@ public class StatisticsTeam implements Serializable {
 		this.defences = defences;
 	}
 
-	public Long getStat_id() {
+	public Integer getStat_id() {
 		return stat_id;
 	}
 

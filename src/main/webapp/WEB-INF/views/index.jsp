@@ -29,12 +29,15 @@
 		<div id="centerContent">
 			<div class="topFiveMain">
 				<p>TOP Hráči<br/></p>
-				<table>
+				<table id="topPlayersIndexTable">
 					<tr class="grayRow"><td>Poradie</td><td>Prezývka</td><td>Skóre</td></tr>
 					
 					<c:forEach var="users" items="${topUsersList}" end="10">
-					<tr><td>${users.player_id}</td><td>${users.name}</td><td>${users.points}</td></tr>
-					
+					<tr><td id="${users.player_id}"></td><td>${users.name}</td><td>${users.points}</td></tr>
+					<script type="text/javascript">
+						var rows = document.getElementById('topPlayersIndexTable').getElementsByTagName("tr").length;
+						document.getElementById('${users.player_id}').innerHTML = rows-1;
+					</script>
 					</c:forEach>
 				</table>
 				<a href="playersTop">Viac...</a>

@@ -14,6 +14,9 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	 
 	<bean id="usersDao" class="sk.frisbee.jdbc.UsersDaoImpl"/>
+	<bean id="teamsDao" class="sk.frisbee.jdbc.TeamsDaoImpl"/>
+	<bean id="searchDao" class="sk.frisbee.jdbc.SearchDaoImpl"/>
+	<bean id="tournamentsDao" class="sk.frisbee.jdbc.TournamentsDaoImpl"/>
 	<bean id="statsDao" class="sk.frisbee.jdbc.StatisticsDaoImpl"/>	
 	
 	 

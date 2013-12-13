@@ -1,6 +1,7 @@
 package sk.frisbee.aplikacia;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sk.frisbee.domain.Player;
 import sk.frisbee.domain.StatisticsPlayer;
+import sk.frisbee.domain.StatisticsTeam;
+import sk.frisbee.domain.Team;
 import sk.frisbee.jdbc.StatisticsDaoImpl;
+import sk.frisbee.jdbc.TeamsDaoImpl;
 import sk.frisbee.jdbc.UsersDaoImpl;
 
 /**
@@ -25,12 +29,13 @@ import sk.frisbee.jdbc.UsersDaoImpl;
 public class IndexController {
 	
 	@Autowired  
-	 UsersDaoImpl usersDao;
+	UsersDaoImpl usersDao;
 	 
-	 @Autowired  
-	 StatisticsDaoImpl statsDao;
+	@Autowired  
+	StatisticsDaoImpl statsDao;
 	
-	 
+	@Autowired  
+	TeamsDaoImpl teamsDao;
 	 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -44,10 +49,17 @@ public class IndexController {
 		
 		String formattedDate = dateFormat.format(date);
 		
+		//Vytvorenie zoznamu najlepsich timov, nacitanie statistiky z DB + ziskanie nazvu timov pre danu statistiku podla id
+		List<StatisticsTeam> topTeamsList = statsDao.getAllTeamStats();
+		List<Team> topTeamListData = new ArrayList<Team>();
+		for(StatisticsTeam s : topTeamsList){
+			topTeamListData.add(teamsDao.getTeam(s.getTeam_id()));
+		}
 		
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		
 		//ModelAndView maw = new ModelAndView("index", "topUsersList", topUsersList);
+		map.addAttribute("topTeamsList", topTeamsList);
 		map.addAttribute("topUsersList", topUsersList);
 		map.addAttribute("pageTitle", "Index");
 		map.addAttribute("serverTime", formattedDate);
