@@ -5,25 +5,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
 import sk.frisbee.domain.StatisticsPlayer;
-import sk.frisbee.domain.User;
 import sk.frisbee.jdbc.StatisticsDaoImpl;
 import sk.frisbee.jdbc.UsersDaoImpl;
-
-import com.mysql.jdbc.StringUtils;
 
 /**
  * Handles requests for the application home page.
@@ -82,7 +74,7 @@ public class IndexController {
 	}
 
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login")
 	public ModelAndView getLogin() {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		ModelAndView modelAndView = new ModelAndView("login");
@@ -176,47 +168,7 @@ public class IndexController {
 		return maw;
 	}
 	
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView getRegister() {
-		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-		String formattedDate = dateFormat.format(date);
-		ModelAndView maw = new ModelAndView("register", "date", date);
-		
-		maw.addObject("command", new User());
-		maw.addObject("pageTitle", "Register");
-		
-		maw.addObject("serverTime", formattedDate );
-		maw.addObject("loggedUserName", loggedUserName);
-		return maw;
-	}
 	
-	@RequestMapping(value = "/registerAddUser", method = RequestMethod.POST)
-	public ModelAndView addUser(@ModelAttribute User user, 
-			   ModelMap model) {
-		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		
-		//model.addAttribute("username", user.getUsername());
-		//model.addAttribute("password", user.getPassword());
-		//model.addAttribute("username", user.getUsername());
-		
-		user.setEmailAddress(user.getEmailAddress().replace("@", "(at)"));
-		user.setEmailAddress(user.getEmailAddress().replace(".", "(dot)"));
-		usersDao.addUser(user);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-		String formattedDate = dateFormat.format(date);
-		ModelAndView maw = new ModelAndView("index", "date", date);
-		
-		
-		maw.addObject("pageTitle", "Register");
-		
-		maw.addObject("Registrovany", formattedDate );
-		maw.addObject("loggedUserName", loggedUserName);
-		return maw;
-	}
 	
 	@RequestMapping(value = "/teams", method = RequestMethod.GET)
 	public ModelAndView getTeams() {

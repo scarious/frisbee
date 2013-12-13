@@ -25,7 +25,7 @@
 	<c:if test="${not empty loggedPlayerData}">
 	<h2>PROFIL Hráča ::</h2>
 		<div id="profileInfo">
-			<form name="loginForm" action="/aplikacia/profile/Edit" method="post">
+			<form name="loginForm" action="/aplikacia/profile" method="post">
 				<table>
 					<tr><td class="boldTextTd">Meno:</td><td><input type="text" name="firstName" value="${loggedPlayerData.firstName}"/></td></tr>
 					<tr><td class="boldTextTd">Priezvisko:</td><td><input type="text" name="lastName" value="${loggedPlayerData.lastName}"/></td></tr>

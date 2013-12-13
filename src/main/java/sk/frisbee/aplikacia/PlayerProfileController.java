@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
 import sk.frisbee.domain.User;
 import sk.frisbee.jdbc.UsersDaoImpl;
 
 @Controller
-@RequestMapping(value="/profile")
-public class ProfileController {
+@RequestMapping(value="/profile*")
+public class PlayerProfileController {
 	
 	@Autowired  
 	UsersDaoImpl usersDao;
@@ -61,7 +60,7 @@ public class ProfileController {
 		return maw;
 	}
 	
-	@RequestMapping(value = "/Edit", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView getProfileEdit(@ModelAttribute Player player, 
 			   ModelMap model) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -77,14 +76,13 @@ public class ProfileController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
 		
-		ModelAndView maw = new ModelAndView("profile","serverTime", formattedDate );
+		ModelAndView maw = new ModelAndView("redirect:" + "profile");//new ModelAndView("profile","serverTime", formattedDate );
 		
 		//Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
 		
 		//maw.addObject("playerAddress", playerAddress);
 		
-		maw.addObject("loggedUserName", loggedUserName);
-		//return maw;
-		 return new ModelAndView("redirect:" + "/profile");
+		//maw.addObject("loggedUserName", loggedUserName);
+		return maw;
 	}
 }
