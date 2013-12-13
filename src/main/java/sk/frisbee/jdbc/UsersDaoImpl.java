@@ -2,7 +2,6 @@ package sk.frisbee.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -201,17 +200,28 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 
 	@Override
 	public void updatePlayer(Player updatedPlayer) {
-		// TODO Auto-generated method stub
+		String SQL = "UPDATE profil_hrac SET " +
+				"meno=\"" + updatedPlayer.getFirstName()  + "\", " +
+				"priezvisko=\"" + updatedPlayer.getLastName()  + "\", " +
+				"discipliny=\"" + updatedPlayer.getDisciplines() + "\", " +
+				//"mesto=\"" + updatedPlayer.getAddress().getCity() + "\", " +
+				//"krajina=\"" + updatedPlayer.getAddress().getCountry() + "\"," +
+				"pohlavie=\"" + updatedPlayer.getPohlavie() + "\", " +
+				"vyska=" + updatedPlayer.getHeight() + 
+				" WHERE id_user=" + updatedPlayer.getUser_id();
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.execute(SQL);
+		jdbcTemplate = null;
 	}
 
 	@Override
 	public void updateUser(User updatedUser) {
-		String SQL = "UPDATE TABLE login_data SET (" +
-						"login=" + updatedUser.getUsername()  +
-						"heslo=" + updatedUser.getPassword()  +
-						"email=" + updatedUser.getEmailAddress() +
-						"facebook_id" + updatedUser.getFacebookId() +
-						"WHERE id_user=" + updatedUser.getUser_id();
+		String SQL = "UPDATE login_data SET " +
+						"login=\"" + updatedUser.getUsername() + "\", " +
+						"heslo=\"" + updatedUser.getPassword()  + "\", " +
+						"email=\"" + updatedUser.getEmailAddress() + "\", " +
+						"facebook_id=\"" + updatedUser.getFacebookId() + "\" " +
+						" WHERE id_user=" + updatedUser.getUser_id();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute(SQL);
 		jdbcTemplate = null;

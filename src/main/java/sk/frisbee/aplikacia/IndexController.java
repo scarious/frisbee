@@ -153,50 +153,53 @@ public class IndexController {
 		Player loggedPlayerData = (Player) usersDao.getPlayer(loggedUserData.getUser_id());
 		
 		//System.out.println("Profil " + loggedPlayerData.getPlayer_id() + " Pohl" + loggedPlayerData.getPohlavie());
-		Integer player_idd = 1;
+		//Integer player_idd = 1;
 		
-		if(!StringUtils.isNullOrEmpty(player_id)) 
-		player_idd = Integer.parseInt(player_id);
+		//if(!StringUtils.isNullOrEmpty(player_id)) 
+		//player_idd = Integer.parseInt(player_id);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
-		Player player = usersDao.getPlayer(player_idd);	
+		//Player player = usersDao.getPlayer(player_idd);	
 		
 		ModelAndView maw = new ModelAndView("profile", "loggedPlayerData", loggedPlayerData);
 		
-		Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
+		Address playerAddress = usersDao.getAddresForPlayerId(loggedPlayerData.getPlayer_id());
 		
 		maw.addObject("playerAddress", playerAddress);
 		
 		maw.addObject("pageTitle", "Profil");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
 	}
 	
-	@RequestMapping(value = "/profileEdit")
-	public ModelAndView getProfileEdit() {
+	@RequestMapping(value = "/profileEdit", method = RequestMethod.POST)
+	public ModelAndView getProfileEdit(@ModelAttribute Player player, 
+			   ModelMap model) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		Integer player_idd = 1;
+		//Integer player_idd = 1;
+		
+		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
+		//Player player = usersDao.getPlayer(player_idd);	
+		player.setUserId(loggedUserData.getUser_id()); 
+		usersDao.updatePlayer(player);
+		
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
-		Player player = usersDao.getPlayer(player_idd);	
 		
-		ModelAndView maw = new ModelAndView("profile", "player", player);
+		ModelAndView maw = new ModelAndView("profile","serverTime", formattedDate );
 		
-		Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
+		//Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
 		
-		maw.addObject("playerAddress", playerAddress);
+		//maw.addObject("playerAddress", playerAddress);
 		
-		maw.addObject("pageTitle", "Profil");
-		
-		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
-		return maw;
+		//return maw;
+		 return new ModelAndView("redirect:" + "/profile");
 	}
 	
 	
@@ -253,9 +256,9 @@ public class IndexController {
 			   ModelMap model) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		model.addAttribute("username", user.getUsername());
-		model.addAttribute("password", user.getPassword());
-		model.addAttribute("username", user.getUsername());
+		//model.addAttribute("username", user.getUsername());
+		//model.addAttribute("password", user.getPassword());
+		//model.addAttribute("username", user.getUsername());
 		
 		user.setEmailAddress(user.getEmailAddress().replace("@", "(at)"));
 		user.setEmailAddress(user.getEmailAddress().replace(".", "(dot)"));

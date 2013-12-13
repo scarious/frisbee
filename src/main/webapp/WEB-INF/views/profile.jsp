@@ -27,11 +27,11 @@
 		<div id="profileInfo">
 			<form name="loginForm" action="/aplikacia/profileEdit" method="post">
 				<table>
-					<tr><td class="boldTextTd">Meno:</td><td><input type="text" name="meno" value="${loggedPlayerData.firstName}"/></td></tr>
-					<tr><td class="boldTextTd">Priezvisko:</td><td><input type="text" name="priezvisko" value="${loggedPlayerData.lastName}"/></td></tr>
+					<tr><td class="boldTextTd">Meno:</td><td><input type="text" name="firstName" value="${loggedPlayerData.firstName}"/></td></tr>
+					<tr><td class="boldTextTd">Priezvisko:</td><td><input type="text" name="lastName" value="${loggedPlayerData.lastName}"/></td></tr>
 					<tr><td class="boldTextTd">Mesto:</td>
 														<td>
-															<select name="mesto">
+															<select name="city">
 																  <optgroup label="Mestá">
 																    <option value="${playerAddress.city}">${playerAddress.city}</option>
 																    <option value="PO">PO</option>
@@ -42,7 +42,7 @@
 															</select>
 												</td></tr>
 					<tr><td class="boldTextTd">Krajina:</td><td>
-															<select name="krajina">
+															<select name="country">
 																  <optgroup label="Krajiny">
 																    <option value="${playerAddress.country}">${playerAddress.country}</option>
 																    <option value="Česko">Česko</option>
@@ -50,11 +50,12 @@
 																  </optgroup>
 															</select>
 												</td></tr>
-					<tr><td class="boldTextTd">Vek:</td><td>20</td></tr>
-					<tr><td class="boldTextTd">Rating:</td><td>123</td></tr>
-					<tr><td class="boldTextTd">Číslo dresu:</td><td>99</td></tr>
-					<tr><td class="boldTextTd">Hráčom od:</td><td>1.1.2013</td></tr>
-					<tr><td class="boldTextTd">Pozícia v hre:</td><td>handler/middle/long</td></tr>
+					<tr><td class="boldTextTd">Dátum narodenia:</td><td><input type="text" name="dateOfBirth2" value="${loggedPlayerData.dateOfBirth}"/></td></tr>
+					<tr><td class="boldTextTd">Pohlavie:</td><td><input type="text" name="pohlavie" value="${loggedPlayerData.pohlavie}"/></td></tr>
+					<tr><td class="boldTextTd">Hráčom od:</td><td><input type="text" name="activeSince2" value="${loggedPlayerData.activeSince}"/></td></tr>
+					<tr><td class="boldTextTd">Dominantná ruka:</td><td><input type="text" name="dominantHand" value="${loggedPlayerData.dominantHand}"/></td></tr>
+					<tr><td class="boldTextTd">Výška:</td><td><input type="text" name="height" value="${loggedPlayerData.height}"/></td></tr>
+					<tr><td class="boldTextTd">Disciplíny:</td><td><input type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/></td></tr>
 					<tr><td class="boldTextTd">Tím(y):</td><td><br/></td></tr>
 					<tr><td><input type="submit" name="submit" value="Aktualizovať údaje"/></td><td></td></tr>
 				</table>

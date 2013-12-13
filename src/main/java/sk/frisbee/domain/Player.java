@@ -134,4 +134,7 @@ public class Player implements Serializable {
 		this.pohlavie = Pohlavie;
 	}
    
+	public Integer getAge(){
+		return null;
+	}
 }
