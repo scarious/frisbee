@@ -113,7 +113,7 @@ public class IndexController {
 		
 		List<Player> playerData = usersDao.getAllPlayerData();
 		
-		maw.addObject("pageTitle", "Nov� t�m");
+		maw.addObject("pageTitle", "Nový tým");
 		maw.addObject("playerData", playerData);
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
