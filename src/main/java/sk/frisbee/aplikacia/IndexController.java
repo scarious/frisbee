@@ -51,15 +51,17 @@ public class IndexController {
 		
 		//Vytvorenie zoznamu najlepsich timov, nacitanie statistiky z DB + ziskanie nazvu timov pre danu statistiku podla id
 		List<StatisticsTeam> topTeamsList = statsDao.getAllTeamStats();
-		List<Team> topTeamListData = new ArrayList<Team>();
+		System.out.println("TEST" + topTeamsList.get(0).getTeam_id());
+		List<Team> topTeamsListData = new ArrayList<Team>();
 		for(StatisticsTeam s : topTeamsList){
-			topTeamListData.add(teamsDao.getTeam(s.getTeam_id()));
+			topTeamsListData.add(teamsDao.getTeam(s.getTeam_id()));
 		}
 		
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		
 		//ModelAndView maw = new ModelAndView("index", "topUsersList", topUsersList);
 		map.addAttribute("topTeamsList", topTeamsList);
+		map.addAttribute("topTeamsListData", topTeamsListData);
 		map.addAttribute("topUsersList", topUsersList);
 		map.addAttribute("pageTitle", "Index");
 		map.addAttribute("serverTime", formattedDate);

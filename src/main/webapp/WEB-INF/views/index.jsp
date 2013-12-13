@@ -33,25 +33,36 @@
 					<tr class="grayRow"><td>Poradie</td><td>Prezývka</td><td>Skóre</td></tr>
 					
 					<c:forEach var="users" items="${topUsersList}" end="10">
-					<tr><td id="${users.player_id}"></td><td>${users.name}</td><td>${users.points}</td></tr>
-					<script type="text/javascript">
-						var rows = document.getElementById('topPlayersIndexTable').getElementsByTagName("tr").length;
-						document.getElementById('${users.player_id}').innerHTML = rows-1;
-					</script>
+					<tr><td></td><td>${users.name}</td><td>${users.points}</td></tr>
 					</c:forEach>
+					
 				</table>
+					<script type="text/javascript">
+						var table = document.getElementById('topPlayersIndexTable');
+						var totalRows = table.getElementsByTagName("tr").length;
+						for(var i=0;i<totalRows;i++){
+							table.rows[i+1].cells[0].innerHTML = i+1;
+						}
+					</script>
 				<a href="playersTop">Viac...</a>
 			</div>
 			<div class="topFiveMain">
 				<p>TOP Tímy<br/></p>
-				<table>
+				<table id="topTeamsIndexTable">
 					<tr class="grayRow"><td>Poradie</td><td>Názov</td><td>Skóre</td></tr>
-					<tr><td>1.</td><td>Team 1</td><td>1000</td></tr>
-					<tr><td>2.</td><td>Team 2</td><td>1000</td></tr>
-					<tr><td>3.</td><td>Team 3</td><td>1000</td></tr>
-					<tr><td>4.</td><td>Team 4</td><td>1000</td></tr>
-					<tr><td>5.</td><td>Team 5</td><td>1000</td></tr>
+					
+					<c:forEach var="teams" items="${topTeamsList}" varStatus="status" end="10">
+					<tr><td></td><td>${topTeamsListData[status.index].name}</td><td>${teams.points}</td></tr>
+					
+					</c:forEach>
 				</table>
+					<script type="text/javascript">
+						var table = document.getElementById('topTeamsIndexTable');
+						var totalRows = table.getElementsByTagName("tr").length;
+						for(var i=0;i<totalRows;i++){
+							table.rows[i+1].cells[0].innerHTML = i+1;
+						}
+					</script>
 				<a href="teamsTop">Viac...</a>
 			</div>
 			<div class="topFiveMain">
