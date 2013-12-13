@@ -76,10 +76,14 @@ public class IndexController {
 	
 	@RequestMapping(value = "/login")
 	public ModelAndView getLogin() {
-		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		//String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		String formattedDate = dateFormat.format(date);
+		
 		ModelAndView modelAndView = new ModelAndView("login");
-		modelAndView.addObject("loggedUserName", loggedUserName);
-		  return modelAndView;  
+		modelAndView.addObject("serverTime", formattedDate);
+		return modelAndView;  
 	}
 	
 	 @RequestMapping(value="/login", params="errorLogin")  
