@@ -117,7 +117,7 @@ public class IndexController {
 		
 		List<Player> playerData = usersDao.getAllPlayerData();
 		
-		maw.addObject("pageTitle", "Nový tím");
+		maw.addObject("pageTitle", "Novï¿½ tï¿½m");
 		maw.addObject("playerData", playerData);
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
@@ -273,6 +273,23 @@ public class IndexController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("tournamentsNew", "date", date);
+		
+		
+		maw.addObject("pageTitle", "tournamentsNew");
+		
+		maw.addObject("serverTime", formattedDate );
+		maw.addObject("loggedUserName", loggedUserName);
+		return maw;
+	}
+	
+	@RequestMapping(value = "/tournamentsNewAdd", method = RequestMethod.POST)
+	public ModelAndView getNewTournamentsAdd() {
+		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		String formattedDate = dateFormat.format(date);
+		ModelAndView maw = new ModelAndView("tournaments", "date", date);
+		
 		
 		
 		maw.addObject("pageTitle", "tournamentsNew");

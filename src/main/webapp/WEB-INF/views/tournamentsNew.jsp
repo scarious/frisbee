@@ -18,7 +18,7 @@
 	<div id="content">
 	<h2>Vytvorenie turnaja ::</h2> <h3><a href="tournaments">Vyhľadávanie</a>&nbsp;:&nbsp;<a href="tournamentsNew">Pridaj nový turnaj</a></h3>
 		<div id="centerContent">
-			<form>
+			<form name="/aplikacia/tournamentsNewAdd">
 			<table>
 				<tr><td>Nazov turnaja:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Mesto:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
@@ -44,6 +44,10 @@
 												<option>Elite</option>
 												<option>Master</option>
 										 </select></td></tr>
+				<tr><td>Schedule</td>
+				
+				
+				</tr>
 
 						
 
