@@ -17,16 +17,16 @@
 	<c:import url="import/menu.jsp"></c:import>
 	<div id="content">
 	<h2>Vytvorenie nového tímu ::</h2>
-		<form id="centerContent">
+		<form id="centerContent" name="newTeamForm" method="post" action="/aplikacia/newTeam">
 			<table>
-				<tr><td>Názov tímu:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Mesto:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Krajina:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Názov tímu:</td><td><input name="name" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Mesto:</td><td><input name="city" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Krajina:</td><td><input name="country" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Dátum zalozenia:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Web:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Kontakt (email):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Kontakt (telefon):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Kontakt (FB):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Web:</td><td><input name="website" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Kontakt (email):</td><td><input name="contact_email" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Kontakt (telefon):</td><td><input name="contact_phone" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Kontakt (FB):</td><td><input name="contact_fb" type="text" size="30" maxlength="50"/></td></tr>
 
 			</table>
 			<br/>
@@ -57,20 +57,39 @@
 							</script>
 						
 				</td><td>Rýchle hľadanie<br/><input id="textBoxSearch" type="text" value="" onkeyup="myfilter.set(this.value);"/></td>
-				<td><br/><input type="button" value="Pridaj" onclick="
-															var selected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex];
-															var options = '\<option\>' + selected.innerHTML;
-															
-															var second = document.getElementById('zoznamPridanychHracov');
-															var options = second.innerHTML + options;
-															
-															second.innerHTML = options;" /></td>
-				<td><select id="zoznamPridanychHracov" multiple="multiple" size="6"></select></td></tr>
+				<td><br/><input type="button" value="Pridaj" onclick="moveToAnotherList()" /></td>
+				<td><select name="zoznamPridanychHracov" id="zoznamPridanychHracov" multiple="multiple" size="6"></select></td></tr>
 				
 			</table>
 			<br/>
+			<script type="text/javascript">
+				function moveToAnotherList(){
+					var selected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex];
+					var idFromSelected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex].value;
+					var options = '\<option value\=' + idFromSelected + '\>' + selected.innerHTML;
+					
+
+					
+					var second = document.getElementById('zoznamPridanychHracov');
+					var options = second.innerHTML + options;
+					
+					second.innerHTML = options;
+					
+					addIdForParsing();
+				}	
+			
+				function addIdForParsing(){
+					var dlzkaZoznamu = document.getElementById('zoznamPridanychHracov').length;
+					var temp = "";
+					for(var i=0;i<dlzkaZoznamu;i++){
+						temp = temp + document.getElementById('zoznamPridanychHracov').options[i].value + ";";
+					}
+					document.getElementById('playersForParsing').value = temp;
+				}
 				
-			<input type="submit" value="Vytvor tím"/>
+			</script>
+			<input type="hidden" name="playersForParsing" id="playersForParsing" value=""/>	
+			<input value="submit" type="submit" value="Vytvor tím"/>
 		</form>
 
 	</div>

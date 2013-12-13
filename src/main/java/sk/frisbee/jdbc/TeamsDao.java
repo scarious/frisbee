@@ -20,9 +20,12 @@ public interface TeamsDao {
 	
 	public void addTeam(Team team);
 	
+	public Integer addTeamWithReturnVal(Team team);
+	
 	public void updateTeam(Team updatedTeam);
 	
 	public void deleteTeam(Integer id);
 	
+	public void addPlayersToTeam(Integer team_id, List<Player> players);
 	
 }

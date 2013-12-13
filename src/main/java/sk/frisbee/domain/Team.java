@@ -12,25 +12,29 @@ public class Team  implements Serializable {
 	 */
 	private static final long serialVersionUID = -322253261031694437L;
 
-    private Long team_id;
+    private Integer team_id;
     
-    private Long user_id;
+    private Integer user_id;
 
     private String name;
     
     private String disciplines;
     
-    private Integer phone;
+    private Integer phone = 0;
     
-    private String city, contact_name, contact_email, contact_fb, trainings;
+    private String city, country, contact_name, contact_email, contact_fb, contact_phone, trainings;
     
     private List<Player> players = new ArrayList<Player>();
     
     private List<Roster> rosters = new ArrayList<Roster>();
     
     private String information;
+    
+    private String website;
+    
+    private String playersForParsing;
 
-	public Long getTeam_id() {
+	public Integer getTeam_id() {
 		return team_id;
 	}
 
@@ -42,11 +46,15 @@ public class Team  implements Serializable {
 		this.name = name;
 	}
 
-	public Long getPlayerId() {
+	public Integer getUserId() {
 		return user_id;
 	}
+	
+	public void setUserId(Integer user_id) {
+		this.user_id = user_id;
+	}
 
-	public void setUser_id(Long user_id) {
+	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
 
@@ -124,5 +132,37 @@ public class Team  implements Serializable {
 
 	public Integer getContactPhone() {
 		return phone;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getContact_phone() {
+		return contact_phone;
+	}
+
+	public void setContact_phone(String contact_phone) {
+		this.contact_phone = contact_phone;
+	}
+
+	public String getPlayersForParsing() {
+		return playersForParsing;
+	}
+
+	public void setPlayersForParsing(String playersForParsing) {
+		this.playersForParsing = playersForParsing;
 	}
 }

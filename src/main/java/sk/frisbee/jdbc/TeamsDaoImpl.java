@@ -1,5 +1,7 @@
 package sk.frisbee.jdbc;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -10,7 +12,12 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+
+import com.mysql.jdbc.Statement;
 
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
@@ -73,21 +80,55 @@ public class TeamsDaoImpl implements TeamsDao {
 	@Override
 	public void addTeam(Team team) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO profil_tim(nazov, discipliny,mesto,kontakt_meno,kontakt_cislo,kontakt_email,kontakt_fb,zivotopis,treningy,id_hrac) "
+		String SQL = "INSERT INTO profil_tim (nazov, discipliny, mesto, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_hrac) "
 				+ "VALUES ("
-				+ team.getName() + ","
-				+ team.getDisciplines() + ","
-				+ team.getCity() + ","
-				+ team.getContact_name() + ","
-				+ team.getContactPhone() + ","
-				+ team.getContact_email() + ","
-				+ team.getContact_fb() + ","
-				+ team.getInformation() + ","
-				+ team.getTrainings() + ","
-				+ team.getPlayerId() + 
+				+ "\"" + team.getName() + "\", "
+				+ "\"" + team.getDisciplines() + "\", "
+				+ "\"" + team.getCity() + "\", "
+				+ "\"" + team.getContact_name() + "\", "
+				+ "\"" + team.getContactPhone() + "\", "
+				+ "\"" + team.getContact_email() + "\", "
+				+ "\"" + team.getContact_fb() + "\", "
+				+ "\"" + team.getInformation() + "\", "
+				+ "\"" + team.getTrainings() + "\", "
+				+ team.getUserId() + 
 				")";
 		jdbcTemplate.execute(SQL);
 		jdbcTemplate = null;
+	}
+	
+	@Override
+	public Integer addTeamWithReturnVal(final Team team) {
+		KeyHolder holder = new GeneratedKeyHolder();
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		final String SQL = "INSERT INTO profil_tim "
+				+ "(nazov, discipliny, mesto, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_hrac) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection)
+					throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(SQL.toString(),
+						Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, team.getName());
+				ps.setString(2, team.getDisciplines());
+				ps.setString(3, team.getCity());
+				ps.setString(4, team.getContact_name());
+				ps.setInt(5, team.getContactPhone());
+				ps.setString(6, team.getContact_email());
+				ps.setString(7, team.getContact_fb());
+				ps.setString(8, team.getInformation() );
+				ps.setString(9, team.getTrainings());
+				ps.setInt(10, team.getUserId());
+				return ps;
+			}
+		}, holder);
+		Integer newTeamId = holder.getKey().intValue();
+		jdbcTemplate = null; 
+		holder = null;
+		return newTeamId;
 	}
 
 	@Override
@@ -103,7 +144,7 @@ public class TeamsDaoImpl implements TeamsDao {
 				+"kontakt_fb="+ updatedTeam.getContact_fb() + ","
 				+"zivotopis="+ updatedTeam.getInformation() + ","
 				+"treningy="+ updatedTeam.getTrainings() + ","
-				+"id_hrac="+ updatedTeam.getPlayerId() + 
+				+"id_hrac="+ updatedTeam.getUserId() + 
 				")";
 		jdbcTemplate.execute(SQL);
 		jdbcTemplate = null;
@@ -126,6 +167,19 @@ public class TeamsDaoImpl implements TeamsDao {
 				new PlayerMapper());
 		jdbcTemplate = null;	
 		return playersList;
+	}
+	
+	@Override
+	public void addPlayersToTeam(Integer team_id, List<Player> players) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		String SQL = "";
+		for(Player player: players){
+			SQL = "INSERT INTO timy_hraca VALUES (" + player.getPlayer_id() + ", " + team_id + ")";
+			//System.out.println("INSERTING:" + SQL);
+			jdbcTemplate.execute(SQL);
+		}
+		
+		jdbcTemplate = null;
 	}
 	
 	private static class PlayerMapper implements RowMapper<Player>{
@@ -170,5 +224,6 @@ public class TeamsDaoImpl implements TeamsDao {
 			return tournament;	
 		}
 	}
+
 
 }

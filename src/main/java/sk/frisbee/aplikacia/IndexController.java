@@ -4,11 +4,15 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +21,7 @@ import sk.frisbee.domain.Player;
 import sk.frisbee.domain.StatisticsPlayer;
 import sk.frisbee.domain.StatisticsTeam;
 import sk.frisbee.domain.Team;
+import sk.frisbee.domain.User;
 import sk.frisbee.jdbc.SearchDaoImpl;
 import sk.frisbee.jdbc.StatisticsDaoImpl;
 import sk.frisbee.jdbc.TeamsDaoImpl;
@@ -120,13 +125,54 @@ public class IndexController {
 	   
 	 }  
 	
-	@RequestMapping(value = "/newTeam", method = RequestMethod.GET)
+	@RequestMapping(value = "/newTeam")
 	public ModelAndView getNewTeam() {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
+		
+		
 		ModelAndView maw = new ModelAndView("newTeam", "date", date);
+		
+		List<Player> playerData = usersDao.getAllPlayerData();
+		
+		maw.addObject("pageTitle", "Nový tým");
+		maw.addObject("playerData", playerData);
+		maw.addObject("serverTime", formattedDate );
+		maw.addObject("loggedUserName", loggedUserName);
+		return maw;
+	}
+	
+	@RequestMapping(value = "/newTeam", method = RequestMethod.POST)
+	public ModelAndView getNewTeamAdd(@ModelAttribute Team team) {
+		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		String formattedDate = dateFormat.format(date);
+		
+		System.out.println("Vytvoreny tim: " + team.getName() + " " + team.getPlayersForParsing());
+		ModelAndView maw = new ModelAndView("newTeam", "date", date);
+		
+		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
+		team.setUser_id(loggedUserData.getUser_id());
+		//Pridanie noveho timu do DB
+		//teamsDao.addTeam(team);
+		Integer newTeamId = teamsDao.addTeamWithReturnVal(team);
+		//Parsovanie hracov a pridanie k timu
+		List<Player> playersFromParsedData = new ArrayList<Player>();
+		String unParsedPlayerId = team.getPlayersForParsing();
+		Pattern pattern = Pattern.compile(".*?;");
+		Matcher matcher = pattern.matcher(unParsedPlayerId);
+		while (matcher.find()) {
+		    String pId = matcher.group().substring(0, matcher.group().indexOf(";"));
+			Player forAdding = new Player();
+			forAdding.setPlayerId(Integer.valueOf(pId));
+		    playersFromParsedData.add(forAdding);
+			System.out.println(pId);
+		}
+		System.out.println("Returned ID:" + newTeamId);
+		teamsDao.addPlayersToTeam(newTeamId, playersFromParsedData);
 		
 		List<Player> playerData = usersDao.getAllPlayerData();
 		
