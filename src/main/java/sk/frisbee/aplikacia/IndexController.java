@@ -164,10 +164,12 @@ public class IndexController {
 		//Player player = usersDao.getPlayer(player_idd);	
 		
 		ModelAndView maw = new ModelAndView("profile", "loggedPlayerData", loggedPlayerData);
+		Address playerAddress ;
+		if (loggedPlayerData != null){
+			playerAddress = usersDao.getAddresForPlayerId(loggedPlayerData.getPlayer_id());
+			maw.addObject("playerAddress", playerAddress);
+		}
 		
-		Address playerAddress = usersDao.getAddresForPlayerId(loggedPlayerData.getPlayer_id());
-		
-		maw.addObject("playerAddress", playerAddress);
 		
 		maw.addObject("pageTitle", "Profil");
 		maw.addObject("serverTime", formattedDate );

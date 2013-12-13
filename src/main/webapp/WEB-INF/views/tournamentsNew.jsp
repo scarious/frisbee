@@ -25,6 +25,7 @@
 				<tr><td>Krajina:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Dátum zaciatku:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Dátum ukoncenia:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Min. pocet timov:</td><td><input id="minPocet" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Max. pocet timov:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Usporiadatel:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Kontakt (email):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
@@ -54,7 +55,7 @@
 			<table>
 				<tr><td><p>Pridaj tímy:<br/><small><a href="#">Obnov zoznam</a></small></p></td><td>
 						<form name="myform">
-						<select id="zoznamHracov" multiple="multiple" size="6">
+						<select id="zoznamTimov" multiple="multiple" size="6">
 							<option>Tím 1</option>
 							<option>Tím 2</option>
 							<option>Tím 3</option>
@@ -68,14 +69,30 @@
 						</form>
 				</td><td>Rýchle hľadanie<br/><input id="textBoxSearch" type="text" value="" onkeyup="myfilter.set(this.value);"/></td>
 				<td><br/><input type="button" value="Pridaj" onclick="
-															var selected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex];
+															var selected = document.getElementById('zoznamTimov').options[document.getElementById('zoznamTimov').selectedIndex];
 															var options = '\<option\>' + selected.innerHTML;
 															
-															var second = document.getElementById('zoznamPridanychHracov');
+															var second = document.getElementById('zoznamPridanycTimov');
 															var options = second.innerHTML + options;
+															var i = 1;
+															second.innerHTML = options;
+
+										
+															" /></td>
+				<td><select id="zoznamPridanycTimov" multiple="multiple" size="6"></select></td></tr>
+				<td><br/><input type="button" value="Generuj rozpis" onclick="
+															var table = document.getElementById('rozpis');
+															var row = table.insertRow(0);
+															var cell1 = row.insertCell(0);
+															var cell2 = row.insertCell(1);
 															
-															second.innerHTML = options;" /></td>
-				<td><select id="zoznamPridanychHracov" multiple="multiple" size="6"></select></td></tr>
+															cell1.innerHTML = 'NEW CELL1';
+															cell2.innerHTML = 'NEW CELL2';
+										
+															" /></td>
+			</table>
+			<table id="rozpis">
+				<tr><td>Format</td><td>Ihrisko</td><td>Ihrisko</td></tr>
 				
 			</table>
 			<br/>
