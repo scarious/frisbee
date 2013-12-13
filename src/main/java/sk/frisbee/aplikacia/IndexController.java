@@ -17,8 +17,10 @@ import sk.frisbee.domain.Player;
 import sk.frisbee.domain.StatisticsPlayer;
 import sk.frisbee.domain.StatisticsTeam;
 import sk.frisbee.domain.Team;
+import sk.frisbee.jdbc.SearchDaoImpl;
 import sk.frisbee.jdbc.StatisticsDaoImpl;
 import sk.frisbee.jdbc.TeamsDaoImpl;
+import sk.frisbee.jdbc.TournamentsDaoImpl;
 import sk.frisbee.jdbc.UsersDaoImpl;
 
 /**
@@ -36,6 +38,12 @@ public class IndexController {
 	
 	@Autowired  
 	TeamsDaoImpl teamsDao;
+	
+	@Autowired  
+	TournamentsDaoImpl tournamentsDao;
+	
+	@Autowired  
+	SearchDaoImpl searchDao;
 	 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -43,15 +51,12 @@ public class IndexController {
 	@RequestMapping(value={"/index", "/", "/aplikacia/"})
 	public String getIndex(ModelMap map) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		//System.out.println(usersDao.getUser(1).getUsername());
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-		
 		String formattedDate = dateFormat.format(date);
 		
 		//Vytvorenie zoznamu najlepsich timov, nacitanie statistiky z DB + ziskanie nazvu timov pre danu statistiku podla id
 		List<StatisticsTeam> topTeamsList = statsDao.getAllTeamStats();
-		System.out.println("TEST" + topTeamsList.get(0).getTeam_id());
 		List<Team> topTeamsListData = new ArrayList<Team>();
 		for(StatisticsTeam s : topTeamsList){
 			topTeamsListData.add(teamsDao.getTeam(s.getTeam_id()));
@@ -59,7 +64,6 @@ public class IndexController {
 		
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		
-		//ModelAndView maw = new ModelAndView("index", "topUsersList", topUsersList);
 		map.addAttribute("topTeamsList", topTeamsList);
 		map.addAttribute("topTeamsListData", topTeamsListData);
 		map.addAttribute("topUsersList", topUsersList);
@@ -79,9 +83,7 @@ public class IndexController {
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		ModelAndView maw = new ModelAndView("playersTop", "topUsersList", topUsersList);
 		
-		
 		maw.addObject("pageTitle", "Top Players");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -90,7 +92,6 @@ public class IndexController {
 	
 	@RequestMapping(value = "/login")
 	public ModelAndView getLogin() {
-		//String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
@@ -102,11 +103,13 @@ public class IndexController {
 	
 	 @RequestMapping(value="/login", params="errorLogin")  
 	 public String loginerror(ModelMap model) {  
-		 String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-	  model.addAttribute("loginFailed", true);
-	  model.addAttribute("loggedUserName", loggedUserName);
-	  return "login";  
-	   
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		String formattedDate = dateFormat.format(date);
+			
+		model.addAttribute("serverTime", formattedDate);
+		model.addAttribute("loginFailed", true);
+		return "login";  
 	 }  
 	   
 	 @RequestMapping(value="/logout", method = RequestMethod.GET)  
@@ -142,10 +145,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("players", "date", date);
 		
-		
-		
 		maw.addObject("pageTitle", "Login");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -162,9 +162,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("profileTeam", "date", date);
 		
-		
 		maw.addObject("pageTitle", "Profil tim");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -178,9 +176,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("profileTournament", "date", date);
 		
-		
 		maw.addObject("pageTitle", "profileTournament");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -196,9 +192,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("teams", "date", date);
 		
-		
 		maw.addObject("pageTitle", "Teams");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -223,11 +217,9 @@ public class IndexController {
 		
 		ModelAndView maw = new ModelAndView("teamsTop", "date", date);
 		
-		
 		maw.addObject("topTeamsList", topTeamsList);
 		maw.addObject("topTeamsListData", topTeamsListData);
 		maw.addObject("pageTitle", "teamsTop");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -241,9 +233,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("tournaments", "date", date);
 		
-		
 		maw.addObject("pageTitle", "tournaments");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -257,9 +247,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("tournamentsNew", "date", date);
 		
-		
 		maw.addObject("pageTitle", "tournamentsNew");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -273,10 +261,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("tournaments", "date", date);
 		
-		
-		
 		maw.addObject("pageTitle", "tournamentsNew");
-		
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
