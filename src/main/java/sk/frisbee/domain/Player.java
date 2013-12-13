@@ -28,6 +28,8 @@ public class Player implements Serializable {
     private Date dateOfBirth;
     
     private Date activeSince;
+    
+    private String urlImage;
 
     private Address address = new Address();
     
@@ -136,5 +138,13 @@ public class Player implements Serializable {
    
 	public Integer getAge(){
 		return null;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 }
