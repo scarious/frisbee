@@ -10,6 +10,11 @@ a {
 	text-decoration:none;
 }
 
+p {
+	margin: 0;
+	paddin: 0;
+}
+
 #map-canvas { width: 480pt;height : 320pt }
 
 #wrapper {
@@ -104,6 +109,7 @@ a {
 
 .boldTextTd{
 	font-weight:bold;
+	width: 120pt;
 }
 
 #cal{
@@ -134,8 +140,18 @@ a {
 	
 }
 
+.elementsContainer{
+	position:relative;
+	width: 280pt;
+}
 
+.viewOnly {
+	position:absolute; top:0; left:0;
+}
 
+.editOnly {
+	position:absolute; top:0; left:0;
+}
 
 
 

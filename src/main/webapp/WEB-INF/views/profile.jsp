@@ -23,20 +23,29 @@
 	</c:if>
 	
 	
-	<h2>PROFIL Hráča ::</h2>
+	<h2>PROFIL Hráča ::
+		<c:if test="${not empty loggedPlayerData}">
+			<input type="button" onclick="editOnOff()" id="editSwitch" value="UPRAVIŤ"/>
+		</c:if></h2>
 		<div id="profileInfo">
 			<c:if test="${not empty loggedPlayerData}">
-			<form name="loginForm" action="/aplikacia/profile" method="post">
+				<form name="loginForm" action="/aplikacia/profile" method="post">
 			</c:if>
 			<c:if test="${empty loggedPlayerData}">
-			<form name="loginForm" action="/aplikacia/profile/New" method="post">
+				<form name="loginForm" action="/aplikacia/profile/New" method="post">
 			</c:if>
 				<table>
-					<tr><td class="boldTextTd">Meno:</td><td><input type="text" name="firstName" value="${loggedPlayerData.firstName}"/></td></tr>
-					<tr><td class="boldTextTd">Priezvisko:</td><td><input type="text" name="lastName" value="${loggedPlayerData.lastName}"/></td></tr>
-					<tr><td class="boldTextTd">Mesto:</td>
-														<td>
-															<select name="city">
+					<tr><td class="boldTextTd">Meno:</td><td class="elementsContainer">
+															<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.firstName}</p> 
+															<input class="editOnly" style="visibility: hidden;" type="text" name="firstName" value="${loggedPlayerData.firstName}"/>
+														 </td></tr>
+					<tr><td class="boldTextTd">Priezvisko:</td><td class="elementsContainer">
+																<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.lastName}</p>
+																<input class="editOnly" style="visibility: hidden;" type="text" name="lastName" value="${loggedPlayerData.lastName}"/>
+															   </td></tr>
+					<tr><td class="boldTextTd">Mesto:</td><td class="elementsContainer">
+															<p class="viewOnly" style="visibility: visible;">${playerAddress.city}</p> 
+															<select class="editOnly" style="visibility: hidden;" name="city">
 																  <optgroup label="Mestá">
 																    <option value="${playerAddress.city}">${playerAddress.city}</option>
 																    <option value="PO">PO</option>
@@ -46,8 +55,9 @@
 																  </optgroup>
 															</select>
 												</td></tr>
-					<tr><td class="boldTextTd">Krajina:</td><td>
-															<select name="country">
+					<tr><td class="boldTextTd">Krajina:</td><td class="elementsContainer">
+															<p class="viewOnly" style="visibility: visible;">${playerAddress.country}</p>
+															<select class="editOnly" style="visibility: hidden;" name="country">
 																  <optgroup label="Krajiny">
 																    <option value="${playerAddress.country}">${playerAddress.country}</option>
 																    <option value="Česko">Česko</option>
@@ -55,23 +65,74 @@
 																  </optgroup>
 															</select>
 												</td></tr>
-					<tr><td class="boldTextTd">Dátum narodenia:</td><td><input type="text" name="dateOfBirth2" value="${loggedPlayerData.dateOfBirth}"/></td></tr>
-					<tr><td class="boldTextTd">Pohlavie:</td><td><input type="text" name="pohlavie" value="${loggedPlayerData.pohlavie}"/></td></tr>
-					<tr><td class="boldTextTd">Hráčom od:</td><td><input type="text" name="activeSince2" value="${loggedPlayerData.activeSince}"/></td></tr>
-					<tr><td class="boldTextTd">Dominantná ruka:</td><td><input type="text" name="dominantHand" value="${loggedPlayerData.dominantHand}"/></td></tr>
-					<tr><td class="boldTextTd">Výška:</td><td><input type="text" name="height" value="${loggedPlayerData.height}"/></td></tr>
-					<tr><td class="boldTextTd">Disciplíny:</td><td><input type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/></td></tr>
-					<tr><td class="boldTextTd">Tím(y):</td><td><br/></td></tr>
+					<tr><td class="boldTextTd">Dátum narodenia:</td><td class="elementsContainer">
+																		<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.dateOfBirth}</p>
+																		<input class="editOnly" style="visibility: hidden;" type="text" name="dateOfBirth2" value="${loggedPlayerData.dateOfBirth}"/>
+																	</td></tr>
+					<tr><td class="boldTextTd">Pohlavie:</td><td class="elementsContainer">
+																<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.pohlavie}</p>
+																<input class="editOnly" style="visibility: hidden;" type="text" name="pohlavie" value="${loggedPlayerData.pohlavie}"/>
+															 </td></tr>
+					<tr><td class="boldTextTd">Hráčom od:</td><td class="elementsContainer">
+																<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.activeSince}</p>
+																<input class="editOnly" style="visibility: hidden;" type="text" name="activeSince2" value="${loggedPlayerData.activeSince}"/>
+															  </td></tr>
+					<tr><td class="boldTextTd">Dominantná ruka:</td><td class="elementsContainer">
+																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.dominantHand}</p>
+																	<input class="editOnly" style="visibility: hidden;" type="text" name="dominantHand" value="${loggedPlayerData.dominantHand}"/>
+																	</td></tr>
+					<tr><td class="boldTextTd">Výška:</td><td class="elementsContainer">
+																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.height}</p>
+																	<input class="editOnly" style="visibility: hidden;" type="text" name="height" value="${loggedPlayerData.height}"/>
+														  </td></tr>
+					<tr><td class="boldTextTd">Disciplíny:</td><td class="elementsContainer">
+																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.disciplines}</p>
+																	<input class="editOnly" style="visibility: hidden;" type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/>
+															   </td></tr>
+					<tr><td class="boldTextTd">Tím(y):</td><td class="elementsContainer"><br/>
+															</td></tr>
 					<c:if test="${not empty loggedPlayerData}">
-						<tr><td><input type="submit" name="submit" value="Aktualizovať údaje"/></td><td></td></tr>
+						<tr><td><input id="updProfileBtn" style="visibility: hidden;" type="submit" name="submit" value="Aktualizovať údaje"/></td><td></td></tr>
 					</c:if>
 					<c:if test="${empty loggedPlayerData}">
 						<tr><td></td><td><input type="submit" name="submit" value="VYTVORIŤ PROFIL"/></td></tr>
-				
+						<script type="text/javascript">
+							function showEditables(){
+								for(var i = 0; i<document.getElementsByClassName('viewOnly').length; i++){
+									document.getElementsByClassName('viewOnly')[i].style.visibility="hidden";
+									document.getElementsByClassName('editOnly')[i].style.visibility="visible";
+								}
+							}
+							showEditables();
+						</script>
 					</c:if>
 				</table>
 			</form>		
-			
+			<script type="text/javascript">
+				var editable = true;
+				function editOnOff(){
+					
+					if(editable){
+						for(var i = 0; i<document.getElementsByClassName('viewOnly').length; i++){
+							document.getElementsByClassName('viewOnly')[i].style.visibility="hidden";
+							document.getElementsByClassName('editOnly')[i].style.visibility="visible";
+						}
+						document.getElementById('updProfileBtn').style.visibility="visible";
+						editable = false;
+					} else {
+						for(var i = 0; i<document.getElementsByClassName('viewOnly').length; i++){
+							document.getElementsByClassName('viewOnly')[i].style.visibility="visible";
+							document.getElementsByClassName('editOnly')[i].style.visibility="hidden";
+						}
+						document.getElementById('updProfileBtn').style.visibility="hidden";
+						editable = true;
+					}
+					
+				
+				}
+				
+				
+			</script>
 		</div>
 		<c:if test="${not empty loggedPlayerData}">
 			<div id="profileAvatar"><img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/></div>	
