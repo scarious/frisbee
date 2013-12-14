@@ -24,11 +24,11 @@
 	
 	
 	<h2>PROFIL Hráča ::
-		<c:if test="${not empty loggedPlayerData}">
+		<c:if test="${not empty loggedPlayerData and empty otherPlayerData}">
 			<input type="button" onclick="editOnOff()" id="editSwitch" value="UPRAVIŤ"/>
 		</c:if></h2>
 		<div id="profileInfo">
-			<c:if test="${not empty loggedPlayerData}">
+			<c:if test="${(not empty loggedPlayerData) or (not empty otherPlayerData)}">
 				<form name="loginForm" action="/aplikacia/profile" method="post">
 			</c:if>
 			<c:if test="${empty loggedPlayerData}">
@@ -91,10 +91,10 @@
 															   </td></tr>
 					<tr><td class="boldTextTd">Tím(y):</td><td class="elementsContainer"><br/>
 															</td></tr>
-					<c:if test="${not empty loggedPlayerData}">
+					<c:if test="${(not empty loggedPlayerData) and (empty otherPlayerData)}">
 						<tr><td><input id="updProfileBtn" style="visibility: hidden;" type="submit" name="submit" value="Aktualizovať údaje"/></td><td></td></tr>
 					</c:if>
-					<c:if test="${empty loggedPlayerData}">
+					<c:if test="${(empty loggedPlayerData) and (empty otherPlayerData)}">
 						<tr><td></td><td><input type="submit" name="submit" value="VYTVORIŤ PROFIL"/></td></tr>
 						<script type="text/javascript">
 							function showEditables(){

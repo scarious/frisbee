@@ -21,7 +21,7 @@ import sk.frisbee.domain.User;
 import sk.frisbee.jdbc.UsersDaoImpl;
 
 @Controller
-@RequestMapping(value="/profile*")
+@RequestMapping(value="/profile")
 public class PlayerProfileController {
 	
 	@Autowired  
@@ -34,8 +34,17 @@ public class PlayerProfileController {
 		
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
 		//System.out.println("Profil IDcka uid " + loggedUserData.getUser_id());
+		Player loggedPlayerData = null;
+		Player otherPlayerData = null;
+		if(player_id == "" || player_id == null){
+			loggedPlayerData = (Player) usersDao.getPlayer(loggedUserData.getUser_id());
+			System.out.println("BEZ PARAMETRA" + player_id);
+		} else {
+			System.out.println("S param: " + Integer.parseInt(player_id));
+			otherPlayerData = (Player) usersDao.getPlayer(Integer.parseInt(player_id));
+			loggedPlayerData = (Player) usersDao.getPlayer(Integer.parseInt(player_id));
+		}
 		
-		Player loggedPlayerData = (Player) usersDao.getPlayer(loggedUserData.getUser_id());
 		
 		//System.out.println("Profil " + loggedPlayerData.getPlayer_id() + " Pohl" + loggedPlayerData.getPohlavie());
 		//Integer player_idd = 1;
@@ -48,16 +57,15 @@ public class PlayerProfileController {
 		String formattedDate = dateFormat.format(date);
 		//Player player = usersDao.getPlayer(player_idd);	
 		
-		ModelAndView maw = new ModelAndView("profile", "loggedPlayerData", loggedPlayerData);
+		ModelAndView maw = new ModelAndView("profile", "serverTime", formattedDate);
 		Address playerAddress ;
 		if (loggedPlayerData != null){
 			playerAddress = usersDao.getAddresForPlayerId(loggedPlayerData.getPlayer_id());
 			maw.addObject("playerAddress", playerAddress);
 		}
-		
-		
+		maw.addObject("loggedPlayerData", loggedPlayerData);
+		maw.addObject("otherPlayerData", otherPlayerData);
 		maw.addObject("pageTitle", "Profil");
-		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
 	}

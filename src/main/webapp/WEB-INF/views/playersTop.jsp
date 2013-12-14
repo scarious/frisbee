@@ -21,7 +21,7 @@
 			<table id="centerContent">
 				<tr class="grayRow"><td>Poradie</td><td>Meno</td><td>Skóre</td><td>Krajina</td><td>Profil</td></tr>
 				<c:forEach var="users" items="${topUsersList}">
-					<tr><td>${users.player_id}</td><td>${users.name}</td><td>${users.points}</td><td></td><td><a href="profile?=${users.player_id}">Profil</a></td></tr>
+					<tr><td>${users.player_id}</td><td>${users.name}</td><td>${users.points}</td><td></td><td><a href="profile?id=${users.player_id}">Profil</a></td></tr>
 					
 				</c:forEach>
 				
