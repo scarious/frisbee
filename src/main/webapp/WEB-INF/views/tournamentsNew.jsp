@@ -104,7 +104,7 @@ var schedule = true; // global
 					var actualTeamNum = document.getElementById('zoznamPridanychTimov').length;
 					if (actualTeamNum>=minTeamNum && schedule){
 						
-						switch(actualTeamNum){
+						switch (actualTeamNum){
 						case 6:
 							var table = document.getElementById('rozpis');
 
@@ -184,6 +184,12 @@ var schedule = true; // global
 
 							schedule = false;
 							break;
+							
+						case 7:
+							
+							schedule = false;
+							break;
+							
 							default:
 								//document.getElementById('rozpis').innerHTML='Maly pocet timov';
 							alert('maly pocet timov');
