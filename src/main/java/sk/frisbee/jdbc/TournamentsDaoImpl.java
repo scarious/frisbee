@@ -1,5 +1,8 @@
 package sk.frisbee.jdbc;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -8,7 +11,12 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+
+import com.mysql.jdbc.Statement;
 
 import sk.frisbee.domain.Game;
 import sk.frisbee.domain.Player;
@@ -43,12 +51,13 @@ public class TournamentsDaoImpl implements TournamentsDao {
 			tournament.setDisciplines(rs.getString("discipliny"));
 			tournament.setSurface(rs.getString("povrch"));
 			tournament.setDivision(rs.getString("divizie"));
-			tournament.setLevel_of_play(rs.getInt("uroven_hry"));
+			tournament.setLevel_of_play(rs.getString("uroven_hry"));
 			tournament.setFormat(rs.getString("format"));
 			tournament.setDate(null);
-			tournament.setPlace(rs.getString("miesto"));
-			tournament.setGps(rs.getString("gps"));
+			tournament.setCity(rs.getString("miesto"));
+			tournament.setGps(null);//tournament.setGps(rs.getString("gps"));
 			tournament.setContact(rs.getString("kontakt"));
+			tournament.setCountry(rs.getString("krajina"));
 			return tournament;	
 		}
 	}
@@ -119,9 +128,57 @@ public class TournamentsDaoImpl implements TournamentsDao {
 	}
 
 	@Override
-	public void addTournament(Tournament Tournament) {
-		// TODO Auto-generated method stub
+	public void addTournament(Tournament tournament) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		String SQL = "INSERT INTO profil_turnaj (nazov, discipliny, povrch, divizie, uroven_hry, format, datum, miesto, gps, krajina, kontakt) "
+				+ "VALUES ("
+				+ "\"" + tournament.getName() + "\", "
+				+ "\"" + tournament.getDisciplines() + "\", "
+				+ "\"" + tournament.getSurface() + "\", "
+				+ "\"" + tournament.getDivision() + "\", "
+				+ "\"" + tournament.getLevel_of_play() + "\", "
+				+ "\"" + tournament.getFormat() + "\", "
+				+ "\"" + tournament.getDate() + "\", "
+				+ "\"" + tournament.getCity() + "\", "
+				+ "\"" + "null" + "\", "//tournament.getGps()
+				+ "\"" + tournament.getCountry() + "\", "
+				+ "\"" + tournament.getContact() +
+				")";
+		jdbcTemplate.execute(SQL);
+		jdbcTemplate = null;
 		
+	}
+	@Override
+	public Integer addTournamentWithReturnVal(final Tournament tournament) {
+		KeyHolder holder = new GeneratedKeyHolder();
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		final String SQL = "INSERT INTO profil_turnaj "
+				+ "(nazov, discipliny, povrch, divizie, uroven_hry, format, datum, miesto, gps, krajina, kontakt) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection)
+					throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(SQL.toString(),
+						Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, tournament.getName());
+				ps.setString(2, tournament.getDisciplines());
+				ps.setString(3, tournament.getSurface());
+				ps.setString(4, tournament.getDivision());
+				ps.setString(5, tournament.getLevel_of_play());
+				ps.setString(6, tournament.getFormat());
+				ps.setDate(7, (Date)tournament.getDate());
+				ps.setString(8, tournament.getCity() );
+				ps.setString(9, null);
+				ps.setString(10, tournament.getCountry());
+				ps.setString(11, tournament.getContact());
+				return ps;
+			}
+		}, holder);
+		Integer newTournamentId = holder.getKey().intValue();
+		jdbcTemplate = null; 
+		holder = null;
+		return newTournamentId;
 	}
 
 	@Override
@@ -162,7 +219,11 @@ public class TournamentsDaoImpl implements TournamentsDao {
 
 	@Override
 	public void deleteTournament(Integer id) {
-		// TODO Auto-generated method stub
+		String SQL = "DELETE FROM profil_turnaj WHERE id_turnaj= " + id;
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.execute(SQL);
+		jdbcTemplate = null;
 		
 	}
+
 }

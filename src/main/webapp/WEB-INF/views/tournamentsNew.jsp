@@ -20,21 +20,24 @@ var schedule = true; // global
 	<div id="content">
 	<h2>Vytvorenie turnaja ::</h2> <h3><a href="tournaments">Vyhľadávanie</a>&nbsp;:&nbsp;<a href="tournamentsNew">Pridaj nový turnaj</a></h3>
 		<div id="centerContent">
-			<form name="/aplikacia/tournamentsNewAdd">
+			<form id="novyturnaj" name="newtournamentform" method="post" action="/aplikacia/tournamentsNew">
 			<table>
-				<tr><td>Nazov turnaja:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Mesto:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Krajina:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Dátum zaciatku:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Dátum ukoncenia:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Min. pocet timov:</td><td><input id="minPocet" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Max. pocet timov:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Usporiadatel:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Kontakt (email):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Kontakt (telefon):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Kontakt (FB):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Registračný poplatok: (tím):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Registračný poplatok: (hráč):</td><td><input type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Nazov turnaja:</td><td><input name="name" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Mesto:</td><td><input name="city" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Krajina:</td><td><input name="country" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Dátum:</td><td><input name="date" type="text" size="30" maxlength="50"/></td></tr>	
+				<tr><td>Discipliny:</td><td><input name="disciplines" type="text" size="30" maxlength="50"/></td></tr>		
+				<tr><td>Kontakt (email):</td><td><input type="text" name="email" size="30" maxlength="50"/></td></tr>
+				<tr><td>Kontakt (telefon):</td><td><input type="text" name="contact" size="30" maxlength="50"/></td></tr>
+				<tr><td>Povrch:</td><td><input type="text" name="surface" size="30" maxlength="50"/></td></tr>
+				<tr><td>Uroven hry:</td><td><input type="text" name="level_of_play" size="30" maxlength="50"/></td></tr>	
+				<tr><td>Divizia:</td><td><input name="division" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>GPS:</td><td><input name="gps_coord" type="text" size="30" maxlength="50"/></td></tr>
+				
+				<tr><td>Usporiadatel:</td><td><input type="text" name="organizator" size="30" maxlength="50"/></td></tr>
+				<tr><td>Min. pocet timov:</td><td><input name="minPocet" id="minPocet" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Registračný poplatok: (tím):</td><td><input name="PF" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Registračný poplatok: (hráč):</td><td><input name="TF" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Divízia:</td><td><select>
 												<option>Open</option>
 												<option>Mixed</option>
@@ -46,16 +49,8 @@ var schedule = true; // global
 												<option>Elite</option>
 												<option>Master</option>
 										 </select></td></tr>
-				<tr><td>Schedule</td>
-				
-				
+				<tr><td>Schedule</td>			
 				</tr>
-
-						
-
-
-
-
 			</table>
 			<br/>
 			<table>
@@ -66,6 +61,11 @@ var schedule = true; // global
 							<option>Tím 2</option>
 							<option>Tím 3</option>
 							<option>Tím 4</option>
+							<option>Tím 5</option>
+							<option>Tím 6</option>
+							<option>Tím 7</option>
+							<option>Tím 8</option>
+							<option>Tím 9</option>
 						</select>
 						<script type="text/javascript">
 							<!--

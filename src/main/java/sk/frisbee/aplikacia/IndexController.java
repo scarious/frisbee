@@ -21,6 +21,7 @@ import sk.frisbee.domain.Player;
 import sk.frisbee.domain.StatisticsPlayer;
 import sk.frisbee.domain.StatisticsTeam;
 import sk.frisbee.domain.Team;
+import sk.frisbee.domain.Tournament;
 import sk.frisbee.domain.User;
 import sk.frisbee.jdbc.SearchDaoImpl;
 import sk.frisbee.jdbc.StatisticsDaoImpl;
@@ -299,15 +300,20 @@ public class IndexController {
 		return maw;
 	}
 	
-	@RequestMapping(value = "/tournamentsNewAdd", method = RequestMethod.POST)
-	public ModelAndView getNewTournamentsAdd() {
+	@RequestMapping(value = "/tournamentsNew", method = RequestMethod.POST)
+	public ModelAndView getNewTournamentsAdd(@ModelAttribute Tournament tournament) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
-		ModelAndView maw = new ModelAndView("tournaments", "date", date);
 		
-		maw.addObject("pageTitle", "tournamentsNew");
+		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
+		tournament.setId_user(loggedUserData.getUser_id());
+		tournamentsDao.addTournamentWithReturnVal(tournament);
+		//tournamentsDao.addTournament(tournament);
+		ModelAndView maw = new ModelAndView("tournamentsNew", "date", date);
+		
+		maw.addObject("pageTitle", "Vytvor tím");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;

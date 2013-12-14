@@ -14,7 +14,7 @@ public class Tournament implements Serializable {
 
 	private Long tournament_id;
 	
-	private Long user_id;
+	private Integer user_id;
 	
 	private String name;
 	
@@ -24,13 +24,15 @@ public class Tournament implements Serializable {
 	
 	private String division;
 	
-	private Integer level_of_play;
+	private String level_of_play;
 	
 	private String format;
 	
 	private Date date;
 	
-	private String place;
+	private String country;
+	
+	private String city;
 	
 	private String contact;
 	
@@ -46,11 +48,11 @@ public class Tournament implements Serializable {
 		return tournament_id;
 	}
 
-	public Long getId_user() {
+	public Integer getId_user() {
 		return user_id;
 	}
 
-	public void setId_user(Long id_user) {
+	public void setId_user(Integer id_user) {
 		this.user_id = id_user;
 	}
 
@@ -86,11 +88,11 @@ public class Tournament implements Serializable {
 		this.division = division;
 	}
 
-	public Integer getLevel_of_play() {
+	public String getLevel_of_play() {
 		return level_of_play;
 	}
 
-	public void setLevel_of_play(Integer level_of_play) {
+	public void setLevel_of_play(String level_of_play) {
 		this.level_of_play = level_of_play;
 	}
 
@@ -108,14 +110,6 @@ public class Tournament implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
 	}
 
 	public String getContact() {
@@ -156,6 +150,22 @@ public class Tournament implements Serializable {
 	
 	public void setGps(String gps){
 		this.gps_coord = gps;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 	
 }

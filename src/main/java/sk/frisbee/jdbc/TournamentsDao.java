@@ -26,6 +26,8 @@ public interface TournamentsDao {
 	
 	public TRoster getTRoster(Integer id);
 	
+	public Integer addTournamentWithReturnVal(Tournament tournament);
+	
 	public void addTournament(Tournament Tournament);
 	
 	public void addTeamToTournament(Integer id);
