@@ -23,11 +23,11 @@
 	</c:if>
 		<h2><b>Prihlásenie ::</b></h2>
 		<div id="centerContent">
-			<form name="loginForm" onsubmit="kontrolaLoginForm()" action="j_spring_security_check" method="post">
+			<form name="loginForm" action="j_spring_security_check" method="post">
 			<table>
 				<tr><td>Meno:</td><td><input name="j_username" type="text"/></td></tr>
 				<tr><td>Heslo:</td><td><input name="j_password" type="password"/></td></tr>
-				<tr><td></td><td><input type="submit" name="submit" value="Prihlás"/></td></tr>
+				<tr><td></td><td><input id="loginBtn" onclick="kontrolaLoginForm()" type="button" name="submit" value="Prihlás"/></td></tr>
 			</table>
 			</form>
 			<br/>alebo<br/><br/>
@@ -42,7 +42,9 @@
 			if (menoInput == null || hesloInput == null || menoInput == "" || hesloInput == ""){
 				alert("Meno alebo heslo nemôže byť prázdne!")
 				return false;
-			} 
+			} else {
+				document.getElementById('loginBtn').type = "submit";
+			}
 		}
 	</script>
 	<c:import url="import/footer.jsp"></c:import>

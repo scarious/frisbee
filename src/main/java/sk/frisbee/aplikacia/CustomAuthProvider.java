@@ -53,7 +53,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
 		//}
         User user = null;
         try{
-        	usersDao.loadUserByUsername(username);
+        	user = usersDao.loadUserByUsername(username);
         } catch (IndexOutOfBoundsException e){
         	throw new BadCredentialsException("Prihlasovacie meno nenájdené alebo nevyplnené!");
         }
@@ -69,7 +69,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
         ((ArrayList<Role>)user.getAuthorities()).get(0).getAuthority());
         
         if (!password.equals(user.getPassword())) {
-            throw new BadCredentialsException("Wrong password.");
+            throw new BadCredentialsException("Chybné (alebo nezadané) heslo.");
         }
         System.out.println("Vsetko vyzera ok");
         return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
