@@ -43,11 +43,11 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	}
 
 	@Override
-	public User getUser(Integer id) {
+	public User getUser(Integer id_user) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		//String SQL = "SELECT * FROM login_data WHERE id_user = " + id;
 		List<User> user = (List<User>) jdbcTemplate.query(
-				"SELECT * FROM login_data WHERE id_user = " + id,
+				"SELECT * FROM login_data WHERE id_user = " + id_user,
 				new UserMapper());
 		jdbcTemplate = null;
 		return user.get(0);
@@ -120,11 +120,11 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 
 
 	@Override
-	public Player getPlayer(Integer id) {
+	public Player getPlayer(Integer id_hrac) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		//String SQL = "SELECT * FROM profil_hrac WHERE id_hrac = " + id + "LIMIT 1";
 		List<Player> player = (List<Player>) jdbcTemplate.query(
-				"SELECT * FROM profil_hrac WHERE id_hrac = " + id,
+				"SELECT * FROM profil_hrac WHERE id_hrac = " + id_hrac,
 				new PlayerMapper());
 		jdbcTemplate = null;	
 		if(player.size() == 0) return null;
@@ -173,9 +173,9 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	}
 
 	@Override
-	public Address getAddresForPlayerId(Integer id) {
+	public Address getAddresForPlayerId(Integer id_hrac) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "SELECT mesto,krajina FROM profil_hrac WHERE id_hrac=" + id;
+		String SQL = "SELECT mesto,krajina FROM profil_hrac WHERE id_hrac=" + id_hrac;
 		List<Address> address = (List<Address>) jdbcTemplate.query(SQL, new AddressMapper());
 		return address.get(0);
 	}

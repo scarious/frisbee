@@ -16,7 +16,8 @@
 	<div id="content">
 	<div class="topPlayers">
 			<h2>TOP Tímy ::</h2> <h3><a href="teams">Vyhľadávanie</a>&nbsp;:&nbsp;<a href="teamsTop">Najlepšie tímy</a>&nbsp;:&nbsp;<a href="newTeam">Vytvor nový tím</a></h3>
-			<table id="centerContent">
+			<div id="centerContent" class="topFiveMain">
+			<table id="topTeams">
 				<tr class="grayRow"><td>Poradie</td><td>Názov tímu</td><td>Skóre</td><td>Mesto</td><td>Profil tímu</td></tr>
 				
 				<c:forEach var="teams" items="${topTeamsList}" varStatus="status">	
@@ -24,14 +25,14 @@
 				</c:forEach>
 				
 			</table>
-			
+			</div>
 			<script type="text/javascript">
-						var table = document.getElementById('centerContent');
+						var table = document.getElementById('topTeams');
 						var totalRows = table.getElementsByTagName("tr").length;
 						for(var i=0;i<totalRows;i++){
 							table.rows[i+1].cells[0].innerHTML = i+1;
 						}
-					</script>
+			</script>
 		</div>
 		
 

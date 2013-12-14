@@ -17,16 +17,21 @@
 	<div id="content">
 		<div class="topPlayers">
 			<h2>TOP Hráči ::</h2> <h3><a href="players">Vyhľadávanie</a>&nbsp;:&nbsp;<a href="playersTop">Najlepší hráči</a></h3>
-
-			<table id="centerContent">
-				<tr class="grayRow"><td>Poradie</td><td>Meno</td><td>Skóre</td><td>Krajina</td><td>Profil</td></tr>
-				<c:forEach var="users" items="${topUsersList}">
-					<tr><td>${users.player_id}</td><td>${users.name}</td><td>${users.points}</td><td></td><td><a href="profile?id=${users.player_id}">Profil</a></td></tr>
-					
-				</c:forEach>
-				
-
-			</table>
+			<div id="centerContent" class="topFiveMain">
+				<table id="topPlayers">
+					<tr class="grayRow"><td>Poradie</td><td>Meno</td><td>Skóre</td><td>Krajina</td><td>Profil</td></tr>
+					<c:forEach var="users" items="${topUsersList}" varStatus="status">
+						<tr><td></td><td>${users.name}</td><td>${users.points}</td><td>${topPlayersInfo[status.index].address.country}</td><td><a href="profile?id=${users.player_id}">Profil</a></td></tr>
+					</c:forEach>
+				</table>
+			</div>
+			<script type="text/javascript">
+						var table = document.getElementById('topPlayers');
+						var totalRows = table.getElementsByTagName("tr").length;
+						for(var i=0;i<totalRows;i++){
+							table.rows[i+1].cells[0].innerHTML = i+1;
+						}
+					</script>
 		</div>
 		
 

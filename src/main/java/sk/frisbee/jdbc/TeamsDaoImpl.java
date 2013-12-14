@@ -73,12 +73,22 @@ public class TeamsDaoImpl implements TeamsDao {
 		jdbcTemplate = null;	
 		return teamsList;
 	}
+	
+	@Override
+	public List<Team> getPlayersTeams(Integer id_hrac) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		List<Team> playersList = (List<Team>) jdbcTemplate.query(
+				"SELECT * FROM timy_hraca, profil_tim WHERE id_hrac=" + id_hrac + " AND timy_hraca.id_tim = profil_tim.id_tim",
+				new TeamMapper());
+		jdbcTemplate = null;	
+		return playersList;
+	}
 
 	@Override
-	public Team getTeam(Integer id) {
+	public Team getTeam(Integer id_tim) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		List<Team> teamsList = (List<Team>) jdbcTemplate.query(
-				"SELECT * FROM profil_tim WHERE id_tim=" + id,
+				"SELECT * FROM profil_tim WHERE id_tim=" + id_tim,
 				new TeamMapper());
 		jdbcTemplate = null;	
 		return teamsList.get(0);
@@ -238,6 +248,8 @@ public class TeamsDaoImpl implements TeamsDao {
 			return tournament;	
 		}
 	}
+
+
 
 
 }

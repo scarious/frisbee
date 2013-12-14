@@ -87,9 +87,18 @@ public class IndexController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
+		
+		//Nacitanie statistik podla poctu bodov
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		ModelAndView maw = new ModelAndView("playersTop", "topUsersList", topUsersList);
 		
+		List<Player> players = new ArrayList<Player>();
+		
+		for(StatisticsPlayer s: topUsersList){
+			players.add(usersDao.getPlayer(s.getPlayer_id()));
+		}
+		
+		maw.addObject("topPlayersInfo", players);
 		maw.addObject("pageTitle", "Top Players");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
@@ -205,6 +214,22 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("players", "date", date);
 		
+		
+		List<Player> player = usersDao.getAllPlayerData();
+		List<Team> teams = new ArrayList<Team>();
+		
+		for(Player p: player){
+			if(teamsDao.getPlayersTeams(p.getPlayer_id()).size() != 0){
+				Team sTimom = teamsDao.getPlayersTeams(p.getPlayer_id()).get(0);
+				teams.add(sTimom);
+			} else {
+				Team bezTimu = new Team();
+				bezTimu.setName("nie je v tíme");
+			}
+		}
+		
+		maw.addObject("playersTeam", teams);
+		maw.addObject("playersData", player);
 		maw.addObject("pageTitle", "Login");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
