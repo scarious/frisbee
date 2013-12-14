@@ -17,15 +17,20 @@
 	<div id="content">
 	<c:if test="${empty loggedPlayerData}">
     	<div id="profileInfoNoData">
-    		Nemas este profil !
-    		<a href="profileNew">Vytvor ho kliknutim sem!</a>
+    		Nemáš ešte vytvorený profil hráča! <br />
+    		Vytvoríš si ho po vyplnení údajov nižšie a kliknutí na tlačidlo "Vytvoriť profil" pod formulárom.
     	</div>
 	</c:if>
 	
-	<c:if test="${not empty loggedPlayerData}">
+	
 	<h2>PROFIL Hráča ::</h2>
 		<div id="profileInfo">
+			<c:if test="${not empty loggedPlayerData}">
 			<form name="loginForm" action="/aplikacia/profile" method="post">
+			</c:if>
+			<c:if test="${empty loggedPlayerData}">
+			<form name="loginForm" action="/aplikacia/profile/New" method="post">
+			</c:if>
 				<table>
 					<tr><td class="boldTextTd">Meno:</td><td><input type="text" name="firstName" value="${loggedPlayerData.firstName}"/></td></tr>
 					<tr><td class="boldTextTd">Priezvisko:</td><td><input type="text" name="lastName" value="${loggedPlayerData.lastName}"/></td></tr>
@@ -57,20 +62,28 @@
 					<tr><td class="boldTextTd">Výška:</td><td><input type="text" name="height" value="${loggedPlayerData.height}"/></td></tr>
 					<tr><td class="boldTextTd">Disciplíny:</td><td><input type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/></td></tr>
 					<tr><td class="boldTextTd">Tím(y):</td><td><br/></td></tr>
-					<tr><td><input type="submit" name="submit" value="Aktualizovať údaje"/></td><td></td></tr>
+					<c:if test="${not empty loggedPlayerData}">
+						<tr><td><input type="submit" name="submit" value="Aktualizovať údaje"/></td><td></td></tr>
+					</c:if>
+					<c:if test="${empty loggedPlayerData}">
+						<tr><td></td><td><input type="submit" name="submit" value="VYTVORIŤ PROFIL"/></td></tr>
+				
+					</c:if>
 				</table>
 			</form>		
 			
 		</div>
-		<div id="profileAvatar"><img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/></div>	
-		<br/><br/><br/>
-		<div id="centerContent">
-			<table>
-				<tr class="boldTextTd grayRow"><td>Odohrané zápasy</td><td>Výhry</td><td>Prehry</td></tr>
-				<tr style="text-align:center"><td>20</td><td>15</td><td>5</td></tr>
-			</table>
-		</div>	
-	</c:if>
+		<c:if test="${not empty loggedPlayerData}">
+			<div id="profileAvatar"><img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/></div>	
+			<br/><br/><br/>
+			<div id="centerContent">
+				<table>
+					<tr class="boldTextTd grayRow"><td>Odohrané zápasy</td><td>Výhry</td><td>Prehry</td></tr>
+					<tr style="text-align:center"><td>20</td><td>15</td><td>5</td></tr>
+				</table>
+			</div>
+		</c:if>	
+	
 	</div>
 	<c:import url="import/footer.jsp"></c:import>
 

@@ -127,7 +127,12 @@ a {
 	display:inline-block;
 }
 
-
+#profileInfoNoData {
+	text-align: center;
+	font-size: 16pt;
+	color: red;
+	
+}
 
 
 

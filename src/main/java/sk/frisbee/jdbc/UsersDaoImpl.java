@@ -88,12 +88,16 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 			player.setAddress(new Address(null, null, rs.getString("mesto"), null, rs.getString("krajina")));
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date dNar = sdf.parse(rs.getString("datum_narodenia"));
-				player.setDateOfBirth(dNar);
-				Date dActive = sdf.parse(rs.getString("aktivny_od"));
-				player.setActiveSince(dActive);
+				Date dNar, dActive;
+				if(rs.getString("datum_narodenia") != null || rs.getString("aktivny_od") != null) {
+					dNar = sdf.parse(rs.getString("datum_narodenia"));
+					player.setDateOfBirth(dNar);
+					dActive = sdf.parse(rs.getString("aktivny_od"));
+					player.setActiveSince(dActive);
+				}
+				
 				sdf = null; dNar = null; dActive = null;
-			} catch (ParseException e) {
+			} catch (ParseException | NullPointerException e) {
 				e.printStackTrace();
 			}
 			player.setPohlavie(rs.getString("pohlavie"));
@@ -280,20 +284,22 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	}
 
 	@Override
-	public void addPlayer(Player player) {
+	public void addPlayer(Player player, Integer user_id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO login_data (`meno`,`priezvisko`,`discipliny`,`mesto`,`krajina`,`datum_narodenia`,`pohlavie`,`vyska`,`dominantna_ruka`,`aktivny_od`)" + 
+		String SQL = "INSERT INTO profil_hrac (`id_user`, `meno`,`priezvisko`,`discipliny`,`mesto`,`krajina`,`pohlavie`,`vyska`,`dominantna_ruka`)" + 
 		"VALUES (" + 
+						user_id + ", " +
 				"\"" + player.getFirstName() + "\"," +
 				"\"" + player.getLastName() + "\"," +
 				"\"" + player.getDisciplines() + "\"," +
 				"\"" + player.getAddress().getCity() + "\"," +
 				"\"" + player.getAddress().getCountry() + "\"," +
-				"\"" + player.getDateOfBirth().toString() + "\"," +
+		//		"\"" + player.getDateOfBirth().toString() + "\"," +
 				"\"" + player.getPohlavie() + "\"," +
 				player.getHeight() + "," +
-				"\"" + player.getDominantHand() + "\"," +
-				"\"" + player.getActiveSince().toString() +"\")";
+				"\"" + player.getDominantHand() + "\"" +
+			//	"\"" + player.getActiveSince().toString() +"\""
+						 ")";
 	   jdbcTemplate.execute(SQL);
 	   jdbcTemplate = null;
 		

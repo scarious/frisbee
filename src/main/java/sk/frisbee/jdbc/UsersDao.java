@@ -39,7 +39,7 @@ public interface UsersDao {
 	public Player getPlayerByUserId(Integer id_user);
 	
 	/** INSERT */
-	public void addPlayer(Player player);
+	public void addPlayer(Player player, Integer user_id);
 	
 	public void addUser(User user);
 	
