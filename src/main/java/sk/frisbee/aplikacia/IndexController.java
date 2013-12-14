@@ -117,6 +117,17 @@ public class IndexController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("loginFailed", true);
 		return "login";  
+	 } 
+	 
+	 @RequestMapping(value="/login", params="regOk")  
+	 public String loginAfterRegister(ModelMap model) {  
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		String formattedDate = dateFormat.format(date);
+			
+		model.addAttribute("serverTime", formattedDate);
+		model.addAttribute("regOk", true);
+		return "login";  
 	 }  
 	   
 	 @RequestMapping(value="/logout", method = RequestMethod.GET)  
@@ -124,7 +135,6 @@ public class IndexController {
 		 String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 	  model.addAttribute("loggedUserName", loggedUserName);
 	  return "login";  
-	   
 	 }  
 	
 	@RequestMapping(value = "/newTeam")
@@ -158,6 +168,7 @@ public class IndexController {
 		
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
 		team.setUser_id(loggedUserData.getUser_id());
+		
 		//Pridanie noveho timu do DB
 		//teamsDao.addTeam(team);
 		Integer newTeamId = teamsDao.addTeamWithReturnVal(team);
@@ -173,6 +184,7 @@ public class IndexController {
 		    playersFromParsedData.add(forAdding);
 			System.out.println(pId);
 		}
+		
 		System.out.println("Returned ID:" + newTeamId);
 		teamsDao.addPlayersToTeam(newTeamId, playersFromParsedData);
 		
@@ -203,13 +215,28 @@ public class IndexController {
 	
 	
 	@RequestMapping(value = "/profileTeam", method = RequestMethod.GET)
-	public ModelAndView getTeamProfile(@RequestParam(value = "id", required = false) String team_id) {
+	public ModelAndView getTeamProfile(@RequestParam(value = "id", required = true) String team_id) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("profileTeam", "date", date);
 		
+		//Ziskanie udajov o time z DB podla team_id
+		Team teamData = teamsDao.getTeam(Integer.parseInt(team_id));
+		User user = usersDao.getUserByUsername(loggedUserName);
+		if(teamData.getUserId() == user.getUser_id()){
+			maw.addObject("hadEditRight", "yes");
+		}
+		
+		//Parsing treningov
+		//TOTO CEZ JS vid: profileTeam.jsp
+		
+		//Nacitavanie hracov v time
+		List<Player> playersInTeam = teamsDao.getPlayersInTeam(Integer.parseInt(team_id));
+		
+		maw.addObject("playersInTeam", playersInTeam);
+		maw.addObject("teamData", teamData);
 		maw.addObject("pageTitle", "Profil tim");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);

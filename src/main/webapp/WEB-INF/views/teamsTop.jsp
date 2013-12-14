@@ -20,7 +20,7 @@
 				<tr class="grayRow"><td>Poradie</td><td>Názov tímu</td><td>Skóre</td><td>Mesto</td><td>Profil tímu</td></tr>
 				
 				<c:forEach var="teams" items="${topTeamsList}" varStatus="status">	
-				<tr><td></td><td>${topTeamsListData[status.index].name}</td><td>${teams.points}</td><td>${topTeamsListData[status.index].city}</td><td><a href="profileTeam.html?id=${teams.team_id}">Profil tímu</a></td></tr>
+				<tr><td></td><td>${topTeamsListData[status.index].name}</td><td>${teams.points}</td><td>${topTeamsListData[status.index].city}</td><td><a href="profileTeam?id=${teams.team_id}">Profil tímu</a></td></tr>
 				</c:forEach>
 				
 			</table>
