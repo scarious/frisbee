@@ -307,10 +307,11 @@ public class IndexController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
+		System.out.println("Preslo");
 		
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
-		tournament.setId_user(loggedUserData.getUser_id());
-		tournamentsDao.addTournamentWithReturnVal(tournament);
+		//tournament.setId_user(loggedUserData.getUser_id());
+		//tournamentsDao.addTournamentWithReturnVal(tournament);
 		//tournamentsDao.addTournament(tournament);
 		ModelAndView maw = new ModelAndView("tournamentsNew", "date", date);
 		

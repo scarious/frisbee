@@ -20,24 +20,24 @@ var schedule = true; // global
 	<div id="content">
 	<h2>Vytvorenie turnaja ::</h2> <h3><a href="tournaments">Vyhľadávanie</a>&nbsp;:&nbsp;<a href="tournamentsNew">Pridaj nový turnaj</a></h3>
 		<div id="centerContent">
-			<form id="novyturnaj" name="newtournamentform" method="post" action="/aplikacia/tournamentsNew">
+			<form id="novyturnaj" name="newtournamentform" method="POST" action="/aplikacia/tournamentsNew">
 			<table>
 				<tr><td>Nazov turnaja:</td><td><input name="name" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Mesto:</td><td><input name="city" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Krajina:</td><td><input name="country" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Dátum:</td><td><input name="date" type="text" size="30" maxlength="50"/></td></tr>	
-				<tr><td>Discipliny:</td><td><input name="disciplines" type="text" size="30" maxlength="50"/></td></tr>		
-				<tr><td>Kontakt (email):</td><td><input type="text" name="email" size="30" maxlength="50"/></td></tr>
-				<tr><td>Kontakt (telefon):</td><td><input type="text" name="contact" size="30" maxlength="50"/></td></tr>
-				<tr><td>Povrch:</td><td><input type="text" name="surface" size="30" maxlength="50"/></td></tr>
-				<tr><td>Uroven hry:</td><td><input type="text" name="level_of_play" size="30" maxlength="50"/></td></tr>	
-				<tr><td>Divizia:</td><td><input name="division" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>GPS:</td><td><input name="gps_coord" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Dátum:</td><td><input name="date2" type="text" size="30" maxlength="50"/></td></tr>	
+				<tr><td>Discipliny:</td><td><input name="disciplines2" type="text" size="30" maxlength="50"/></td></tr>		
+				<tr><td>Kontakt (email):</td><td><input type="text" name="email2" size="30" maxlength="50"/></td></tr>
+				<tr><td>Kontakt (telefon):</td><td><input type="text" name="contact2" size="30" maxlength="50"/></td></tr>
+				<tr><td>Povrch:</td><td><input type="text" name="surface2" size="30" maxlength="50"/></td></tr>
+				<tr><td>Uroven hry:</td><td><input type="text" name="level_of_play2" size="30" maxlength="50"/></td></tr>	
+				<tr><td>Divizia:</td><td><input name="division2" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>GPS:</td><td><input name="gps_coord2" type="text" size="30" maxlength="50"/></td></tr>
 				
-				<tr><td>Usporiadatel:</td><td><input type="text" name="organizator" size="30" maxlength="50"/></td></tr>
-				<tr><td>Min. pocet timov:</td><td><input name="minPocet" id="minPocet" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Registračný poplatok: (tím):</td><td><input name="PF" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Registračný poplatok: (hráč):</td><td><input name="TF" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Usporiadatel:</td><td><input type="text" name="organizator2" size="30" maxlength="50"/></td></tr>
+				<tr><td>Min. pocet timov:</td><td><input name="minPocet2" id="minPocet" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Registračný poplatok: (tím):</td><td><input name="PF2" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Registračný poplatok: (hráč):</td><td><input name="TF2" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Divízia:</td><td><select>
 												<option>Open</option>
 												<option>Mixed</option>
@@ -55,7 +55,7 @@ var schedule = true; // global
 			<br/>
 			<table>
 				<tr><td><p>Pridaj tímy:<br/><small><a href="#">Obnov zoznam</a></small></p></td><td>
-						<form name="myform">
+						<!-- <form name="myform">  -->
 						<select id="zoznamTimov" multiple="multiple" size="6">
 							<option>Tím 1</option>
 							<option>Tím 2</option>
@@ -72,7 +72,7 @@ var schedule = true; // global
 							var myfilter = new filterlist(document.getElementById("zoznamHracov"));
 							//-->
 							</script>
-						</form>
+						<!-- </form>  -->
 				</td><td>Rýchle hľadanie<br/><input id="textBoxSearch" type="text" value="" onkeyup="myfilter.set(this.value);"/></td>
 				<td><br/><input type="button" value="Pridaj" onclick="
 															var selected = document.getElementById('zoznamTimov').options[document.getElementById('zoznamTimov').selectedIndex];
@@ -210,7 +210,7 @@ var schedule = true; // global
 			</table>
 			
 				
-			<input type="submit" value="Vytvor turnaj"/>
+			<input type="submit" name="submit" value="Vytvor turnaj"/>
 		</form>
 		</div>
 	
