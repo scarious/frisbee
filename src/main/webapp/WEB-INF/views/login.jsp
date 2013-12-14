@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" pageEncoding="UTF-8" %>
+<%@ page session="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -11,20 +11,19 @@
 
 <body  onload='document.f.j_username.focus();'>
 
-<c:if test="${loginFailed}">
-  <div>
-   Your login attempt was not successful, try again.
- Caused :
-   ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-  </div>
- </c:if>
+
 
 <div id="wrapper">
 	<c:import url="import/menu.jsp"></c:import>
 	<div id="content">
+	<c:if test="${loginFailed}">
+	  <div>
+	   Prihlásenie sa nepodarilo. Príčina:   ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+	  </div>
+	</c:if>
 		<h2><b>Prihlásenie ::</b></h2>
 		<div id="centerContent">
-			<form name="loginForm" action="j_spring_security_check" method="post">
+			<form name="loginForm" onsubmit="kontrolaLoginForm()" action="j_spring_security_check" method="post">
 			<table>
 				<tr><td>Meno:</td><td><input name="j_username" type="text"/></td></tr>
 				<tr><td>Heslo:</td><td><input name="j_password" type="password"/></td></tr>
@@ -34,8 +33,18 @@
 			<br/>alebo<br/><br/>
 			<img src='<c:url value="/resources/images/loginFB.png"></c:url>' alt="Facebook login"/>
 		</div>
-		
 	</div>
+	<script type="text/javascript">
+		function kontrolaLoginForm(){
+			var menoInput = document.forms['loginForm']['j_username'].value;
+			var hesloInput = document.forms['loginForm']['j_password'].value;
+			
+			if (menoInput == null || hesloInput == null || menoInput == "" || hesloInput == ""){
+				alert("Meno alebo heslo nemôže byť prázdne!")
+				return false;
+			} 
+		}
+	</script>
 	<c:import url="import/footer.jsp"></c:import>
 
 </div>

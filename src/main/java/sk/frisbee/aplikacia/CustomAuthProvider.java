@@ -51,12 +51,18 @@ public class CustomAuthProvider implements AuthenticationProvider {
 		//if(username == null || username.contains("")){
 		//	throw new BadCredentialsException("Username not found.");
 		//}
-        User user = usersDao.loadUserByUsername(username);
+        User user = null;
+        try{
+        	usersDao.loadUserByUsername(username);
+        } catch (IndexOutOfBoundsException e){
+        	throw new BadCredentialsException("Prihlasovacie meno nenájdené alebo nevyplnené!");
+        }
+        		
         //user.getAuthorities().
         System.out.println("User nacitany");
         if (user == null) {
         	System.out.println("User je null");
-            throw new BadCredentialsException("Username not found.");
+            throw new BadCredentialsException("Chyba pri overovaní prihlasovacieho mena");
         }
         //ak neni null
         System.out.println(user.getUsername() + " | " + user.getPassword() + " | " +
