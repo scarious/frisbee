@@ -2,10 +2,12 @@ package sk.frisbee.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.sql.DataSource;
 
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import sk.frisbee.aplikacia.DateFormatCustom;
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
 import sk.frisbee.domain.Roster;
@@ -86,20 +89,8 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 			player.setLastName(rs.getString("priezvisko"));
 			player.setDisciplines(rs.getString("discipliny"));
 			player.setAddress(new Address(null, null, rs.getString("mesto"), null, rs.getString("krajina")));
-			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date dNar, dActive;
-				if(rs.getString("datum_narodenia") != null || rs.getString("aktivny_od") != null) {
-					dNar = sdf.parse(rs.getString("datum_narodenia"));
-					player.setDateOfBirth(dNar);
-					dActive = sdf.parse(rs.getString("aktivny_od"));
-					player.setActiveSince(dActive);
-				}
-				
-				sdf = null; dNar = null; dActive = null;
-			} catch (ParseException | NullPointerException e) {
-				e.printStackTrace();
-			}
+			player.setDateOfBirth(DateFormatCustom.fromDB(rs.getString("datum_narodenia")));
+			player.setActiveSince(DateFormatCustom.fromDB(rs.getString("aktivny_od")));
 			player.setPohlavie(rs.getString("pohlavie"));
 			player.setHeight(rs.getInt("vyska"));
 			player.setDominantHand(rs.getString("dominantna_ruka"));
@@ -204,14 +195,21 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 
 	@Override
 	public void updatePlayer(Player updatedPlayer) {
+		Date dNar = updatedPlayer.getDateOfBirth();
+		Date dAct = updatedPlayer.getActiveSince();
+		
+		
 		String SQL = "UPDATE profil_hrac SET " +
 				"meno=\"" + updatedPlayer.getFirstName()  + "\", " +
 				"priezvisko=\"" + updatedPlayer.getLastName()  + "\", " +
 				"discipliny=\"" + updatedPlayer.getDisciplines() + "\", " +
 				//"mesto=\"" + updatedPlayer.getAddress().getCity() + "\", " +
 				//"krajina=\"" + updatedPlayer.getAddress().getCountry() + "\"," +
+				"datum_narodenia=\"" + DateFormatCustom.dateForDB(dNar) + "\", " +
 				"pohlavie=\"" + updatedPlayer.getPohlavie() + "\", " +
-				"vyska=" + updatedPlayer.getHeight() + 
+				"vyska=" + updatedPlayer.getHeight() + ", " +
+				"dominantna_ruka=\"" + updatedPlayer.getDominantHand() + "\", " +
+				"aktivny_od=\"" + DateFormatCustom.dateForDB(dAct) + "\"" +
 				" WHERE id_user=" + updatedPlayer.getUser_id();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute(SQL);
@@ -286,7 +284,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	@Override
 	public void addPlayer(Player player, Integer user_id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO profil_hrac (`id_user`, `meno`,`priezvisko`,`discipliny`,`mesto`,`krajina`,`pohlavie`,`vyska`,`dominantna_ruka`)" + 
+		String SQL = "INSERT INTO profil_hrac (`id_user`, `meno`,`priezvisko`,`discipliny`,`mesto`,`krajina`,`datum_narodenia`,`pohlavie`,`vyska`,`dominantna_ruka`,`aktivny_od`)" + 
 		"VALUES (" + 
 						user_id + ", " +
 				"\"" + player.getFirstName() + "\"," +
@@ -294,11 +292,11 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 				"\"" + player.getDisciplines() + "\"," +
 				"\"" + player.getAddress().getCity() + "\"," +
 				"\"" + player.getAddress().getCountry() + "\"," +
-		//		"\"" + player.getDateOfBirth().toString() + "\"," +
+				"\"" + DateFormatCustom.dateForDB(player.getDateOfBirth()) + "\"," +
 				"\"" + player.getPohlavie() + "\"," +
 				player.getHeight() + "," +
-				"\"" + player.getDominantHand() + "\"" +
-			//	"\"" + player.getActiveSince().toString() +"\""
+				"\"" + player.getDominantHand() + "\"," +
+				"\"" + DateFormatCustom.dateForDB(player.getActiveSince()) + "\"" +
 						 ")";
 	   jdbcTemplate.execute(SQL);
 	   jdbcTemplate = null;

@@ -33,30 +33,21 @@ public class PlayerProfileController {
 		String loggedUserName = loggedUser.getName();
 		
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
-		//System.out.println("Profil IDcka uid " + loggedUserData.getUser_id());
+		//System.out.println("ID prihlaseny UID " + loggedUserData.getUser_id());
+		
 		Player loggedPlayerData = null;
 		Player otherPlayerData = null;
 		if(player_id == "" || player_id == null){
-			loggedPlayerData = (Player) usersDao.getPlayer(loggedUserData.getUser_id());
-			System.out.println("BEZ PARAMETRA" + player_id);
+			loggedPlayerData = (Player) usersDao.getPlayerByUserId(loggedUserData.getUser_id());
 		} else {
-			System.out.println("S param: " + Integer.parseInt(player_id));
 			otherPlayerData = (Player) usersDao.getPlayer(Integer.parseInt(player_id));
 			loggedPlayerData = (Player) usersDao.getPlayer(Integer.parseInt(player_id));
 		}
-		
-		
-		//System.out.println("Profil " + loggedPlayerData.getPlayer_id() + " Pohl" + loggedPlayerData.getPohlavie());
-		//Integer player_idd = 1;
-		
-		//if(!StringUtils.isNullOrEmpty(player_id)) 
-		//player_idd = Integer.parseInt(player_id);
-		
+		//System.out.println("ID prihlaseny: " + loggedPlayerData.getPlayer_id() + "UID" + loggedPlayerData.getUser_id());
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
-		//Player player = usersDao.getPlayer(player_idd);	
-		
+
 		ModelAndView maw = new ModelAndView("profile", "serverTime", formattedDate);
 		Address playerAddress ;
 		if (loggedPlayerData != null){
@@ -82,9 +73,9 @@ public class PlayerProfileController {
 		usersDao.updatePlayer(player);
 		
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-		String formattedDate = dateFormat.format(date);
+		//Date date = new Date();
+		//DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		//String formattedDate = dateFormat.format(date);
 		
 		ModelAndView maw = new ModelAndView("redirect:" + "profile");//new ModelAndView("profile","serverTime", formattedDate );
 		
@@ -107,29 +98,23 @@ public class PlayerProfileController {
 		Integer userId = loggedUserData.getUser_id();
 		player.setUserId(userId); 
 		
-		try {
-			player.setDateOfBirth(DateFormat.getInstance().parse("2011-01-01"));
-			player.setActiveSince(DateFormat.getInstance().parse("2011-01-01"));
+/*		try {
+			//player.setDateOfBirth(DateFormat.getInstance().parse("2011-01-01"));
+			//player.setActiveSince(DateFormat.getInstance().parse("2011-01-01"));
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		usersDao.addPlayer(player, userId);
 		
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-		String formattedDate = dateFormat.format(date);
+		//Date date = new Date();
+		//DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		//String formattedDate = dateFormat.format(date);
 		
-		ModelAndView maw = new ModelAndView("redirect:" + "");//new ModelAndView("profile","serverTime", formattedDate );
-		
-		//Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
-		
-		//maw.addObject("playerAddress", playerAddress);
-		
-		//maw.addObject("loggedUserName", loggedUserName);
+		ModelAndView maw = new ModelAndView("redirect:" + "/profile");//new ModelAndView("profile","serverTime", formattedDate );
 		return maw;
 	}
 }

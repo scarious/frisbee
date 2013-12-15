@@ -230,7 +230,7 @@ public class IndexController {
 		
 		maw.addObject("playersTeam", teams);
 		maw.addObject("playersData", player);
-		maw.addObject("pageTitle", "Login");
+		maw.addObject("pageTitle", "Hráči");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
