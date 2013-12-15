@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -49,17 +47,12 @@ public class TeamsDaoImpl implements TeamsDao {
 		@Override
 		public Team mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Team team = new Team();
-			team.setTeam_id(rs.getInt("id_tim"));
-			team.setName(rs.getString("nazov"));
-			team.setDisciplines(rs.getString("discipliny"));
 			team.setCity(rs.getString("mesto"));
-			team.setContact_name(rs.getString("kontakt_meno"));	
-			team.setContact_phone(rs.getString("kontakt_cislo"));
 			team.setContact_email(rs.getString("kontakt_email"));
 			team.setContact_fb(rs.getString("kontakt_fb"));
-			team.setInformation(rs.getString("zivotopis"));
-			team.setTrainings(rs.getString("treningy"));
-			team.setUser_id(rs.getInt("id_user"));
+			team.setContact_name(rs.getString("kontakt_meno"));
+			team.setDisciplines(rs.getString("discipliny"));
+			team.setName(rs.getString("nazov"));
 			return team;	
 		}
 	}
@@ -73,22 +66,12 @@ public class TeamsDaoImpl implements TeamsDao {
 		jdbcTemplate = null;	
 		return teamsList;
 	}
-	
-	@Override
-	public List<Team> getPlayersTeams(Integer id_hrac) {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		List<Team> playersList = (List<Team>) jdbcTemplate.query(
-				"SELECT * FROM timy_hraca, profil_tim WHERE id_hrac=" + id_hrac + " AND timy_hraca.id_tim = profil_tim.id_tim",
-				new TeamMapper());
-		jdbcTemplate = null;	
-		return playersList;
-	}
 
 	@Override
-	public Team getTeam(Integer id_tim) {
+	public Team getTeam(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		List<Team> teamsList = (List<Team>) jdbcTemplate.query(
-				"SELECT * FROM profil_tim WHERE id_tim=" + id_tim,
+				"SELECT * FROM profil_tim WHERE id_tim=" + id,
 				new TeamMapper());
 		jdbcTemplate = null;	
 		return teamsList.get(0);
@@ -119,7 +102,7 @@ public class TeamsDaoImpl implements TeamsDao {
 		KeyHolder holder = new GeneratedKeyHolder();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		final String SQL = "INSERT INTO profil_tim "
-				+ "(nazov, discipliny, mesto, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_user) "
+				+ "(nazov, discipliny, mesto, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_hrac) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		jdbcTemplate.update(new PreparedStatementCreator() {
@@ -133,7 +116,7 @@ public class TeamsDaoImpl implements TeamsDao {
 				ps.setString(2, team.getDisciplines());
 				ps.setString(3, team.getCity());
 				ps.setString(4, team.getContact_name());
-				ps.setString(5, team.getContactPhone());
+				ps.setInt(5, team.getContactPhone());
 				ps.setString(6, team.getContact_email());
 				ps.setString(7, team.getContact_fb());
 				ps.setString(8, team.getInformation() );
@@ -176,10 +159,11 @@ public class TeamsDaoImpl implements TeamsDao {
 	}
 
 	@Override
-	public List<Player> getPlayersInTeam(Integer id_tim) {
+	public List<Player> getPlayersInTeam(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		List<Player> playersList = (List<Player>) jdbcTemplate.query(
-				"SELECT * FROM timy_hraca, profil_hrac WHERE id_tim=" + id_tim + " AND timy_hraca.id_hrac = profil_hrac.id_hrac ",
+				"SELECT * FROM timy_hraca, profil_hrac WHERE id_tim=" + id + "AND timy_hraca.id_hrac = profil_hrac.id_hrac "
+						+ "GROUP BY id_hrac",
 				new PlayerMapper());
 		jdbcTemplate = null;	
 		return playersList;
@@ -209,17 +193,9 @@ public class TeamsDaoImpl implements TeamsDao {
 			player.setDisciplines(rs.getString("discipliny"));
 			player.setAddress(new Address(null, null, rs.getString("mesto"), null, rs.getString("krajina")));
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date dNar, dActive;
-				if(rs.getString("datum_narodenia") != null || rs.getString("aktivny_od") != null) {
-					dNar = sdf.parse(rs.getString("datum_narodenia"));
-					player.setDateOfBirth(dNar);
-					dActive = sdf.parse(rs.getString("aktivny_od"));
-					player.setActiveSince(dActive);
-				}
-				
-				sdf = null; dNar = null; dActive = null;
-			} catch (ParseException | NullPointerException e) {
+				player.setDateOfBirth(DateFormat.getInstance().parse(rs.getString("datum_narodenia")));
+				player.setActiveSince(DateFormat.getInstance().parse(rs.getString("aktivny_od")));
+			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			player.setHeight(rs.getInt("vyska"));
@@ -248,8 +224,6 @@ public class TeamsDaoImpl implements TeamsDao {
 			return tournament;	
 		}
 	}
-
-
 
 
 }

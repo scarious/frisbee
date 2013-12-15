@@ -11,14 +11,11 @@
 
 <body  onload='document.f.j_username.focus();'>
 
+
+
 <div id="wrapper">
 	<c:import url="import/menu.jsp"></c:import>
 	<div id="content">
-	<c:if test="${regOk}">
-	  <div>
-	   Registácia prebehla úspešne! Je možné sa prihlásiť. 
-	  </div>
-	</c:if>
 	<c:if test="${loginFailed}">
 	  <div>
 	   Prihlásenie sa nepodarilo. Príčina:   ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}

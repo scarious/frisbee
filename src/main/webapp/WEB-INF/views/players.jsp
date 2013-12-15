@@ -46,14 +46,8 @@
 			Vyhľadávanie: <input type="text" size="25" maxlength="50"/>	
 			<input type="submit" name="Hľadaj" title="asd" value="Hľadaj"/>
 		</div>
-	<div id="centerContent" class="topFiveMain">
-	<table>
-			<tr class="grayRow"><td>Meno a priezvisko (prezývka)</td><td>Krajina</td><td>Tím</td><td>Profil</td></tr>
-			<c:forEach var="players" items="${playersData}" varStatus="status">
-				<tr><td>${players.firstName} ${players.lastName}</td><td>${players.address.country}</td><td>${playersTeam[status.index].name}</td><td><a href="profile?id=${players.player_id}">Profil</a></td></tr>
-			</c:forEach>
-	</table>
-	</div>
+	
+	
 	
 	</div>
 	<c:import url="import/footer.jsp"></c:import>

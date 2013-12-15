@@ -2,12 +2,10 @@ package sk.frisbee.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.sql.DataSource;
 
@@ -22,7 +20,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import sk.frisbee.aplikacia.DateFormatCustom;
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
 import sk.frisbee.domain.Roster;
@@ -46,11 +43,11 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	}
 
 	@Override
-	public User getUser(Integer id_user) {
+	public User getUser(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		//String SQL = "SELECT * FROM login_data WHERE id_user = " + id;
 		List<User> user = (List<User>) jdbcTemplate.query(
-				"SELECT * FROM login_data WHERE id_user = " + id_user,
+				"SELECT * FROM login_data WHERE id_user = " + id,
 				new UserMapper());
 		jdbcTemplate = null;
 		return user.get(0);
@@ -89,8 +86,20 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 			player.setLastName(rs.getString("priezvisko"));
 			player.setDisciplines(rs.getString("discipliny"));
 			player.setAddress(new Address(null, null, rs.getString("mesto"), null, rs.getString("krajina")));
-			player.setDateOfBirth(DateFormatCustom.fromDB(rs.getString("datum_narodenia")));
-			player.setActiveSince(DateFormatCustom.fromDB(rs.getString("aktivny_od")));
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date dNar, dActive;
+				if(rs.getString("datum_narodenia") != null || rs.getString("aktivny_od") != null) {
+					dNar = sdf.parse(rs.getString("datum_narodenia"));
+					player.setDateOfBirth(dNar);
+					dActive = sdf.parse(rs.getString("aktivny_od"));
+					player.setActiveSince(dActive);
+				}
+				
+				sdf = null; dNar = null; dActive = null;
+			} catch (ParseException | NullPointerException e) {
+				e.printStackTrace();
+			}
 			player.setPohlavie(rs.getString("pohlavie"));
 			player.setHeight(rs.getInt("vyska"));
 			player.setDominantHand(rs.getString("dominantna_ruka"));
@@ -111,11 +120,11 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 
 
 	@Override
-	public Player getPlayer(Integer id_hrac) {
+	public Player getPlayer(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		//String SQL = "SELECT * FROM profil_hrac WHERE id_hrac = " + id + "LIMIT 1";
 		List<Player> player = (List<Player>) jdbcTemplate.query(
-				"SELECT * FROM profil_hrac WHERE id_hrac = " + id_hrac,
+				"SELECT * FROM profil_hrac WHERE id_hrac = " + id,
 				new PlayerMapper());
 		jdbcTemplate = null;	
 		if(player.size() == 0) return null;
@@ -164,9 +173,9 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	}
 
 	@Override
-	public Address getAddresForPlayerId(Integer id_hrac) {
+	public Address getAddresForPlayerId(Integer id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "SELECT mesto,krajina FROM profil_hrac WHERE id_hrac=" + id_hrac;
+		String SQL = "SELECT mesto,krajina FROM profil_hrac WHERE id_hrac=" + id;
 		List<Address> address = (List<Address>) jdbcTemplate.query(SQL, new AddressMapper());
 		return address.get(0);
 	}
@@ -195,21 +204,14 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 
 	@Override
 	public void updatePlayer(Player updatedPlayer) {
-		Date dNar = updatedPlayer.getDateOfBirth();
-		Date dAct = updatedPlayer.getActiveSince();
-		
-		
 		String SQL = "UPDATE profil_hrac SET " +
 				"meno=\"" + updatedPlayer.getFirstName()  + "\", " +
 				"priezvisko=\"" + updatedPlayer.getLastName()  + "\", " +
 				"discipliny=\"" + updatedPlayer.getDisciplines() + "\", " +
 				//"mesto=\"" + updatedPlayer.getAddress().getCity() + "\", " +
 				//"krajina=\"" + updatedPlayer.getAddress().getCountry() + "\"," +
-				"datum_narodenia=\"" + DateFormatCustom.dateForDB(dNar) + "\", " +
 				"pohlavie=\"" + updatedPlayer.getPohlavie() + "\", " +
-				"vyska=" + updatedPlayer.getHeight() + ", " +
-				"dominantna_ruka=\"" + updatedPlayer.getDominantHand() + "\", " +
-				"aktivny_od=\"" + DateFormatCustom.dateForDB(dAct) + "\"" +
+				"vyska=" + updatedPlayer.getHeight() + 
 				" WHERE id_user=" + updatedPlayer.getUser_id();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute(SQL);
@@ -284,7 +286,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	@Override
 	public void addPlayer(Player player, Integer user_id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO profil_hrac (`id_user`, `meno`,`priezvisko`,`discipliny`,`mesto`,`krajina`,`datum_narodenia`,`pohlavie`,`vyska`,`dominantna_ruka`,`aktivny_od`)" + 
+		String SQL = "INSERT INTO profil_hrac (`id_user`, `meno`,`priezvisko`,`discipliny`,`mesto`,`krajina`,`pohlavie`,`vyska`,`dominantna_ruka`)" + 
 		"VALUES (" + 
 						user_id + ", " +
 				"\"" + player.getFirstName() + "\"," +
@@ -292,11 +294,11 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 				"\"" + player.getDisciplines() + "\"," +
 				"\"" + player.getAddress().getCity() + "\"," +
 				"\"" + player.getAddress().getCountry() + "\"," +
-				"\"" + DateFormatCustom.dateForDB(player.getDateOfBirth()) + "\"," +
+		//		"\"" + player.getDateOfBirth().toString() + "\"," +
 				"\"" + player.getPohlavie() + "\"," +
 				player.getHeight() + "," +
-				"\"" + player.getDominantHand() + "\"," +
-				"\"" + DateFormatCustom.dateForDB(player.getActiveSince()) + "\"" +
+				"\"" + player.getDominantHand() + "\"" +
+			//	"\"" + player.getActiveSince().toString() +"\""
 						 ")";
 	   jdbcTemplate.execute(SQL);
 	   jdbcTemplate = null;

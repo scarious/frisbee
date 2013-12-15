@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 
 public class Player implements Serializable {
 
@@ -27,10 +25,8 @@ public class Player implements Serializable {
 
     private String dominantHand;
     
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
     
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date activeSince;
     
     private String urlImage;

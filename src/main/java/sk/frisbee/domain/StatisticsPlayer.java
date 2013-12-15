@@ -39,10 +39,6 @@ public class StatisticsPlayer implements Serializable {
 		return sent_passes;
 	}
 
-	public void setPlayer_id(Integer player_id) {
-		this.player_id = player_id;
-	}
-	
 	public void setSent_passes(Integer sent_passes) {
 		this.sent_passes = sent_passes;
 	}
