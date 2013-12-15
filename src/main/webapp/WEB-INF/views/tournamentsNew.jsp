@@ -12,6 +12,32 @@
 <script type="text/javascript">
 var schedule = true; // global
 </script>
+
+<script type="text/javascript">
+function addTeam(){
+	var selected = document.getElementById('zoznamTimov').options[document.getElementById('zoznamTimov').selectedIndex];
+	var options = '\<option\>' + selected.innerHTML;
+
+
+	var second = document.getElementById('zoznamPridanychTimov');
+	var options = second.innerHTML + options;
+	var i = 1;
+	second.innerHTML = options;
+	document.getElementById('zoznamTimov').remove(document.getElementById('zoznamTimov').selectedIndex);
+	schedule = true;
+}
+function removeTeam(){
+	var selected = document.getElementById('zoznamPridanychTimov').options[document.getElementById('zoznamPridanychTimov').selectedIndex];
+	var options = '\<option\>' + selected.innerHTML;
+
+	var second = document.getElementById('zoznamTimov');
+	var options = second.innerHTML + options;
+	var i = 1;
+	second.innerHTML = options;
+	document.getElementById('zoznamPridanychTimov').remove(document.getElementById('zoznamPridanychTimov').selectedIndex);
+	schedule = true;
+}
+</script>
 </head>
 
 <body>
@@ -75,28 +101,9 @@ var schedule = true; // global
 							</script>
 						<!-- </form>  -->
 				</td><td>Rýchle hľadanie<br/><input id="textBoxSearch" type="text" value="" onkeyup="myfilter.set(this.value);"/></td>
-				<td><br/><input type="button" value="Pridaj" onclick="
-															var selected = document.getElementById('zoznamTimov').options[document.getElementById('zoznamTimov').selectedIndex];
-															var options = '\<option\>'+ selected.innerHTML;
-															
-															var second = document.getElementById('zoznamPridanychTimov');
-															var options = second.innerHTML + options;
-															var i = 1;
-															second.innerHTML = options;
-															document.getElementById('zoznamTimov').remove(document.getElementById('zoznamTimov').selectedIndex);
-															schedule = true;
-															" />
-					<input type="button" value="Odober" onclick="
-					var selected = document.getElementById('zoznamPridanychTimov').options[document.getElementById('zoznamPridanychTimov').selectedIndex];
-			     	var options = '\<option\>' + selected.innerHTML;
-					
-					var second = document.getElementById('zoznamTimov');
-					var options = second.innerHTML + options;
-					var i = 1;
-					second.innerHTML = options;
-					document.getElementById('zoznamPridanychTimov').remove(document.getElementById('zoznamPridanychTimov').selectedIndex);
-					schedule = true;
-					" />
+				<td><br/><input type="button" value="Pridaj" onclick= "addTeam()" />
+				
+					<input type="button" value="Odober" onclick="removeTeam()" />
 															</td>
 				<td><select id="zoznamPridanychTimov" multiple="multiple" size="6"></select></td></tr>
 				<td><br/><input type="button" id ="gen" value="Generuj rozpis" onclick="
@@ -105,11 +112,8 @@ var schedule = true; // global
 				var aktual = document.getElementById('zoznamPridanychTimov').length;
 				var tabrozpis = document.getElementById('rozpis');
 				var tabskupiny = document.getElementById('skupiny');
-				var bool = schedule;
-				 schedulegen(minpocet,aktual,tabrozpis,tabskupiny,schedule);
-
 				
-				 
+				 schedulegen(minpocet,aktual,tabrozpis,tabskupiny,schedule);
 				 " /></td>
 			</table>
 			<table id="skupiny" align="left"><tr><td>Skupiny</td></table>

@@ -237,7 +237,7 @@ function schedulegen(minpocet,aktual,tabrozpis,tabskupiny,bool){
 			var row19 = table.insertRow(19);
 			var row20 = table.insertRow(20);
 			var row21 = table.insertRow(21);
-			var row21 = table.insertRow(22);
+			var row22 = table.insertRow(22);
 
 
 		var cell1 = row1.insertCell(0);
@@ -320,10 +320,10 @@ function schedulegen(minpocet,aktual,tabrozpis,tabskupiny,bool){
 		cell5.innerHTML = 'A4';
 		
 		cell6.innerHTML = 'Skupina B';
-		cell7.innerHTML = 'B5';
-		cell8.innerHTML = 'B6';
-		cell9.innerHTML = 'B7';
-		cell10.innerHTML = 'B8';
+		cell7.innerHTML = 'B1';
+		cell8.innerHTML = 'B2';
+		cell9.innerHTML = 'B3';
+		cell10.innerHTML = 'B4';
 			break;
 			
 		case 9:

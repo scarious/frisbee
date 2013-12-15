@@ -43,8 +43,9 @@
 			<br/>
 			<table>
 				
-				<tr><td><p>Pridaj hráčov:<br/><small><a href="#">Obnov zoznam</a></small></p></td><td>
-						
+				<tr><td><p>Pridaj hráčov:<br/><small><a href="#">Obnov zoznam</a>
+				</small></p></td><td>
+
 						<select id="zoznamHracov" multiple="multiple" size="6">
 							<c:forEach var="players" items="${playerData}">
 							<option value="${players.player_id}">${players.firstName} ${players.lastName}</option>
@@ -57,28 +58,58 @@
 							</script>
 						
 				</td><td>Rýchle hľadanie<br/><input id="textBoxSearch" type="text" value="" onkeyup="myfilter.set(this.value);"/></td>
-				<td><br/><input type="button" value="Pridaj" onclick="moveToAnotherList()" /></td>
+				<td><br/><input type="button" value="Pridaj" onclick="moveToAnotherList()" />
+				<input type="button" value="Odober" onclick="remove_player()" /></td>
 				<td><select name="zoznamPridanychHracov" id="zoznamPridanychHracov" multiple="multiple" size="6"></select></td></tr>
 				
 			</table>
 			<br/>
 			<script type="text/javascript">
 				function moveToAnotherList(){
+					try{
 					var selected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex];
 					var idFromSelected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex].value;
 					var options = '\<option value\=' + idFromSelected + '\>' + selected.innerHTML;
-					
-
-					
+				
 					var second = document.getElementById('zoznamPridanychHracov');
 					var options = second.innerHTML + options;
 					
 					second.innerHTML = options;
 					
 					addIdForParsing();
+					document.getElementById('zoznamHracov').remove(document.getElementById('zoznamHracov').selectedIndex);
+					}
+					catch(err){}
 				}	
+				
+				function remove_player(){
+					try{
+					var selected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex];
+					var idFromSelected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex].value;
+					var options = '\<option value\=' + idFromSelected + '\>' + selected.innerHTML;
+					
+
+					
+					var second = document.getElementById('zoznamHracov');
+					var options = second.innerHTML + options;
+					
+					second.innerHTML = options;
+					
+					addIdForParsing();
+					document.getElementById('zoznamPridanychHracov').remove(document.getElementById('zoznamPridanychHracov').selectedIndex);
+					}catch(err){}
+// 				var selected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex];
+// 				var options = '\<option\>' + selected.innerHTML;
+// 				var second = document.getElementById('zoznamHracov');
+// 				var options = second.innerHTML + options;
+// 				var i = 1;
+// 				second.innerHTML = options;
+// 				document.getElementById('zoznamPridanychHracov').remove(document.getElementById('zoznamPridanychHracov').selectedIndex);
+						
+				}
 			
 				function addIdForParsing(){
+					
 					var dlzkaZoznamu = document.getElementById('zoznamPridanychHracov').length;
 					var temp = "";
 					for(var i=0;i<dlzkaZoznamu;i++){

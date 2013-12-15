@@ -46,7 +46,7 @@
 					</script>
 				<a href="playersTop">Viac...</a>
 			</div>
-			<div class="topFiveMain">
+			<div class="topFiveMain" style=" vertical-align: top;">
 				<p>TOP Tímy<br/></p>
 				<table id="topTeamsIndexTable">
 					<tr class="grayRow"><td>Poradie</td><td>Názov</td><td>Skóre</td></tr>
@@ -65,7 +65,7 @@
 					</script>
 				<a href="teamsTop">Viac...</a>
 			</div>
-			<div class="topFiveMain">
+			<div class="topFiveMain" style=" vertical-align: top;">
 				<p>Najbližšie turnaje<br/></p>
 				<table>
 					<tr class="grayRow"><td>Dátum</td><td>Názov</td><td>Krajina</td><td>Mesto</td></tr>
