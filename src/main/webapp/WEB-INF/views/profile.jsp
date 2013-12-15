@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -66,16 +67,16 @@
 															</select>
 												</td></tr>
 					<tr><td class="boldTextTd">Dátum narodenia:</td><td class="elementsContainer">
-																		<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.dateOfBirth}</p>
-																		<input class="editOnly" style="visibility: hidden;" type="text" name="dateOfBirth2" value="${loggedPlayerData.dateOfBirth}"/>
+																		<p class="viewOnly" style="visibility: visible;"><fmt:formatDate value="${loggedPlayerData.dateOfBirth}" pattern="yyyy-MM-dd" /></p>
+																		<input class="editOnly" style="visibility: hidden;" type="text" name="dateOfBirth" value="<fmt:formatDate value="${loggedPlayerData.dateOfBirth}" pattern="yyyy-MM-dd" />"/>
 																	</td></tr>
 					<tr><td class="boldTextTd">Pohlavie:</td><td class="elementsContainer">
 																<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.pohlavie}</p>
 																<input class="editOnly" style="visibility: hidden;" type="text" name="pohlavie" value="${loggedPlayerData.pohlavie}"/>
 															 </td></tr>
 					<tr><td class="boldTextTd">Hráčom od:</td><td class="elementsContainer">
-																<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.activeSince}</p>
-																<input class="editOnly" style="visibility: hidden;" type="text" name="activeSince2" value="${loggedPlayerData.activeSince}"/>
+																<p class="viewOnly" style="visibility: visible;"><fmt:formatDate value="${loggedPlayerData.activeSince}" pattern="yyyy-MM-dd" /></p>
+																<input class="editOnly" style="visibility: hidden;" type="text" name="activeSince" value="<fmt:formatDate value="${loggedPlayerData.activeSince}" pattern="yyyy-MM-dd" />"/>
 															  </td></tr>
 					<tr><td class="boldTextTd">Dominantná ruka:</td><td class="elementsContainer">
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.dominantHand}</p>

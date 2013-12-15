@@ -14,15 +14,15 @@ public class Team  implements Serializable {
 
     private Integer team_id;
     
-    private Integer user_id;
+	private Integer user_id;
 
     private String name;
     
     private String disciplines;
     
-    private Integer phone = 0;
+    //private Integer phone = 0;
     
-    private String city, country, contact_name, contact_email, contact_fb, contact_phone, trainings;
+    private String city, country, contact_name, contact_email, contact_fb, contact_phone = "0", trainings;
     
     private List<Player> players = new ArrayList<Player>();
     
@@ -38,6 +38,10 @@ public class Team  implements Serializable {
 		return team_id;
 	}
 
+    public void setTeam_id(Integer team_id) {
+		this.team_id = team_id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -50,9 +54,9 @@ public class Team  implements Serializable {
 		return user_id;
 	}
 	
-	public void setUserId(Integer user_id) {
+	/*public void setUserId(Integer user_id) {
 		this.user_id = user_id;
-	}
+	}*/
 
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
@@ -130,8 +134,8 @@ public class Team  implements Serializable {
 		this.contact_email = contact_email;
 	}
 
-	public Integer getContactPhone() {
-		return phone;
+	public String getContactPhone() {
+		return contact_phone;
 	}
 
 	public String getCountry() {

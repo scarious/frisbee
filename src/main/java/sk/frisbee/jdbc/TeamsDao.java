@@ -16,6 +16,8 @@ public interface TeamsDao {
 	
 	public List<Tournament> getTeamTournaments();
 	
+	public List<Team> getPlayersTeams(Integer id_hrac);
+	
 	public Team getTeam(Integer id);
 	
 	public void addTeam(Team team);

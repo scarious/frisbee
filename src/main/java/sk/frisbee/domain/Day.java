@@ -3,9 +3,13 @@ package sk.frisbee.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Day {
 
 	private List<Tournament> tournaments;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	
 	public List<Tournament> getTournaments() {

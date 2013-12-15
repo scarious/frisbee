@@ -52,7 +52,10 @@ public class StatisticsDaoImpl implements StatisticsDao{
 	public List<StatisticsPlayer> getAllPlayerStats() {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		//String SQL = "SELECT * FROM frisbee.statistika_hrac ORDER BY body DESC";
-		String SQL = "SELECT profil_hrac.id_hrac, body, meno, priezvisko FROM frisbee.statistika_hrac, frisbee.profil_hrac WHERE statistika_hrac.id_hrac=profil_hrac.id_hrac ORDER BY body DESC";
+		String SQL = "SELECT profil_hrac.id_hrac, id_statH, prihravky, uspesne_prihravky, dropy, obrany, body, meno, priezvisko "
+				+ "FROM frisbee.statistika_hrac, frisbee.profil_hrac "
+				+ "WHERE statistika_hrac.id_hrac=profil_hrac.id_hrac "
+				+ "ORDER BY body DESC";
 		List<StatisticsPlayer> stats = (List<StatisticsPlayer>) jdbcTemplate.query(SQL, new PlayerStatsMapper());
 		jdbcTemplate = null;
 		return stats;
@@ -62,6 +65,11 @@ public class StatisticsDaoImpl implements StatisticsDao{
 		@Override
 		public StatisticsPlayer mapRow(ResultSet rs, int rowNum) throws SQLException {
 			StatisticsPlayer stats = new StatisticsPlayer();
+			stats.setStatid(rs.getInt("id_statH"));
+			stats.setSent_passes(rs.getInt("prihravky"));
+			stats.setSuccessfull_passes(rs.getInt("uspesne_prihravky"));
+			stats.setDefences(rs.getInt("obrany"));
+			stats.setDrops(rs.getInt("dropy"));
 			stats.setPoints(rs.getInt("body"));
 			stats.setPlayerid(rs.getInt("profil_hrac.id_hrac"));
 			stats.setName(rs.getString("meno") + " " + rs.getString("priezvisko"));

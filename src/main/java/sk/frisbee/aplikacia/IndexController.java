@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import sk.frisbee.domain.Player;
@@ -86,9 +87,18 @@ public class IndexController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
+		
+		//Nacitanie statistik podla poctu bodov
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		ModelAndView maw = new ModelAndView("playersTop", "topUsersList", topUsersList);
 		
+		List<Player> players = new ArrayList<Player>();
+		
+		for(StatisticsPlayer s: topUsersList){
+			players.add(usersDao.getPlayer(s.getPlayer_id()));
+		}
+		
+		maw.addObject("topPlayersInfo", players);
 		maw.addObject("pageTitle", "Top Players");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
@@ -116,6 +126,17 @@ public class IndexController {
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("loginFailed", true);
 		return "login";  
+	 } 
+	 
+	 @RequestMapping(value="/login", params="regOk")  
+	 public String loginAfterRegister(ModelMap model) {  
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		String formattedDate = dateFormat.format(date);
+			
+		model.addAttribute("serverTime", formattedDate);
+		model.addAttribute("regOk", true);
+		return "login";  
 	 }  
 	   
 	 @RequestMapping(value="/logout", method = RequestMethod.GET)  
@@ -123,7 +144,6 @@ public class IndexController {
 		 String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 	  model.addAttribute("loggedUserName", loggedUserName);
 	  return "login";  
-	   
 	 }  
 	
 	@RequestMapping(value = "/newTeam")
@@ -157,6 +177,7 @@ public class IndexController {
 		
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
 		team.setUser_id(loggedUserData.getUser_id());
+		
 		//Pridanie noveho timu do DB
 		//teamsDao.addTeam(team);
 		Integer newTeamId = teamsDao.addTeamWithReturnVal(team);
@@ -172,6 +193,7 @@ public class IndexController {
 		    playersFromParsedData.add(forAdding);
 			System.out.println(pId);
 		}
+		
 		System.out.println("Returned ID:" + newTeamId);
 		teamsDao.addPlayersToTeam(newTeamId, playersFromParsedData);
 		
@@ -192,7 +214,23 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("players", "date", date);
 		
-		maw.addObject("pageTitle", "Login");
+		
+		List<Player> player = usersDao.getAllPlayerData();
+		List<Team> teams = new ArrayList<Team>();
+		
+		for(Player p: player){
+			if(teamsDao.getPlayersTeams(p.getPlayer_id()).size() != 0){
+				Team sTimom = teamsDao.getPlayersTeams(p.getPlayer_id()).get(0);
+				teams.add(sTimom);
+			} else {
+				Team bezTimu = new Team();
+				bezTimu.setName("nie je v tíme");
+			}
+		}
+		
+		maw.addObject("playersTeam", teams);
+		maw.addObject("playersData", player);
+		maw.addObject("pageTitle", "Hráči");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -202,13 +240,28 @@ public class IndexController {
 	
 	
 	@RequestMapping(value = "/profileTeam", method = RequestMethod.GET)
-	public ModelAndView getTeamProfile() {
+	public ModelAndView getTeamProfile(@RequestParam(value = "id", required = true) String team_id) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("profileTeam", "date", date);
 		
+		//Ziskanie udajov o time z DB podla team_id
+		Team teamData = teamsDao.getTeam(Integer.parseInt(team_id));
+		User user = usersDao.getUserByUsername(loggedUserName);
+		if(teamData.getUserId() == user.getUser_id()){
+			maw.addObject("hadEditRight", "yes");
+		}
+		
+		//Parsing treningov
+		//TOTO CEZ JS vid: profileTeam.jsp
+		
+		//Nacitavanie hracov v time
+		List<Player> playersInTeam = teamsDao.getPlayersInTeam(Integer.parseInt(team_id));
+		
+		maw.addObject("playersInTeam", playersInTeam);
+		maw.addObject("teamData", teamData);
 		maw.addObject("pageTitle", "Profil tim");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);

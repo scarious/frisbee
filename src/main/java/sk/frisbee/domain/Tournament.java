@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Tournament implements Serializable {
 
 	/**
@@ -28,7 +30,10 @@ public class Tournament implements Serializable {
 	
 	private String format;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
+	
+	private Integer durationDays;
 	
 	private String country;
 	
@@ -166,6 +171,14 @@ public class Tournament implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Integer getDurationDays() {
+		return durationDays;
+	}
+
+	public void setDurationDays(Integer durationDays) {
+		this.durationDays = durationDays;
 	}
 	
 }
