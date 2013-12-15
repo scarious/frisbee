@@ -130,7 +130,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 	@Override
 	public void addTournament(Tournament tournament) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO profil_turnaj (nazov, discipliny, povrch, divizie, uroven_hry, format, datum, miesto, gps, krajina, kontakt) "
+		String SQL = "INSERT INTO profil_turnaj (meno, discipliny, povrch, divizie, uroven_hry, format, datum, miesto, gps, krajina, kontakt) "
 				+ "VALUES ("
 				+ "\"" + tournament.getName() + "\", "
 				+ "\"" + tournament.getDisciplines() + "\", "
@@ -153,7 +153,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 		KeyHolder holder = new GeneratedKeyHolder();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		final String SQL = "INSERT INTO profil_turnaj "
-				+ "(nazov, discipliny, povrch, divizie, uroven_hry, format, datum, miesto, gps, krajina, kontakt) "
+				+ "(meno, discipliny, povrch, divizie, uroven_hry, format, datum, miesto, gps, krajina, kontakt) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override

@@ -15,7 +15,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import sk.frisbee.domain.Player;
@@ -203,7 +202,7 @@ public class IndexController {
 	
 	
 	@RequestMapping(value = "/profileTeam", method = RequestMethod.GET)
-	public ModelAndView getTeamProfile(@RequestParam(value = "id", required = false) String team_id) {
+	public ModelAndView getTeamProfile() {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
@@ -307,11 +306,10 @@ public class IndexController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
-		System.out.println("Preslo");
 		
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
-		//tournament.setId_user(loggedUserData.getUser_id());
-		//tournamentsDao.addTournamentWithReturnVal(tournament);
+		tournament.setId_user(loggedUserData.getUser_id());
+		tournamentsDao.addTournamentWithReturnVal(tournament);
 		//tournamentsDao.addTournament(tournament);
 		ModelAndView maw = new ModelAndView("tournamentsNew", "date", date);
 		

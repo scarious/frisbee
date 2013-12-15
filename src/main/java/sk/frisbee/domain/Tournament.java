@@ -85,7 +85,7 @@ public class Tournament implements Serializable {
 	}
 
 	public void setDivision(String division) {
-		this.division = division;
+		this.division = "zeny";
 	}
 
 	public String getLevel_of_play() {
