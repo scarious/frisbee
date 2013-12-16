@@ -29,7 +29,7 @@
 			<script type="text/javascript">
 						var table = document.getElementById('topTeams');
 						var totalRows = table.getElementsByTagName("tr").length;
-						for(var i=0;i<totalRows;i++){
+						for(var i=0;i<totalRows-1;i++){
 							table.rows[i+1].cells[0].innerHTML = i+1;
 						}
 			</script>

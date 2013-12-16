@@ -63,6 +63,7 @@ public class IndexController {
 		
 		//Vytvorenie zoznamu najlepsich timov, nacitanie statistiky z DB + ziskanie nazvu timov pre danu statistiku podla id
 		List<StatisticsTeam> topTeamsList = statsDao.getAllTeamStats();
+//		List<Team> topTeamsList = teamsDao.getAllTeamsData();
 		List<Team> topTeamsListData = new ArrayList<Team>();
 		for(StatisticsTeam s : topTeamsList){
 			topTeamsListData.add(teamsDao.getTeam(s.getTeam_id()));

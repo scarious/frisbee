@@ -15,7 +15,7 @@
 							function doSearch(text) {
     var searchText = text.toLowerCase();
     var targetTable = document.getElementById('tabulka');
-    var targetTableColCount;
+    var targetTableColCount=0;
             
     //Loop through table rows
     for (var rowIndex = 0; rowIndex < targetTable.rows.length; rowIndex++) {
@@ -23,12 +23,12 @@
 
         //Get column count from header row
         if (rowIndex == 0) {
-           targetTableColCount = targetTable.rows.item(rowIndex).cells.length;
+         //  targetTableColCount = targetTable.rows.item(rowIndex).cells.length;
            continue; //do not execute further code for header row.
         }
                 
         //Process data rows. (rowIndex >= 1)
-        for (var colIndex = 0; colIndex < targetTableColCount; colIndex++) {
+        for (var colIndex = 0; colIndex <= targetTableColCount; colIndex++) {
             rowData += targetTable.rows.item(rowIndex).cells.item(colIndex).textContent.toLowerCase();
         }
 

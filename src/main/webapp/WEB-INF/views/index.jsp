@@ -16,7 +16,7 @@
 		    mapTypeId: google.maps.MapTypeId.ROADMAP
 		  }
 		  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		    		
+		  
 		}
 		google.maps.event.addDomListener(window, 'load', initialize);
 	</script>
@@ -40,7 +40,7 @@
 					<script type="text/javascript">
 						var table = document.getElementById('topPlayersIndexTable');
 						var totalRows = table.getElementsByTagName("tr").length;
-						for(var i=0;i<totalRows;i++){
+						for(var i=0;i<totalRows-1;i++){
 							table.rows[i+1].cells[0].innerHTML = i+1;
 						}
 					</script>
@@ -53,13 +53,13 @@
 					
 					<c:forEach var="teams" items="${topTeamsList}" varStatus="status" end="10">
 					<tr><td></td><td>${topTeamsListData[status.index].name}</td><td>${teams.points}</td></tr>
-					
+					 
 					</c:forEach>
 				</table>
 					<script type="text/javascript">
 						var table = document.getElementById('topTeamsIndexTable');
 						var totalRows = table.getElementsByTagName("tr").length;
-						for(var i=0;i<totalRows;i++){
+						for(var i=0;i<totalRows-1;i++){
 							table.rows[i+1].cells[0].innerHTML = i+1;
 						}
 					</script>
