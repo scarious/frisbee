@@ -179,11 +179,11 @@ p {
    color: red;
    background-color: white;
    font-family: "Lucida Grande", "Arial", sans-serif;
-   font-size: 11px;
+   font-size: 11pt;
    font-weight: bold;
    text-align: center;
-   width: 60px;     
-   border: 1px solid red;
+   width: 60pt;     
+   border: 1pt solid red;
  }
 
 

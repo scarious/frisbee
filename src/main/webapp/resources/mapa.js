@@ -49,7 +49,7 @@ var marker = [];
 			   draggable: false,
 			   map: map,
 			   labelContent: "Miesto konania tréningov",
-			   labelAnchor: new google.maps.Point(22, 0),
+			   labelAnchor: new google.maps.Point(40, 75),
 			   labelClass: "popisZnacky", // the CSS class for the label
 			   labelStyle: {opacity: 0.65}
 			 });
