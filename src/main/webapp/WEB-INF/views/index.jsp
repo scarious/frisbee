@@ -84,7 +84,9 @@
 		    </div>
 		    <div id="map-canvas"></div>
 		</div>
-		
+		<c:forEach var="teamsWithGps" items="${teamsWithGps}" varStatus="status">
+			<input type="hidden" value
+		</c:forEach>
 		</div>
 
 	<c:import url="import/footer.jsp"></c:import>

@@ -36,13 +36,23 @@ var marker = [];
 		if(marker[0] != undefined)
 			marker[0].setMap(null);
 		
-		marker[0] = new google.maps.Marker({
-			map:map,
-			draggable:true,
-			labelContent: "asd",
-			animation: google.maps.Animation.DROP,
-			position: new google.maps.LatLng(mLat, mLng)
-		});
+	//	marker[0] = new google.maps.Marker({
+	//		map:map,
+	//		draggable:false,
+	//		labelContent: "asd",
+	//		animation: google.maps.Animation.DROP,
+	//		position: new google.maps.LatLng(mLat, mLng)
+	//	});
+		
+		marker[0] = new MarkerWithLabel({
+			   position: new google.maps.LatLng(mLat, mLng),
+			   draggable: false,
+			   map: map,
+			   labelContent: "Miesto konania tréningov",
+			   labelAnchor: new google.maps.Point(22, 0),
+			   labelClass: "popisZnacky", // the CSS class for the label
+			   labelStyle: {opacity: 0.65}
+			 });
 	}
 	
 	function putGpsForTeam(){

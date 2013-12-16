@@ -280,5 +280,15 @@ public class TeamsDaoImpl implements TeamsDao {
 		
 	}
 
+	@Override
+	public List<Team> getTeamsWithGps() {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		List<Team> teamsList = (List<Team>) jdbcTemplate.query(
+				"SELECT * FROM profil_tim WHERE gpsMiestoTreningu IS NOT NULL;",
+				new TeamMapper());
+		jdbcTemplate = null;	
+		return teamsList;
+	}
+
 
 }

@@ -12,6 +12,7 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYr2Hd6_FhH1YQCtDf4-8AGRM5qN4JiEY&sensor=true">
 </script>
 <script type="text/javascript" src='<c:url value="/resources/mapa.js"></c:url>'></script>
+
 </c:if>
 <title>${pageTitle}</title>
 </head>
