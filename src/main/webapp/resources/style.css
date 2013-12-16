@@ -157,41 +157,6 @@ p {
 }
 
 .editOnly {
-<<<<<<< HEAD
-=======
-	position:absolute; top:2pt; left:0;
-}
-
-#panelMapa {
-        position: relative;
-        top: 8px;
-        left: 50%;
-        width: 237pt;
-        margin-left: -180px;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-      }
-
-
-
-
-.popisZnacky {
-   color: red;
-   background-color: white;
-   font-family: "Lucida Grande", "Arial", sans-serif;
-   font-size: 11pt;
-   font-weight: bold;
-   text-align: center;
-   width: 60pt;     
-   border: 1pt solid red;
- }
-
-
-
-
->>>>>>> 8d91fdb1ebb436b85c2c368f777a40e86aa83c86
 
 	position:absolute; top:2pt; left:0;
 }
