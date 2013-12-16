@@ -1,4 +1,4 @@
-﻿html { height: 100% }
+html { height: 100% }
   
 body {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -76,6 +76,12 @@ p {
 }
 
 #centerContent{
+	width:auto;
+	display: table;
+	margin: 0 auto;
+}
+
+#centerContent2{
 	width:auto;
 	display: table;
 	margin: 0 auto;

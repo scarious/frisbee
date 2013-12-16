@@ -52,9 +52,9 @@
 							</c:forEach>
 						</select>
 						<script type="text/javascript">
-							<!--
+							
 							var myfilter = new filterlist(document.getElementById("zoznamHracov"));
-							//-->
+						
 							</script>
 						
 				</td><td>Rýchle hľadanie<br/><input id="textBoxSearch" type="text" value="" onkeyup="myfilter.set(this.value);"/></td>
