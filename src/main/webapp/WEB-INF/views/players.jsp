@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page session="false" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -50,7 +51,9 @@
 	<table>
 			<tr class="grayRow"><td>Meno a priezvisko (prezývka)</td><td>Krajina</td><td>Tím</td><td>Profil</td></tr>
 			<c:forEach var="players" items="${playersData}" varStatus="status">
-				<tr><td>${players.firstName} ${players.lastName}</td><td>${players.address.country}</td><td>${playersTeam[status.index].name}</td><td><a href="profile?id=${players.player_id}">Profil</a></td></tr>
+				<tr>
+					<td>${players.firstName} ${players.lastName}</td>
+					<td>${players.address.country}</td><td>${playersTeam[status.index].name}</td><td><a href="profile?id=${players.player_id}">Profil</a></td></tr>
 			</c:forEach>
 	</table>
 	</div>

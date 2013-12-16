@@ -131,6 +131,8 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 				"SELECT * FROM profil_hrac WHERE id_user = " + id_user,
 				new PlayerMapper());
 		jdbcTemplate = null;	
+		if(player.size() == 0) return null;
+		
 		return player.get(0);
 	}
 
@@ -203,8 +205,8 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 				"meno=\"" + updatedPlayer.getFirstName()  + "\", " +
 				"priezvisko=\"" + updatedPlayer.getLastName()  + "\", " +
 				"discipliny=\"" + updatedPlayer.getDisciplines() + "\", " +
-				//"mesto=\"" + updatedPlayer.getAddress().getCity() + "\", " +
-				//"krajina=\"" + updatedPlayer.getAddress().getCountry() + "\"," +
+				"mesto=\"" + updatedPlayer.getAddress().getCity() + "\", " +
+				"krajina=\"" + updatedPlayer.getAddress().getCountry() + "\"," +
 				"datum_narodenia=\"" + DateFormatCustom.dateForDB(dNar) + "\", " +
 				"pohlavie=\"" + updatedPlayer.getPohlavie() + "\", " +
 				"vyska=" + updatedPlayer.getHeight() + ", " +

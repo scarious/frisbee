@@ -16,7 +16,7 @@
 <div id="wrapper">
 	<c:import url="import/menu.jsp"></c:import>
 	<div id="content">
-	<c:if test="${empty loggedPlayerData}">
+	<c:if test="${empty loggedPlayerData and empty otherPlayerData}">
     	<div id="profileInfoNoData">
     		Nemáš ešte vytvorený profil hráča! <br />
     		Vytvoríš si ho po vyplnení údajov nižšie a kliknutí na tlačidlo "Vytvoriť profil" pod formulárom.
@@ -30,10 +30,10 @@
 		</c:if></h2>
 		<div id="profileInfo">
 			<c:if test="${(not empty loggedPlayerData) or (not empty otherPlayerData)}">
-				<form name="loginForm" action="/aplikacia/profile" method="post">
+				<form name="profileForm" action="/aplikacia/profile" method="post">
 			</c:if>
 			<c:if test="${empty loggedPlayerData}">
-				<form name="loginForm" action="/aplikacia/profile/New" method="post">
+				<form name="profileForm" action="/aplikacia/profile/New" method="post">
 			</c:if>
 				<table>
 					<tr><td class="boldTextTd">Meno:</td><td class="elementsContainer">
@@ -46,13 +46,18 @@
 															   </td></tr>
 					<tr><td class="boldTextTd">Mesto:</td><td class="elementsContainer">
 															<p class="viewOnly" style="visibility: visible;">${playerAddress.city}</p> 
-															<select class="editOnly" style="visibility: hidden;" name="city">
+															<select class="editOnly"style="visibility: hidden;" name="city">
 																  <optgroup label="Mestá">
-																    <option value="${playerAddress.city}">${playerAddress.city}</option>
-																    <option value="PO">PO</option>
-																    <option value="MI">MI</option>
-																    <option value="SL">SL</option>
-																    <option value="PP">PP</option>
+																    <c:if test="${playerAddress.city != null}">
+																	    	<option value="${playerAddress.city}">${playerAddress.city}</option>
+																	</c:if>
+																    <c:if test="${playerAddress.city != 'PO' }"><option value="PO">PO</option></c:if>
+																    <c:if test="${playerAddress.city != 'MI' }"><option value="MI">MI</option></c:if>
+																    <c:if test="${playerAddress.city != 'SL' }"><option value="SL">SL</option></c:if>
+																    <c:if test="${playerAddress.city != 'PP' }"><option value="PP">PP</option></c:if>
+																    <c:if test="${playerAddress.city != 'KE' }"><option value="KE">KE</option></c:if>
+																    <c:if test="${playerAddress.city != 'BA' }"><option value="BA">BA</option></c:if>
+																    <c:if test="${playerAddress.city != 'TN' }"><option value="TN">TN</option></c:if>
 																  </optgroup>
 															</select>
 												</td></tr>
@@ -60,9 +65,12 @@
 															<p class="viewOnly" style="visibility: visible;">${playerAddress.country}</p>
 															<select class="editOnly" style="visibility: hidden;" name="country">
 																  <optgroup label="Krajiny">
-																    <option value="${playerAddress.country}">${playerAddress.country}</option>
-																    <option value="Česko">Česko</option>
-																    <option value="Poľsko">Poľsko</option>
+																    <c:if test="${playerAddress.country != null}">
+																	    	<option value="${playerAddress.country}">${playerAddress.country}</option>
+																	</c:if>
+																    <c:if test="${playerAddress.country != 'Slovensko' }"><option value="Slovensko">Slovensko</option></c:if>
+																    <c:if test="${playerAddress.country != 'Česko' }"><option value="Česko">Česko</option></c:if>
+																    <c:if test="${playerAddress.country != 'Poľsko' }"><option value="Poľsko">Poľsko</option></c:if>
 																  </optgroup>
 															</select>
 												</td></tr>
@@ -72,15 +80,32 @@
 																	</td></tr>
 					<tr><td class="boldTextTd">Pohlavie:</td><td class="elementsContainer">
 																<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.pohlavie}</p>
-																<input class="editOnly" style="visibility: hidden;" type="text" name="pohlavie" value="${loggedPlayerData.pohlavie}"/>
-															 </td></tr>
+																<select class="editOnly" style="visibility: hidden;" name="pohlavie">
+																	  <optgroup label="Pohlavie">
+																	    <c:if test="${loggedPlayerData.pohlavie != null}">
+																	    	<option value="${loggedPlayerData.pohlavie}">${loggedPlayerData.pohlavie}</option>
+																	    </c:if>
+																	    <c:if test="${loggedPlayerData.pohlavie != 'Muž' }"><option value="Muž">Muž</option></c:if>
+																	    <c:if test="${loggedPlayerData.pohlavie != 'Žena' }"><option value="Žena">Žena</option></c:if>
+																	  </optgroup>
+																</select>
+									
+																 </td></tr>
 					<tr><td class="boldTextTd">Hráčom od:</td><td class="elementsContainer">
 																<p class="viewOnly" style="visibility: visible;"><fmt:formatDate value="${loggedPlayerData.activeSince}" pattern="yyyy-MM-dd" /></p>
 																<input class="editOnly" style="visibility: hidden;" type="text" name="activeSince" value="<fmt:formatDate value="${loggedPlayerData.activeSince}" pattern="yyyy-MM-dd" />"/>
 															  </td></tr>
 					<tr><td class="boldTextTd">Dominantná ruka:</td><td class="elementsContainer">
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.dominantHand}</p>
-																	<input class="editOnly" style="visibility: hidden;" type="text" name="dominantHand" value="${loggedPlayerData.dominantHand}"/>
+																	<select class="editOnly" style="visibility: hidden;" name="dominantHand">
+																	  <optgroup label="DominantnaRuka">
+																	    <c:if test="${loggedPlayerData.dominantHand != null}">
+																	    	<option value="${loggedPlayerData.dominantHand}">${loggedPlayerData.dominantHand}</option>
+																		</c:if>
+																	    <c:if test="${loggedPlayerData.dominantHand != 'pravá' }"><option value="pravá">Pravá</option></c:if>
+																	    <c:if test="${loggedPlayerData.dominantHand != 'ľavá' }"><option value="ľavá">Ľavá</option></c:if>
+																	  </optgroup>
+																	</select>
 																	</td></tr>
 					<tr><td class="boldTextTd">Výška:</td><td class="elementsContainer">
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.height}</p>
@@ -90,19 +115,29 @@
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.disciplines}</p>
 																	<input class="editOnly" style="visibility: hidden;" type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/>
 															   </td></tr>
-					<tr><td class="boldTextTd">Tím(y):</td><td class="elementsContainer"><br/>
+					<tr class="viewOnlyWithoutStyle"><td class="boldTextTd">Tím(y):</td>
+															<td class="elementsContainer"><br/>
+															<c:if test="${(not empty playerTeams)}">
+																<c:forEach var="teams" items="${playerTeams}" varStatus="status">
+																	<a href="profileTeam?id=${teams.team_id}">${teams.name}</a>
+																</c:forEach>
+															</c:if>
+															<c:if test="${(empty playerTeams)}">
+																<p>Hráč nie je v žiadnom tíme.</p>
+															</c:if>
 															</td></tr>
 					<c:if test="${(not empty loggedPlayerData) and (empty otherPlayerData)}">
-						<tr><td><input id="updProfileBtn" style="visibility: hidden;" type="submit" name="submit" value="Aktualizovať údaje"/></td><td></td></tr>
+						<tr><td><input id="updProfileBtn" class="btnForCheck" style="visibility: hidden;" onclick="kontrolaProfileForm()" type="button" name="submit" value="Aktualizovať údaje"/></td><td></td></tr>
 					</c:if>
 					<c:if test="${(empty loggedPlayerData) and (empty otherPlayerData)}">
-						<tr><td></td><td><input type="submit" name="submit" value="VYTVORIŤ PROFIL"/></td></tr>
+						<tr><td></td><td><input class="btnForCheck" onclick="kontrolaProfileForm()" type="button" name="submit" value="VYTVORIŤ PROFIL"/></td></tr>
 						<script type="text/javascript">
 							function showEditables(){
 								for(var i = 0; i<document.getElementsByClassName('viewOnly').length; i++){
 									document.getElementsByClassName('viewOnly')[i].style.visibility="hidden";
 									document.getElementsByClassName('editOnly')[i].style.visibility="visible";
 								}
+								document.getElementsByClassName('viewOnlyWithoutStyle')[0].style.visibility="hidden";
 							}
 							showEditables();
 						</script>
@@ -118,6 +153,7 @@
 							document.getElementsByClassName('viewOnly')[i].style.visibility="hidden";
 							document.getElementsByClassName('editOnly')[i].style.visibility="visible";
 						}
+						document.getElementsByClassName('viewOnlyWithoutStyle')[0].style.visibility="hidden";
 						document.getElementById('updProfileBtn').style.visibility="visible";
 						editable = false;
 					} else {
@@ -125,6 +161,7 @@
 							document.getElementsByClassName('viewOnly')[i].style.visibility="visible";
 							document.getElementsByClassName('editOnly')[i].style.visibility="hidden";
 						}
+						document.getElementsByClassName('viewOnlyWithoutStyle')[0].style.visibility="visible";
 						document.getElementById('updProfileBtn').style.visibility="hidden";
 						editable = true;
 					}
@@ -132,16 +169,46 @@
 				
 				}
 				
+				function kontrolaProfileForm(){
+					var input = new Array();
+					input[0] = document.forms['profileForm']['firstName'].value;
+					input[1] = document.forms['profileForm']['lastName'].value;
+					input[1] = document.forms['profileForm']['dateOfBirth'].value;
+					input[1] = document.forms['profileForm']['activeSince'].value;
+					input[1] = document.forms['profileForm']['height'].value;
+					
+					var allOk = true;
+					var error = "";
+					for(var i = 0; i < input.length; i++){
+						if (input[i] == null || input[i] == ""){
+							error = error + "\nVšetky polia musia byť vyplnené!";
+							allOk = false;
+							break;
+						} 
+					}
+					
+					if(allOk){
+						document.getElementsByClassName('btnForCheck')[0].type = "submit";
+						document.getElementsByClassName('btnForCheck')[1].type = "submit";
+					}else{
+						alert("Chyba" + error);
+					}
+					
+					
+				}
 				
 			</script>
 		</div>
 		<c:if test="${not empty loggedPlayerData}">
 			<div id="profileAvatar"><img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/></div>	
 			<br/><br/><br/>
-			<div id="centerContent">
+			<div id="centerContent" class="topFiveMain">
+				<p>Štatistika hráča</p>
 				<table>
-					<tr class="boldTextTd grayRow"><td>Odohrané zápasy</td><td>Výhry</td><td>Prehry</td></tr>
-					<tr style="text-align:center"><td>20</td><td>15</td><td>5</td></tr>
+					<tr class="boldTextTd grayRow"><td>Body</td><td>Prihrávky</td><td>Úspešné prihrávky</td><td>Dropy</td><td>Obrany</td></tr>
+					<c:if test="${(not empty loggedPlayerData) and (not empty playerStats)}">
+					<tr><td>${playerStats.points}</td><td>${playerStats.sent_passes}</td><td>${playerStats.successfull_passes}</td><td>${playerStats.drops}</td><td>${playerStats.defences}</td></tr>
+					</c:if>
 				</table>
 			</div>
 		</c:if>	
