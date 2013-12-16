@@ -119,7 +119,7 @@
 															<td class="elementsContainer"><br/>
 															<c:if test="${(not empty playerTeams)}">
 																<c:forEach var="teams" items="${playerTeams}" varStatus="status">
-																	<a href="profileTeam?id=${teams.team_id}">${teams.name}</a>
+																	<a href="profileTeam?id=${teams.team_id}">${teams.name}</a></br>
 																</c:forEach>
 															</c:if>
 															<c:if test="${(empty playerTeams)}">

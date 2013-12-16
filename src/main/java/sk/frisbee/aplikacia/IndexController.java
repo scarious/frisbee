@@ -172,7 +172,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		
 		System.out.println("Vytvoreny tim: " + team.getName() + " " + team.getPlayersForParsing());
-		ModelAndView maw = new ModelAndView("newTeam", "date", date);
+		//ModelAndView maw = new ModelAndView("newTeam", "date", date);
 		
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
 		team.setUser_id(loggedUserData.getUser_id());
@@ -193,15 +193,18 @@ public class IndexController {
 			System.out.println(pId);
 		}
 		
-		System.out.println("Returned ID:" + newTeamId);
 		teamsDao.addPlayersToTeam(newTeamId, playersFromParsedData);
 		
-		List<Player> playerData = usersDao.getAllPlayerData();
+		System.out.println("Returned ID:" + newTeamId);
+		ModelAndView maw = new ModelAndView("redirect:" + "profileTeam?id=" + newTeamId);
 		
-		maw.addObject("pageTitle", "Nový tým");
+		
+		//List<Player> playerData = usersDao.getAllPlayerData();
+		
+		/*maw.addObject("pageTitle", "Nový tým");
 		maw.addObject("playerData", playerData);
 		maw.addObject("serverTime", formattedDate );
-		maw.addObject("loggedUserName", loggedUserName);
+		maw.addObject("loggedUserName", loggedUserName);*/
 		return maw;
 	}
 	

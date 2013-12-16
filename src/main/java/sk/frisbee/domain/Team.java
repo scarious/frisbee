@@ -2,7 +2,10 @@ package sk.frisbee.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class Team  implements Serializable {
@@ -20,9 +23,10 @@ public class Team  implements Serializable {
     
     private String disciplines;
     
-    //private Integer phone = 0;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date datumZalozenia;
     
-    private String city, country, contact_name, contact_email, contact_fb, contact_phone = "0", trainings;
+	private String city, country, contact_name, contact_email, contact_fb, contact_phone = "0", trainings;
     
     private List<Player> players = new ArrayList<Player>();
     
@@ -168,5 +172,13 @@ public class Team  implements Serializable {
 
 	public void setPlayersForParsing(String playersForParsing) {
 		this.playersForParsing = playersForParsing;
+	}
+	
+    public Date getDatumZalozenia() {
+		return datumZalozenia;
+	}
+
+	public void setDatumZalozenia(Date datumZalozenia) {
+		this.datumZalozenia = datumZalozenia;
 	}
 }

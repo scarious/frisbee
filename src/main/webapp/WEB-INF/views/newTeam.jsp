@@ -20,9 +20,38 @@
 		<form id="centerContent" name="newTeamForm" method="post" action="/aplikacia/newTeam">
 			<table>
 				<tr><td>Názov tímu:</td><td><input name="name" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Mesto:</td><td><input name="city" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Krajina:</td><td><input name="country" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Dátum zalozenia:</td><td><input type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Mesto:</td><td>
+									<select name="city">
+																  <optgroup label="Mestá">
+																    <c:if test="${playerAddress.city != null}">
+																	    	<option value="${playerAddress.city}">${playerAddress.city}</option>
+																	</c:if>
+																    <c:if test="${playerAddress.city != 'PO' }"><option value="PO">PO</option></c:if>
+																    <c:if test="${playerAddress.city != 'MI' }"><option value="MI">MI</option></c:if>
+																    <c:if test="${playerAddress.city != 'SL' }"><option value="SL">SL</option></c:if>
+																    <c:if test="${playerAddress.city != 'PP' }"><option value="PP">PP</option></c:if>
+																    <c:if test="${playerAddress.city != 'KE' }"><option value="KE">KE</option></c:if>
+																    <c:if test="${playerAddress.city != 'BA' }"><option value="BA">BA</option></c:if>
+																    <c:if test="${playerAddress.city != 'TN' }"><option value="TN">TN</option></c:if>
+																  </optgroup>
+									</select>
+									</td>
+				</tr>
+				<tr><td>Krajina:</td><td>
+										
+										<select name="country">
+																  <optgroup label="Krajiny">
+																    <c:if test="${playerAddress.country != null}">
+																	    	<option value="${playerAddress.country}">${playerAddress.country}</option>
+																	</c:if>
+																    <c:if test="${playerAddress.country != 'Slovensko' }"><option value="Slovensko">Slovensko</option></c:if>
+																    <c:if test="${playerAddress.country != 'Česko' }"><option value="Česko">Česko</option></c:if>
+																    <c:if test="${playerAddress.country != 'Poľsko' }"><option value="Poľsko">Poľsko</option></c:if>
+																  </optgroup>
+										</select>
+									</td>
+				</tr>
+				<tr><td>Dátum zalozenia:</td><td><input name="datumZalozenia" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Web:</td><td><input name="website" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Kontakt (email):</td><td><input name="contact_email" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Kontakt (telefon):</td><td><input name="contact_phone" type="text" size="30" maxlength="50"/></td></tr>
@@ -32,14 +61,15 @@
 			<br/>
 			<table>
 				<tr class="boldTextTd"><td>Tréningy</td></tr>
-				<tr><td>Pondelok</td><td><input type="checkbox"/></td><td>o <input type="text"/> hod</td></tr>
-				<tr><td>Utorok</td><td><input type="checkbox"/></td><td>o <input type="text"/> hod</td></tr>
-				<tr><td>Streda</td><td><input type="checkbox"/></td><td>o <input type="text"/> hod</td></tr>
-				<tr><td>Štvrtok</td><td><input type="checkbox"/></td><td>o <input type="text"/> hod</td></tr>
-				<tr><td>Piatok</td><td><input type="checkbox"/></td><td>o <input type="text"/> hod</td></tr>
-				<tr><td>Sobota</td><td><input type="checkbox"/></td><td>o <input type="text"/> hod</td></tr>
-				<tr><td>Nedeľa</td><td><input type="checkbox"/></td><td>o <input type="text"/> hod</td></tr>
+				<tr><td>Pondelok</td><td><input id="poChk" type="checkbox"/></td><td>o <input id="poTime" type="text"/> hod</td></tr>
+				<tr><td>Utorok</td><td><input id="utChk" type="checkbox"/></td><td>o <input id="utTime" type="text"/> hod</td></tr>
+				<tr><td>Streda</td><td><input id="strChk" type="checkbox"/></td><td>o <input id="strTime" type="text"/> hod</td></tr>
+				<tr><td>Štvrtok</td><td><input id="stvChk" type="checkbox"/></td><td>o <input id="stvTime" type="text"/> hod</td></tr>
+				<tr><td>Piatok</td><td><input id="piChk" type="checkbox"/></td><td>o <input id="piTime" type="text"/> hod</td></tr>
+				<tr><td>Sobota</td><td><input id="soChk" type="checkbox"/></td><td>o <input id="soTime" type="text"/> hod</td></tr>
+				<tr><td>Nedeľa</td><td><input id="neChk" type="checkbox"/></td><td>o <input id="neTime" type="text"/> hod</td></tr>
 			</table>
+				<input type="hidden" value="" name="trainings"/>
 			<br/>
 			<table>
 				
@@ -64,65 +94,197 @@
 				
 			</table>
 			<br/>
-			<script type="text/javascript">
-				function moveToAnotherList(){
-					try{
-					var selected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex];
-					var idFromSelected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex].value;
-					var options = '\<option value\=' + idFromSelected + '\>' + selected.innerHTML;
-				
-					var second = document.getElementById('zoznamPridanychHracov');
-					var options = second.innerHTML + options;
-					
-					second.innerHTML = options;
-					
-					addIdForParsing();
-					document.getElementById('zoznamHracov').remove(document.getElementById('zoznamHracov').selectedIndex);
-					}
-					catch(err){}
-				}	
-				
-				function remove_player(){
-					try{
-					var selected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex];
-					var idFromSelected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex].value;
-					var options = '\<option value\=' + idFromSelected + '\>' + selected.innerHTML;
-					
-
-					
-					var second = document.getElementById('zoznamHracov');
-					var options = second.innerHTML + options;
-					
-					second.innerHTML = options;
-					
-					addIdForParsing();
-					document.getElementById('zoznamPridanychHracov').remove(document.getElementById('zoznamPridanychHracov').selectedIndex);
-					}catch(err){}
-// 				var selected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex];
-// 				var options = '\<option\>' + selected.innerHTML;
-// 				var second = document.getElementById('zoznamHracov');
-// 				var options = second.innerHTML + options;
-// 				var i = 1;
-// 				second.innerHTML = options;
-// 				document.getElementById('zoznamPridanychHracov').remove(document.getElementById('zoznamPridanychHracov').selectedIndex);
-						
-				}
-			
-				function addIdForParsing(){
-					
-					var dlzkaZoznamu = document.getElementById('zoznamPridanychHracov').length;
-					var temp = "";
-					for(var i=0;i<dlzkaZoznamu;i++){
-						temp = temp + document.getElementById('zoznamPridanychHracov').options[i].value + ";";
-					}
-					document.getElementById('playersForParsing').value = temp;
-				}
-				
-			</script>
 			<input type="hidden" name="playersForParsing" id="playersForParsing" value=""/>	
-			<input value="submit" type="submit" value="Vytvor tím"/>
+			<input class="btnForCheck" value="Vytvor tím" type="button" onclick="kontrolaTeamForm()"/>
 		</form>
-
+		<script type="text/javascript">
+			function moveToAnotherList(){
+				try{
+				var selected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex];
+				var idFromSelected = document.getElementById('zoznamHracov').options[document.getElementById('zoznamHracov').selectedIndex].value;
+				var options = '\<option value\=' + idFromSelected + '\>' + selected.innerHTML;
+			
+				var second = document.getElementById('zoznamPridanychHracov');
+				var options = second.innerHTML + options;
+				
+				second.innerHTML = options;
+				
+				addIdForParsing();
+				document.getElementById('zoznamHracov').remove(document.getElementById('zoznamHracov').selectedIndex);
+				
+				document.getElementById('textBoxSearch').value = "";
+				}
+				catch(err){}
+			}	
+			
+			function remove_player(){
+				try{
+				var selected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex];
+				var idFromSelected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex].value;
+				var options = '\<option value\=' + idFromSelected + '\>' + selected.innerHTML;
+				
+	
+				
+				var second = document.getElementById('zoznamHracov');
+				var options = second.innerHTML + options;
+				
+				second.innerHTML = options;
+				
+				addIdForParsing();
+				document.getElementById('zoznamPridanychHracov').remove(document.getElementById('zoznamPridanychHracov').selectedIndex);
+				}catch(err){}
+	//			var selected = document.getElementById('zoznamPridanychHracov').options[document.getElementById('zoznamPridanychHracov').selectedIndex];
+	//			var options = '\<option\>' + selected.innerHTML;
+	//			var second = document.getElementById('zoznamHracov');
+	//			var options = second.innerHTML + options;
+	//			var i = 1;
+	//			second.innerHTML = options;
+	//			document.getElementById('zoznamPridanychHracov').remove(document.getElementById('zoznamPridanychHracov').selectedIndex);
+					
+			}
+		
+			function addIdForParsing(){
+				
+				var dlzkaZoznamu = document.getElementById('zoznamPridanychHracov').length;
+				var temp = "";
+				for(var i=0;i<dlzkaZoznamu;i++){
+					temp = temp + document.getElementById('zoznamPridanychHracov').options[i].value + ";";
+				}
+				document.getElementById('playersForParsing').value = temp;
+			}
+			
+			function checkIfTimeIsOk(time){
+				var hh = time.split(":")[0];
+				var mm = time.split(":")[1];
+				if(isNaN(hh) || isNaN(mm)){
+					return false;
+				} else if(hh > 23 || mm > 59) {
+					return false;
+				}
+				return true;
+			}
+		
+			function concatTrainingData(){
+				var finalString = "";
+				var temp = "";
+				var error = false;
+				document.forms['newTeamForm']['trainings'].value;
+				
+				if(document.getElementById('poChk').checked){
+					temp = document.getElementById('poTime').value;
+					if(!checkIfTimeIsOk(temp)){
+						error = true;
+					}
+					finalString = finalString + "Po," + temp + ";";
+				} 
+				
+				if(document.getElementById('utChk').checked) {
+					temp = document.getElementById('utTime').value;
+					if(!checkIfTimeIsOk(temp)){
+						error = true;
+					}
+					finalString = finalString + "Ut," + temp + ";";
+				} 
+				
+				if(document.getElementById('strChk').checked) {
+					temp = document.getElementById('strTime').value;
+					if(!checkIfTimeIsOk(temp)){
+						error = true;
+					}
+					finalString = finalString + "Str," + temp + ";";
+				} 
+				
+				if(document.getElementById('stvChk').checked) {
+					temp = document.getElementById('stvTime').value;
+					if(!checkIfTimeIsOk(temp)){
+						error = true;
+					}
+					finalString = finalString + "Stv," + temp + ";";
+				} 
+				
+				if(document.getElementById('piChk').checked) {
+					temp = document.getElementById('piTime').value;
+					if(!checkIfTimeIsOk(temp)){
+						error = true;
+					}
+					finalString = finalString + "Pi," + temp + ";";
+				} 
+				
+				if(document.getElementById('soChk').checked) {
+					temp = document.getElementById('soTime').value;
+					if(!checkIfTimeIsOk(temp)){
+						error = true;
+					}
+					finalString = finalString + "So," + temp + ";";
+				} 
+				
+				if(document.getElementById('neChk').checked) {
+					temp = document.getElementById('neTime').value;
+					if(!checkIfTimeIsOk(temp)){
+						error = true;
+					}
+					finalString = finalString + "Ne," + temp + ";";
+					
+				}
+				
+				alert("Treningy: " + finalString);
+				
+				if(error){
+					alert("Chybný formát času! Zadajte v tvare HH:MM (napr. 13:30)");
+				} else {
+					document.forms['newTeamForm']['trainings'].value = finalString;
+				}
+			}
+			
+			function kontrolaTeamForm(){
+				
+				concatTrainingData();
+				
+				var input = new Array();
+				input[0] = document.forms['newTeamForm']['name'].value;
+				input[1] = document.forms['newTeamForm']['datumZalozenia'].value;
+				
+				
+				var allOk = true;
+				var allOk2 = true;
+				var error = "";
+				for(var i = 0; i < input.length; i++){
+					if (input[i] == null || input[i] == ""){
+						error = error + "\nNázov a dátum založenia musia byť vyplnené!";
+						allOk = false;
+						break;
+					} 
+				}
+				
+				input[0] = document.forms['newTeamForm']['website'].value;
+				input[1] = document.forms['newTeamForm']['contact_email'].value;
+				input[2] = document.forms['newTeamForm']['contact_phone'].value;
+				input[3] = document.forms['newTeamForm']['contact_fb'].value;
+				
+				for(var i = 0; i < input.length; i++){
+					if (input[i] == null || input[i] == ""){
+						
+						allOk2 = false;
+						
+					} else {
+						allOk2 = true;
+						break;
+					}
+					if(i == (input.length-1))
+					error = error + "\nAspoň jedna kontaktná info musí byť vyplnená (web, email, cislo, fb)!";
+				}
+				
+				if(allOk == true && allOk2 == true){
+					document.getElementsByClassName('btnForCheck')[0].type = "submit";
+					document.getElementsByClassName('btnForCheck')[1].type = "submit";
+				}else{
+					alert("Chyba" + error);
+				}
+				
+				
+			}
+			
+		</script>
 	</div>
 	<c:import url="import/footer.jsp"></c:import>
 

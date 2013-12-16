@@ -21,6 +21,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.mysql.jdbc.Statement;
 
+import sk.frisbee.aplikacia.DateFormatCustom;
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
 import sk.frisbee.domain.Team;
@@ -52,6 +53,8 @@ public class TeamsDaoImpl implements TeamsDao {
 			team.setTeam_id(rs.getInt("id_tim"));
 			team.setName(rs.getString("nazov"));
 			team.setDisciplines(rs.getString("discipliny"));
+			team.setCountry(rs.getString("krajina"));
+			team.setDatumZalozenia(DateFormatCustom.fromDB(rs.getString("datumzalozenia")));
 			team.setCity(rs.getString("mesto"));
 			team.setContact_name(rs.getString("kontakt_meno"));	
 			team.setContact_phone(rs.getString("kontakt_cislo"));
@@ -119,8 +122,8 @@ public class TeamsDaoImpl implements TeamsDao {
 		KeyHolder holder = new GeneratedKeyHolder();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		final String SQL = "INSERT INTO profil_tim "
-				+ "(nazov, discipliny, mesto, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_user) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "(nazov, discipliny, mesto, krajina, datumzalozenia, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_user) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		jdbcTemplate.update(new PreparedStatementCreator() { 
 			
@@ -132,13 +135,15 @@ public class TeamsDaoImpl implements TeamsDao {
 				ps.setString(1, team.getName());
 				ps.setString(2, team.getDisciplines());
 				ps.setString(3, team.getCity());
-				ps.setString(4, team.getContact_name());
-				ps.setString(5, team.getContactPhone());
-				ps.setString(6, team.getContact_email());
-				ps.setString(7, team.getContact_fb());
-				ps.setString(8, team.getInformation() );
-				ps.setString(9, team.getTrainings());
-				ps.setInt(10, team.getUserId());
+				ps.setString(4, team.getCountry());
+				ps.setString(5, DateFormatCustom.dateForDB(team.getDatumZalozenia()));
+				ps.setString(6, team.getContact_name());
+				ps.setString(7, team.getContactPhone());
+				ps.setString(8, team.getContact_email());
+				ps.setString(9, team.getContact_fb());
+				ps.setString(10, team.getInformation() );
+				ps.setString(11, team.getTrainings());
+				ps.setInt(12, team.getUserId());
 				return ps;
 			}
 		}, holder);

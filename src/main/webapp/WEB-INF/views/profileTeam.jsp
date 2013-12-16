@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
 				<tr><td class="boldTextTd">Názov:</td><td>${teamData.name}</td></tr>
 				<tr><td class="boldTextTd">Mesto:</td><td>${teamData.city}</td></tr>
 				<tr><td class="boldTextTd">Krajina:</td><td>${teamData.country}</td></tr>
-				<tr><td class="boldTextTd">Dátum založenia:</td><td>N/A</td></tr>
+				<tr><td class="boldTextTd">Dátum založenia:</td><td><fmt:formatDate value="${teamData.datumZalozenia}" pattern="yyyy-MM-dd" /></td></tr>
 				<tr><td class="boldTextTd">Web:</td><td><a href="${teamData.website}">${teamData.website}</a></td></tr>
 				<tr><td class="boldTextTd">Kontakt (email):</td><td>${teamData.contact_email}</td></tr>
 				<tr><td class="boldTextTd">Kontakt (telefón):</td><td>${teamData.contact_phone}</td></tr>
@@ -89,7 +90,7 @@
 				<tr class="boldTextTd"><td>Hráči</td></tr>
 				<tr class="grayRow"><td>Meno</td><td>Pozícia v hre</td><td>Odohrané zápasy</td></tr>
 				<c:forEach var="playersTeam" items="${playersInTeam}">
-					<tr><td>${playersTeam.firstName} ${playersTeam.lastName}</td><td>-</td><td>-</td><td><a href="profile?id= ${playersTeam.player_id}">Profil hráča</a></td></tr>
+					<tr><td>${playersTeam.firstName} ${playersTeam.lastName}</td><td>-</td><td>-</td><td><a href="profile?id=${playersTeam.player_id}">Profil hráča</a></td></tr>
 				</c:forEach>
 			</table>
 		</div>	
