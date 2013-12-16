@@ -8,21 +8,10 @@
 	<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYr2Hd6_FhH1YQCtDf4-8AGRM5qN4JiEY&sensor=true">
 	</script>
-	<script type="text/javascript">	
-		function initialize() {
-		   var mapOptions = {
-		    zoom: 12,
-		    center: new google.maps.LatLng(48.72099560, 21.25774770),
-		    mapTypeId: google.maps.MapTypeId.ROADMAP
-		  }
-		  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		  
-		}
-		google.maps.event.addDomListener(window, 'load', initialize);
-	</script>
+	<script type="text/javascript" src='<c:url value="/resources/mapa.js"></c:url>'></script>
 	<title>${pageTitle}</title>
 </head>
-<body onload="initialize">
+<body>
 <div id="wrapper">
 	<c:import url="import/menu.jsp"></c:import>
 	<div id="content">
@@ -79,7 +68,10 @@
 			</div>
 		<br/><br/>
 		<h3>Najbližšie turnaje na mape:</h3>
-		<div id="map-canvas" ></div>
+		<div id="map-canvas"></div>
+		<div>Lat Lng on click: 
+  			<input type="text" id="latlongclicked"></span></div>
+		</div>
 		</div>
 		
 	</div>

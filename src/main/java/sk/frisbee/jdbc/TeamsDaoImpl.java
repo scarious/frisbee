@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,13 +18,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.mysql.jdbc.Statement;
-
 import sk.frisbee.aplikacia.DateFormatCustom;
 import sk.frisbee.domain.Address;
 import sk.frisbee.domain.Player;
 import sk.frisbee.domain.Team;
 import sk.frisbee.domain.Tournament;
+
+import com.mysql.jdbc.Statement;
 
 public class TeamsDaoImpl implements TeamsDao {
 	
@@ -62,6 +61,7 @@ public class TeamsDaoImpl implements TeamsDao {
 			team.setContact_fb(rs.getString("kontakt_fb"));
 			team.setInformation(rs.getString("zivotopis"));
 			team.setTrainings(rs.getString("treningy"));
+			team.setTrainings(rs.getString("gpsMiestoTreningu"));
 			team.setUser_id(rs.getInt("id_user"));
 			return team;	
 		}
@@ -122,8 +122,8 @@ public class TeamsDaoImpl implements TeamsDao {
 		KeyHolder holder = new GeneratedKeyHolder();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		final String SQL = "INSERT INTO profil_tim "
-				+ "(nazov, discipliny, mesto, krajina, datumzalozenia, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_user) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "(nazov, discipliny, mesto, krajina, datumzalozenia, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, gpsMiestoTreningu, id_user) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		jdbcTemplate.update(new PreparedStatementCreator() { 
 			
@@ -143,7 +143,8 @@ public class TeamsDaoImpl implements TeamsDao {
 				ps.setString(9, team.getContact_fb());
 				ps.setString(10, team.getInformation() );
 				ps.setString(11, team.getTrainings());
-				ps.setInt(12, team.getUserId());
+				ps.setString(12, team.getGpsMiestoTreningu());
+				ps.setInt(13, team.getUserId());
 				return ps;
 			}
 		}, holder);

@@ -7,6 +7,12 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link rel="stylesheet" type="text/css" href='<c:url value="/resources/style.css"></c:url>'/>
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYr2Hd6_FhH1YQCtDf4-8AGRM5qN4JiEY&sensor=true">
+</script>
+<script type="text/javascript" src='<c:url value="/resources/mapa.js"></c:url>'></script>
+
+
 <title>${pageTitle}</title>
 </head>
 
@@ -21,7 +27,7 @@
 				<tr><td class="boldTextTd">Názov:</td><td>${teamData.name}</td></tr>
 				<tr><td class="boldTextTd">Mesto:</td><td>${teamData.city}</td></tr>
 				<tr><td class="boldTextTd">Krajina:</td><td>${teamData.country}</td></tr>
-				<tr><td class="boldTextTd">Dátum založenia:</td><td><fmt:formatDate value="${teamData.datumZalozenia}" pattern="yyyy-MM-dd" /></td></tr>
+				<tr><td class="boldTextTd">Dátum založenia:</td><td><c:if test="${not empty teamData.datumZalozenia}"><fmt:formatDate value="${teamData.datumZalozenia}" pattern="yyyy-MM-dd" /></c:if></td></tr>
 				<tr><td class="boldTextTd">Web:</td><td><a href="${teamData.website}">${teamData.website}</a></td></tr>
 				<tr><td class="boldTextTd">Kontakt (email):</td><td>${teamData.contact_email}</td></tr>
 				<tr><td class="boldTextTd">Kontakt (telefón):</td><td>${teamData.contact_phone}</td></tr>
@@ -42,6 +48,8 @@
 				<tr><td>Piatok</td><td><input id="piaChk" type="checkbox" disabled="disabled"/></td><td id="piaHour">Tréning nie je</td></tr>
 				<tr><td>Sobota</td><td><input id="sobChk" type="checkbox" disabled="disabled"/></td><td id="sobHour">Tréning nie je</td></tr>
 				<tr><td>Nedeľa</td><td><input id="nedChk" type="checkbox" disabled="disabled"/></td><td id="nedHour">Tréning nie je</td></tr>
+				<tr></tr>
+				<!-- <tr><td>Miesto tréningu</td><td></td></tr> -->
 			</table>
 		<input id="unparsedTrainings" type="hidden" value="${teamData.trainings}"/>
 		<script type="text/javascript">

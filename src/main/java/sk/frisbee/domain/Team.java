@@ -34,7 +34,17 @@ public class Team  implements Serializable {
     
     private String information;
     
-    private String website;
+    private String gpsMiestoTreningu;
+    
+    public String getGpsMiestoTreningu() {
+		return gpsMiestoTreningu;
+	}
+
+	public void setGpsMiestoTreningu(String gpsMiestoTreningu) {
+		this.gpsMiestoTreningu = gpsMiestoTreningu;
+	}
+
+	private String website;
     
     private String playersForParsing;
 

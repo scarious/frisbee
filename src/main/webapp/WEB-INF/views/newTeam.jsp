@@ -6,6 +6,10 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link rel="stylesheet" type="text/css" href='<c:url value="/resources/style.css"></c:url>'/>
+<script type="text/javascript"
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYr2Hd6_FhH1YQCtDf4-8AGRM5qN4JiEY&sensor=true">
+</script>
+<script type="text/javascript" src='<c:url value="/resources/mapa.js"></c:url>'></script>
 <title>${pageTitle}</title>
 <script type="text/javascript" src='<c:url value="/resources/filterlist.js"></c:url>'></script>
 
@@ -68,11 +72,14 @@
 				<tr><td>Piatok</td><td><input id="piChk" type="checkbox"/></td><td>o <input id="piTime" type="text"/> hod</td></tr>
 				<tr><td>Sobota</td><td><input id="soChk" type="checkbox"/></td><td>o <input id="soTime" type="text"/> hod</td></tr>
 				<tr><td>Nedeľa</td><td><input id="neChk" type="checkbox"/></td><td>o <input id="neTime" type="text"/> hod</td></tr>
+				<tr><td></td><td></td></tr>
+				<tr><td>Miesto tréningu:</td><td></td><td><input id="gps" value="Klikni na mape!" size="50" name="gpsMiestoTreningu" readonly type="text"/></td></tr>
 			</table>
 				<input type="hidden" value="" name="trainings"/>
 			<br/>
 			<table>
-				
+			<div onclick="setGpsNewTeam()" id="centerContent"><div id="map-canvas"></div></div>
+				</br></br>
 				<tr><td><p>Pridaj hráčov:<br/><small><a href="#">Obnov zoznam</a>
 				</small></p></td><td>
 
@@ -226,8 +233,6 @@
 					finalString = finalString + "Ne," + temp + ";";
 					
 				}
-				
-				alert("Treningy: " + finalString);
 				
 				if(error){
 					alert("Chybný formát času! Zadajte v tvare HH:MM (napr. 13:30)");
