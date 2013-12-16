@@ -72,18 +72,13 @@
 							table.rows[i+1].cells[0].innerHTML = i+1;
 						}
 					</script>
-				</table>
 				<a href="tournaments">Viac...</a>
 			</div>
 		<br/><br/>
 		<h3>Najbližšie turnaje na mape:</h3>
 		<div id="map-canvas"></div>
-		<div>Lat Lng on click: 
-  			<input type="text" id="latlongclicked"></span></div>
 		</div>
-		</div>
-		
-	</div>
+
 	<c:import url="import/footer.jsp"></c:import>
 
 </div>

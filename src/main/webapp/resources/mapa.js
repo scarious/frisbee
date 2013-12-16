@@ -20,9 +20,7 @@ var marker = [];
 	   google.maps.event.addListener(map, 'click', function(event) {
 	          mLat = event.latLng.lat();
 	          mLng = event.latLng.lng();
-	          document.getElementById('latlongclicked').value = event.latLng.lat() + ', ' + event.latLng.lng();
-	    });
-	   
+	   });	   
 		
 	}
 		
@@ -45,6 +43,30 @@ var marker = [];
 			animation: google.maps.Animation.DROP,
 			position: new google.maps.LatLng(mLat, mLng)
 		});
+	}
+	
+	function putGpsForTeam(){
+		var coordUnparsed = document.getElementById('gpsMiestoTreningu').value.split(";");
+		if(coordUnparsed.length > 1){
+			var parsedLan = coordUnparsed[0];
+			var parsedLng = coordUnparsed[1];
+			//alert("Parsed: " + parsedLan + " " + parsedLng);
+			
+			var trainingPosition = new google.maps.LatLng(parsedLan, parsedLng);
+			map.setCenter(trainingPosition);
+			
+			if(marker[0] != undefined)
+				marker[0].setMap(null);
+			
+			marker[0] = new google.maps.Marker({
+				map:map,
+				draggable:true,
+				labelContent: "asd",
+				animation: google.maps.Animation.DROP,
+				position: trainingPosition
+			});
+		}
+		
 	}
 	
 	
