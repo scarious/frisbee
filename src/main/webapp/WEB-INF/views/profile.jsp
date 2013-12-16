@@ -38,11 +38,11 @@
 				<table>
 					<tr><td class="boldTextTd">Meno:</td><td class="elementsContainer">
 															<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.firstName}</p> 
-															<input class="editOnly" style="visibility: hidden;" type="text" name="firstName" value="${loggedPlayerData.firstName}"/>
+															<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="firstName" value="${loggedPlayerData.firstName}"/>
 														 </td></tr>
 					<tr><td class="boldTextTd">Priezvisko:</td><td class="elementsContainer">
 																<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.lastName}</p>
-																<input class="editOnly" style="visibility: hidden;" type="text" name="lastName" value="${loggedPlayerData.lastName}"/>
+																<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="lastName" value="${loggedPlayerData.lastName}"/>
 															   </td></tr>
 					<tr><td class="boldTextTd">Mesto:</td><td class="elementsContainer">
 															<p class="viewOnly" style="visibility: visible;">${playerAddress.city}</p> 
@@ -76,7 +76,7 @@
 												</td></tr>
 					<tr><td class="boldTextTd">Dátum narodenia:</td><td class="elementsContainer">
 																		<p class="viewOnly" style="visibility: visible;"><fmt:formatDate value="${loggedPlayerData.dateOfBirth}" pattern="yyyy-MM-dd" /></p>
-																		<input class="editOnly" style="visibility: hidden;" type="text" name="dateOfBirth" value="<fmt:formatDate value="${loggedPlayerData.dateOfBirth}" pattern="yyyy-MM-dd" />"/>
+																		<input size="30" class="editOnly" style="visibility: hidden;" type="text" name="dateOfBirth" value="<fmt:formatDate value="${loggedPlayerData.dateOfBirth}" pattern="yyyy-MM-dd" />"/>
 																	</td></tr>
 					<tr><td class="boldTextTd">Pohlavie:</td><td class="elementsContainer">
 																<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.pohlavie}</p>
@@ -93,7 +93,7 @@
 																 </td></tr>
 					<tr><td class="boldTextTd">Hráčom od:</td><td class="elementsContainer">
 																<p class="viewOnly" style="visibility: visible;"><fmt:formatDate value="${loggedPlayerData.activeSince}" pattern="yyyy-MM-dd" /></p>
-																<input class="editOnly" style="visibility: hidden;" type="text" name="activeSince" value="<fmt:formatDate value="${loggedPlayerData.activeSince}" pattern="yyyy-MM-dd" />"/>
+																<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="activeSince" value="<fmt:formatDate value="${loggedPlayerData.activeSince}" pattern="yyyy-MM-dd" />"/>
 															  </td></tr>
 					<tr><td class="boldTextTd">Dominantná ruka:</td><td class="elementsContainer">
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.dominantHand}</p>
@@ -109,11 +109,11 @@
 																	</td></tr>
 					<tr><td class="boldTextTd">Výška:</td><td class="elementsContainer">
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.height}</p>
-																	<input class="editOnly" style="visibility: hidden;" type="text" name="height" value="${loggedPlayerData.height}"/>
+																	<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="height" value="${loggedPlayerData.height}"/>
 														  </td></tr>
 					<tr><td class="boldTextTd">Disciplíny:</td><td class="elementsContainer">
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.disciplines}</p>
-																	<input class="editOnly" style="visibility: hidden;" type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/>
+																	<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/>
 															   </td></tr>
 					<tr class="viewOnlyWithoutStyle"><td class="boldTextTd">Tím(y):</td>
 															<td class="elementsContainer"><br/>

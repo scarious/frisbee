@@ -80,6 +80,7 @@ function removeTeam(){
 				</tr>
 			</table>
 			<br/>
+		
 			<table>
 				<tr><td><p>Pridaj tímy:<br/><small><a href="#">Obnov zoznam</a></small></p></td><td>
 						<!-- <form name="myform">  -->
@@ -93,6 +94,9 @@ function removeTeam(){
 							<option>Tím 7</option>
 							<option>Tím 8</option>
 							<option>Tím 9</option>
+							<option>Tím 10</option>
+							<option>Tím 11</option>
+							<option>Tím 12</option>
 						</select>
 						<script type="text/javascript">
 							<!--
@@ -116,14 +120,19 @@ function removeTeam(){
 				 schedulegen(minpocet,aktual,tabrozpis,tabskupiny,schedule);
 				 " /></td>
 			</table>
-			<table id="skupiny" align="left"><tr><td>Skupiny</td></table>
- 	<div style="margin-left:100px" position: relative>
-			<table id="rozpis">
+	
+				<div>
+			<table style="float: left" id="skupiny"><tr><td>Skupiny</td></table></div>
+			
+
+		<div>	<table id="rozpis">
 				<tr><td>Ihrisko 1</td></tr>
 				
 			</table>
-			</div>>
-				
+			</div>
+		</div>
+				</br>
+				</br></br>
 			<input type="submit" name="submit" value="Vytvor turnaj"/>
 		</form>
 		</div>

@@ -20,16 +20,13 @@ var marker = [];
 	   google.maps.event.addListener(map, 'click', function(event) {
 	          mLat = event.latLng.lat();
 	          mLng = event.latLng.lng();
-	          document.getElementById('latlongclicked').value = event.latLng.lat() + ', ' + event.latLng.lng();
-	    });
-	   
-		
+	   });	   
+
 	}
 		
 	
-	google.maps.event.addDomListener(window, 'load', initialize);  	
 	
-	Window.onload = initialize;
+	//Window.onload = initialize;
 	
 	
 	function setGpsNewTeam(){
@@ -38,42 +35,91 @@ var marker = [];
 		if(marker[0] != undefined)
 			marker[0].setMap(null);
 		
-		marker[0] = new google.maps.Marker({
-			map:map,
-			draggable:true,
-			labelContent: "asd",
-			animation: google.maps.Animation.DROP,
-			position: new google.maps.LatLng(mLat, mLng)
-		});
+	//	marker[0] = new google.maps.Marker({
+	//		map:map,
+	//		draggable:false,
+	//		labelContent: "asd",
+	//		animation: google.maps.Animation.DROP,
+	//		position: new google.maps.LatLng(mLat, mLng)
+	//	});
+		
+		marker[0] = new MarkerWithLabel({
+			   position: new google.maps.LatLng(mLat, mLng),
+			   draggable: false,
+			   map: map,
+			   labelContent: "Miesto konania tréningov",
+			   labelAnchor: new google.maps.Point(40, 75),
+			   labelClass: "popisZnacky", // the CSS class for the label
+			   labelStyle: {opacity: 0.65}
+			 });
 	}
 	
+	function putGpsForTeam(){
+		var coordUnparsed = document.getElementById('gpsMiestoTreningu').value.split(";");
+		if(coordUnparsed.length > 1){
+			var parsedLan = coordUnparsed[0];
+			var parsedLng = coordUnparsed[1];
+			//alert("Parsed: " + parsedLan + " " + parsedLng);
+			
+			var trainingPosition = new google.maps.LatLng(parsedLan, parsedLng);
+			map.setCenter(trainingPosition);
+			
+			if(marker[0] != undefined)
+				marker[0].setMap(null);
+			
+			marker[0] = new google.maps.Marker({
+				map:map,
+				draggable:false,
+				animation: google.maps.Animation.DROP,
+				position: trainingPosition
+			});
+		}
+		
+	}
 	
-	function mapDivClicked (event) {
-		var target = document.getElementById('map-canvas'),
-        posx = event.pageX - target.offsetLeft,
-        posy = event.pageY - target.offsetTop,
-        bounds = map.getBounds(),
-        neLatlng = bounds.getNorthEast(),
-        swLatlng = bounds.getSouthWest(),
-        startLat = neLatlng.lat(),
-        endLng = neLatlng.lng(),
-        endLat = swLatlng.lat(),
-        startLng = swLatlng.lng(),
-        lat = startLat + ((posy/mapaVyska) * (endLat - startLat)),
-        lng = startLng + ((posx/mapaSirka) * (endLng - startLng));
-		alert ("Lat: " + lat + ", Lon: " + lng + "\n " + mLat + " " + mLng);
+	var trainingMarkers = [];
+	
+	function putTrainingsOnMap(){
+		var unparsed = document.getElementsByName('treningyNaMapu');
+		var temp;
+		var pName = [];
+		var pLan = [];
+		var pLng = [];
 		
-		if(marker[0] != undefined)
-		marker[0].setMap(null);
-		//marker[0] = null;
-		var myLatLng = new google.maps.LatLng(mLat, mLng);
+		trainingMarkers = [];
 		
-		marker[0] = new google.maps.Marker({
-			map:map,
-			draggable:true,
-			labelContent: "asd",
-			animation: google.maps.Animation.DROP,
-			position: myLatLng
-		});
-	}	
+		for(var i = 0; i<unparsed.length; i++){
+			temp = unparsed[i].value.split(";");
+			pName[i] = temp[0];
+			pLan[i] = temp[1];
+			pLng[i] = temp[2];
+			
+			trainingMarkers[i] = new MarkerWithLabel({
+				   position: new google.maps.LatLng(pLan[i], pLng[i]),
+				   draggable: false,
+				   animation: google.maps.Animation.DROP,
+				   map: map,
+				   labelContent: pName[i],
+				   labelAnchor: new google.maps.Point(40, 75),
+				   labelClass: "popisZnacky", // the CSS class for the label
+				   labelStyle: {opacity: 0.65}
+				 });
+			//alert("pridavam " + pName[i] + " " + pLan[i] + " " + pLng[i]);
+		}
+		
+		
+	}
+	
+	function setAllMap(markers ,map) {
+		  for (var i = 0; i < markers.length; i++) {
+		    markers[i].setMap(map);
+		  }
+	}
+	
+	function hideAll() {
+		  setAllMap(trainingMarkers, null);
+	}
+	
+	google.maps.event.addDomListener(window, 'load', initialize);  	
+	
 		

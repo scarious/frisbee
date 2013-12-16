@@ -30,4 +30,6 @@ public interface TeamsDao {
 	
 	public void addPlayersToTeam(Integer team_id, List<Player> players);
 	
+	public List<Team> getTeamsWithGps();
+	
 }

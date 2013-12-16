@@ -8,10 +8,11 @@
 	<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYr2Hd6_FhH1YQCtDf4-8AGRM5qN4JiEY&sensor=true">
 	</script>
+	<script type="text/javascript" src='<c:url value="/resources/markerwithlabel.js"></c:url>'></script>
 	<script type="text/javascript" src='<c:url value="/resources/mapa.js"></c:url>'></script>
 	<title>${pageTitle}</title>
 </head>
-<body>
+<body onload="initialize">
 <div id="wrapper">
 	<c:import url="import/menu.jsp"></c:import>
 	<div id="content">
@@ -72,20 +73,25 @@
 							table.rows[i+1].cells[0].innerHTML = i+1;
 						}
 					</script>
-				</table>
 				<a href="tournaments">Viac...</a>
 			</div>
 		<br/><br/>
-		<h3>Najbližšie turnaje na mape:</h3>
-		<div id="map-canvas"></div>
-		<div>Lat Lng on click: 
-  			<input type="text" id="latlongclicked"></span></div>
-		</div>
-		</div>
-		
-	</div>
-	<c:import url="import/footer.jsp"></c:import>
+		<c:forEach var="teamsWithGps" items="${teamsWithGps}" varStatus="status">
+			<input name="treningyNaMapu" type="hidden" value="${teamsWithGps.name};${teamsWithGps.gpsMiestoTreningu}"/>
+		</c:forEach>
 
+		<h3>Najbližšie na mape</h3>
+			<div id="centerContent">
+				<div id="panelMapa">
+			      <input onclick="hideAll();" type=button value="Skry všetko">
+			      <input onclick="putTrainingsOnMap()" type=button value="Zobraz tréningy">
+			      <input onclick="showTournaments();" type=button value="Zobraz turnaje">
+			    </div>
+			    <div id="map-canvas"></div>
+			</div>
+		</div>
+	<c:import url="import/footer.jsp"></c:import>
+	</div>
 </div>
 
 </body>
