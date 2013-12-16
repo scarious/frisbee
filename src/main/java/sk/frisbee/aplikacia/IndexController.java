@@ -26,6 +26,7 @@ import sk.frisbee.domain.User;
 import sk.frisbee.jdbc.SearchDaoImpl;
 import sk.frisbee.jdbc.StatisticsDaoImpl;
 import sk.frisbee.jdbc.TeamsDaoImpl;
+import sk.frisbee.jdbc.TournamentsDao;
 import sk.frisbee.jdbc.TournamentsDaoImpl;
 import sk.frisbee.jdbc.UsersDaoImpl;
 
@@ -70,10 +71,12 @@ public class IndexController {
 		}
 		
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
+		List<Tournament> tournamentList = tournamentsDao.getAllTournamentsDataByDate();
 		
 		map.addAttribute("topTeamsList", topTeamsList);
 		map.addAttribute("topTeamsListData", topTeamsListData);
 		map.addAttribute("topUsersList", topUsersList);
+		map.addAttribute("tournamentList", tournamentList);
 		map.addAttribute("pageTitle", "Index");
 		map.addAttribute("serverTime", formattedDate);
 		map.addAttribute("loggedUserName", loggedUserName);

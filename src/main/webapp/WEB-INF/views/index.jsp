@@ -56,13 +56,22 @@
 			</div>
 			<div class="topFiveMain" style=" vertical-align: top;">
 				<p>Najbližšie turnaje<br/></p>
-				<table>
-					<tr class="grayRow"><td>Dátum</td><td>Názov</td><td>Krajina</td><td>Mesto</td></tr>
-					<tr><td>1.1.2014</td><td>Turnaj 1</td><td>SK</td><td>KE</td></tr>
-					<tr><td>1.1.2014</td><td>Turnaj 2</td><td>SK</td><td>KE</td></tr>
-					<tr><td>1.1.2014</td><td>Turnaj 3</td><td>CZ</td><td>KE</td></tr>
-					<tr><td>1.1.2014</td><td>Turnaj 4</td><td>SK</td><td>KE</td></tr>
-					<tr><td>1.1.2014</td><td>Turnaj 5</td><td>SK</td><td>KE</td></tr>
+				<table id= "tournamentTable">
+					<tr class="grayRow"><td>Poradie</td><td>Názov</td><td>Datum</td></tr>
+					
+					<c:forEach var="tournaments" items="${tournamentList}" varStatus="status" end="10">
+					<tr><td></td><td>${tournamentList[status.index].name}</td>
+					<td>${tournamentList[status.index].surface}</td></tr>
+<%-- 					 <fmt:formatDate value="${tournamentList.date}" pattern="yyyy-MM-dd" /> --%>
+					</c:forEach>
+				</table>
+					<script type="text/javascript">
+						var table = document.getElementById('tournamentTable');
+						var totalRows = table.getElementsByTagName("tr").length;
+						for(var i=0;i<totalRows-1;i++){
+							table.rows[i+1].cells[0].innerHTML = i+1;
+						}
+					</script>
 				</table>
 				<a href="tournaments">Viac...</a>
 			</div>

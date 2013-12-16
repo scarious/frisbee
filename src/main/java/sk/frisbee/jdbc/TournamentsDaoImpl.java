@@ -43,6 +43,15 @@ public class TournamentsDaoImpl implements TournamentsDao {
 		jdbcTemplate = null;
 		return tournamentList;
 	}
+	public List<Tournament> getAllTournamentsDataByDate() {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		String SQL = "SELECT * FROM profil_turnaj order by datum";
+		List<Tournament> tournamentList = (List<Tournament>) jdbcTemplate.query(SQL, 
+				new TournamentMapper());
+		jdbcTemplate = null;
+		return tournamentList;
+	}
+	
 	
 	private static class TournamentMapper implements RowMapper<Tournament>{
 		@Override
@@ -54,7 +63,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 			tournament.setDivision(rs.getString("divizie"));
 			tournament.setLevel_of_play(rs.getString("uroven_hry"));
 			tournament.setFormat(rs.getString("format"));
-			tournament.setTournamentDate(null);
+			tournament.setTournamentDate(DateFormatCustom.fromDB(rs.getString("datum")));
 			tournament.setCity(rs.getString("miesto"));
 			tournament.setGps(null);//tournament.setGps(rs.getString("gps"));
 			tournament.setContact(rs.getString("kontakt"));
@@ -170,7 +179,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 				ps.setString(4, tournament.getDivision());
 				ps.setString(5, tournament.getLevel_of_play());
 				ps.setString(6, tournament.getFormat());
-				ps.setDate(7, (Date) tournament.getTournamentDate());
+				ps.setString(7, DateFormatCustom.dateForDB(tournament.getTournamentDate()));
 				ps.setString(8, tournament.getCity() );
 				ps.setString(9, null);
 				ps.setString(10, tournament.getCountry());
