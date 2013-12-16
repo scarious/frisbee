@@ -289,8 +289,20 @@ public class IndexController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
+		
+		List<Team> teamsList = teamsDao.getAllTeamsData();
+		int playersCount[] = new int[100];
+		int i = 0;
+		for(Team t: teamsList){
+			playersCount[i] = teamsDao.getNumberOfPlayersInTeam(t.getTeam_id());
+			i += 1;
+		}
+		
+		
 		ModelAndView maw = new ModelAndView("teams", "date", date);
 		
+		maw.addObject("teamsList", teamsList);
+		maw.addObject("playersCount", playersCount);
 		maw.addObject("pageTitle", "Teams");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);

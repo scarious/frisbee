@@ -38,6 +38,14 @@
 			Vyhľadávanie: <input type="text" size="25" maxlength="50"/>	
 			<input type="submit" name="Hľadaj" title="asd" value="Hľadaj"/>
 		</div>
+		<div id="centerContent" class="topFiveMain">
+			<table id="topTeamsIndexTable">
+				<tr class="grayRow"><td>Názov tímu</td><td>Krajina</td><td>Mesto</td><td>Počet hráčov</td><td></td></tr>
+				<c:forEach var="teams" items="${teamsList}" varStatus="status">
+					<tr><td>${teams.name}</td><td>${teams.country}</td><td>${teams.city}</td><td id="centerContent">${playersCount[status.index]}</td><td><a href="profileTeam?id=${teams.team_id}">Profil</a></td></tr>
+				</c:forEach>
+			</table>
+		</div>
 	
 	
 	

@@ -71,7 +71,7 @@ public class StatisticsDaoImpl implements StatisticsDao{
 			stats.setDefences(rs.getInt("obrany"));
 			stats.setDrops(rs.getInt("dropy"));
 			stats.setPoints(rs.getInt("body"));
-			stats.setPlayerid(rs.getInt("profil_hrac.id_hrac"));
+			stats.setPlayerid(rs.getInt("id_hrac"));
 			stats.setName(rs.getString("meno") + " " + rs.getString("priezvisko"));
 			return stats;	
 		}
@@ -126,10 +126,11 @@ public class StatisticsDaoImpl implements StatisticsDao{
 	}
 	
 	@Override
-	public StatisticsPlayer getStatsForPlayer(Integer id) {
+	public StatisticsPlayer getStatsForPlayer(Integer id_hrac) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		//String SQL = "SELECT * FROM frisbee.statistika_hrac ORDER BY body DESC";
-		String SQL = "SELECT * FROM frisbee.statistika_hrac WHERE statistika_hrac.id_hrac=" + id;
+		String SQL = "SELECT * FROM frisbee.statistika_hrac, frisbee.profil_hrac WHERE statistika_hrac.id_hrac=profil_hrac.id_hrac AND statistika_hrac.id_hrac = " + id_hrac;
+		//String SQL = "SELECT * FROM statistika_hrac WHERE id_hrac=" + id_hrac;
 		List<StatisticsPlayer> stats = (List<StatisticsPlayer>) jdbcTemplate.query(SQL, new PlayerStatsMapper());
 		jdbcTemplate = null;
 		return stats.get(0);

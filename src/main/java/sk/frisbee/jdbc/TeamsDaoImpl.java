@@ -122,7 +122,7 @@ public class TeamsDaoImpl implements TeamsDao {
 				+ "(nazov, discipliny, mesto, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_user) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
-		jdbcTemplate.update(new PreparedStatementCreator() {
+		jdbcTemplate.update(new PreparedStatementCreator() { 
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection)
@@ -249,7 +249,30 @@ public class TeamsDaoImpl implements TeamsDao {
 		}
 	}
 
-
+	public Integer getNumberOfPlayersInTeam(Integer id_tim){
+		String SQL = "SELECT COUNT(*) AS rowcount FROM frisbee.timy_hraca WHERE id_tim=" + id_tim;
+		java.sql.Statement statement;
+		ResultSet rs;
+		Integer vysledok = null;
+		try {
+			statement = dataSource.getConnection().createStatement();
+			rs = statement.executeQuery(SQL);
+			rs.next();
+			vysledok = rs.getInt("rowcount");
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		//JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		
+		
+		
+		return vysledok;
+		
+		
+	}
 
 
 }
