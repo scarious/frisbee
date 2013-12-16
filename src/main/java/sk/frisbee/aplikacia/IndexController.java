@@ -360,9 +360,11 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
+		//Integer userId = loggedUserData.getUser_id();
 		tournament.setId_user(loggedUserData.getUser_id());
+		System.out.println(tournament.getId_user());
 		tournamentsDao.addTournamentWithReturnVal(tournament);
-		//tournamentsDao.addTournament(tournament);
+	//	tournamentsDao.addTournament(tournament);
 		ModelAndView maw = new ModelAndView("tournamentsNew", "date", date);
 		
 		maw.addObject("pageTitle", "Vytvor tím");
@@ -370,5 +372,36 @@ public class IndexController {
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
 	}
+//	
+//	//toto skontrolovat ! zatial len v experimen
+//	//			|
+//	//			|
+//	//			V
+//	
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView getTournamentEdit(@ModelAttribute Tournament tournament, 
+//			   ModelMap model) {
+//		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		//Integer player_idd = 1;
+//		
+//		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
+//		//Player player = usersDao.getPlayer(player_idd);	
+//		tournament.setId_user(loggedUserData.getUser_id()); 
+//		tournamentsDao.updateTournament(tournament);
+//		
+//		
+//		//Date date = new Date();
+//		//DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+//		//String formattedDate = dateFormat.format(date);
+//		
+//		ModelAndView maw = new ModelAndView("redirect:" + "tournament");//new ModelAndView("profile","serverTime", formattedDate );
+//		
+//		//Address playerAddress = usersDao.getAddresForPlayerId(player_idd);
+//		
+//		//maw.addObject("playerAddress", playerAddress);
+//		
+//		//maw.addObject("loggedUserName", loggedUserName);
+//		return maw;
+//	}
 
 }

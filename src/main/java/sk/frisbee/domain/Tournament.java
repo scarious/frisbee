@@ -109,11 +109,11 @@ public class Tournament implements Serializable {
 		this.format = format;
 	}
 
-	public Date getDate() {
+	public Date getTournamentDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setTournamentDate(Date date) {
 		this.date = date;
 	}
 
