@@ -381,7 +381,6 @@ public class IndexController {
 		User loggedUserData = (User) usersDao.getUserByUsername(loggedUserName);
 		//Integer userId = loggedUserData.getUser_id();
 		tournament.setId_user(loggedUserData.getUser_id());
-		System.out.println(tournament.getId_user());
 		tournamentsDao.addTournamentWithReturnVal(tournament);
 	//	tournamentsDao.addTournament(tournament);
 		ModelAndView maw = new ModelAndView("tournamentsNew", "date", date);
