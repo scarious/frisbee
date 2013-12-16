@@ -303,6 +303,7 @@ public class IndexController {
 		for(Team t: teamsList){
 			playersCount[i] = teamsDao.getNumberOfPlayersInTeam(t.getTeam_id());
 			i += 1;
+			System.out.println("Treningy: "+ t.getTrainings());
 		}
 		
 		

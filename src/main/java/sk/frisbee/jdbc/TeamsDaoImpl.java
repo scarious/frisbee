@@ -61,7 +61,7 @@ public class TeamsDaoImpl implements TeamsDao {
 			team.setContact_fb(rs.getString("kontakt_fb"));
 			team.setInformation(rs.getString("zivotopis"));
 			team.setTrainings(rs.getString("treningy"));
-			team.setTrainings(rs.getString("gpsMiestoTreningu"));
+			team.setGpsMiestoTreningu((rs.getString("gpsMiestoTreningu")));
 			team.setUser_id(rs.getInt("id_user"));
 			return team;	
 		}

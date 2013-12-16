@@ -7,11 +7,6 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link rel="stylesheet" type="text/css" href='<c:url value="/resources/style.css"></c:url>'/>
-<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYr2Hd6_FhH1YQCtDf4-8AGRM5qN4JiEY&sensor=true">
-</script>
-<script type="text/javascript" src='<c:url value="/resources/mapa.js"></c:url>'></script>
-
 
 <title>${pageTitle}</title>
 </head>
