@@ -98,8 +98,9 @@ p {
 }
 
 #profileInfo {
+	margin-left: 20pt;
 	height: auto;
-	min-width: 225pt;
+	min-width: 220pt;
 	display: inline-block;
 }
 
@@ -147,18 +148,29 @@ p {
 
 .elementsContainer{
 	position:relative;
+	height: 18pt;
 	width: 280pt;
 }
 
 .viewOnly {
-	position:absolute; top:0; left:0;
+	position:absolute; top:3pt; left:0;
 }
 
 .editOnly {
-	position:absolute; top:0; left:0;
+	position:absolute; top:2pt; left:0;
 }
 
-
+#panelMapa {
+        position: relative;
+        top: 8px;
+        left: 50%;
+        width: 237pt;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
 
 
 

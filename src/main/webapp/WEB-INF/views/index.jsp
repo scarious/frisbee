@@ -75,8 +75,16 @@
 				<a href="tournaments">Viac...</a>
 			</div>
 		<br/><br/>
-		<h3>Najbližšie turnaje na mape:</h3>
-		<div id="map-canvas"></div>
+		<h3>Najbližšie na mape</h3>
+		<div id="centerContent">
+			<div id="panelMapa">
+		      <input onclick="hideAll();" type=button value="Skry všetko">
+		      <input onclick="showTrainings();" type=button value="Zobraz tréningy">
+		      <input onclick="showTournaments();" type=button value="Zobraz turnaje">
+		    </div>
+		    <div id="map-canvas"></div>
+		</div>
+		
 		</div>
 
 	<c:import url="import/footer.jsp"></c:import>

@@ -33,7 +33,7 @@
 				<tr><td class="boldTextTd">Kontakt (email):</td><td>${teamData.contact_email}</td></tr>
 				<tr><td class="boldTextTd">Kontakt (telefón):</td><td>${teamData.contact_phone}</td></tr>
 				<tr><td class="boldTextTd">Kontakt (FB):</td><td><a href="#">${teamData.contact_fb}</a></td></tr>
-				<tr><td class="boldTextTd">Doplňujúce info:</td><td><a href="#">${teamData.contact_fb}</a></td></tr>
+				<tr><td class="boldTextTd">Doplňujúce info:</td><td>${teamData.information}</td></tr>
 				<c:if test="${not empty hadEditRight}">
 					<tr><td><a href="">Upraviť</a></td><td></td></tr>
 				</c:if>
