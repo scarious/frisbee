@@ -77,6 +77,29 @@ var marker = [];
 		
 	}
 	
+	function putGpsForTournament(){
+		var coordUnparsed = document.getElementById('gpsMiestoTurnaja').value.split(";");
+		if(coordUnparsed.length > 1){
+			var parsedLan = coordUnparsed[0];
+			var parsedLng = coordUnparsed[1];
+			//alert("Parsed: " + parsedLan + " " + parsedLng);
+			
+			var trainingPosition = new google.maps.LatLng(parsedLan, parsedLng);
+			map.setCenter(trainingPosition);
+			
+			if(marker[0] != undefined)
+				marker[0].setMap(null);
+			
+			marker[0] = new google.maps.Marker({
+				map:map,
+				draggable:false,
+				animation: google.maps.Animation.DROP,
+				position: trainingPosition
+			});
+		}
+		
+	}
+	
 	var trainingMarkers = [];
 	
 	function putTrainingsOnMap(){
@@ -95,8 +118,8 @@ var marker = [];
 			pName[i] = temp[0];
 			pLan[i] = temp[1];
 			pLng[i] = temp[2];
-			
-			if(pName[i] != null && pLan[i] != null && pLng[i] != null){
+			//alert(temp.length + " ");
+			if((pName[i] != null) && (pLan[i] != null) && (pLng[i] != null)){
 				trainingMarkers[i] = new MarkerWithLabel({
 					   position: new google.maps.LatLng(pLan[i], pLng[i]),
 					   draggable: false,
@@ -150,10 +173,13 @@ var marker = [];
 		hideTrainingsMarkers();
 	}
 	
-	function setAllMap(markers ,map) {
-		  for (var i = 0; i < markers.length; i++) {
-		    markers[i].setMap(map);
+	function setAllMap(markers,map) {
+		  if(markers != null){
+			  for (var i = 0; i < markers.length; i++) {
+				    markers[i].setMap(map);
+			  }
 		  }
+		 
 	}
 	
 	function hideTrainingsMarkers(){

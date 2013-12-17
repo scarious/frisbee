@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -49,25 +50,71 @@
 		<br/><br/>
 		<div id="centerContent">
 			
-				<img  id="cal" src='<c:url value="/resources/images/calendar.JPG"></c:url>' alt="Kalendar"/>
+			<!--	<img  id="cal" src='<c:url value="/resources/images/calendar.JPG"></c:url>' alt="Kalendar"/>   -->
 							
 			<div id="tournamentsList">
 				<table>
 					<tr><td><b>Najblizšie turnaje</b></td></tr>
 					<tr class="grayRow"><td>Dátum</td><td>Názov turnaja</td><td>Miesto konania</td></tr>
-					<tr><td>1.12.2013</td><td><a href="profileTournament">Turnaj 1</a></td><td>KE</td></tr>
+					<c:forEach var="tournaments" items="${tournament}" varStatus="status" end="10">
+						<tr>
+							<td><fmt:formatDate value="${tournaments.date}" pattern="yyyy-MM-dd" /></td>
+							<td><a href="profileTournament?id=${tournaments.tournament_id}">${tournaments.name}</a></td>
+							<td>${tournaments.city}</td>
+						</tr>
+					</c:forEach>
 				</table>
-				<br/>
+				<br/><br /><br />
+				Filter: 
+			<select>
+				  <optgroup label="Rok">
+				    <option value="SK">Všetky roky</option>
+				    <option value="2013">2013</option>
+				    <option value="2012">2012</option>
+				  </optgroup>
+			</select>
+			<select>
+				  <optgroup label="Mesiac">
+				    <option value="SK">Všetky mesiace</option>
+				    <option value="Jan">Jan</option>
+				    <option value="Feb">Feb</option>
+				    <option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="Maj">Maj</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Okt">Okt</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+				  </optgroup>
+			</select>
+			<select>
+				  <optgroup label="Den">
+				  	<option value="SK">Vsetky dni</option>
+				    <option value="1">1.</option>
+				    <option value="2">2.</option>
+				    <option value="3">3.</option>
+				    <option value="4">4.</option>
+				    <option value="5">5.</option>
+				  </optgroup>
+			</select>	
+			<br/>
 				<table>
 					<tr><td><b>Turnaje pre zvolený dátum</b></td></tr>
 					<tr class="grayRow"><td>Dátum</td><td>Názov turnaja</td><td>Miesto konania</td></tr>
-					<tr><td>3.11.2013</td><td><a href="profileTournament">Turnaj 1</a></td><td>KE</td></tr>
-					<tr><td>3.11.2013</td><td><a href="profileTournament">Turnaj 1</a></td><td>KE</td></tr>
-					<tr><td>3.11.2013</td><td><a href="profileTournament">Turnaj 1</a></td><td>KE</td></tr>
-					<tr><td>3.11.2013</td><td><a href="profileTournament">Turnaj 1</a></td><td>KE</td></tr>
+					<tr><td>-</td><td><a href="">-</a></td><td>-</td></tr>
 				</table>
 
-				
+				<br/><br/>
+				<table>
+					<tr><td><b>Všetky turnaje</b></td></tr>
+					<tr class="grayRow"><td>Názov turnaja</td><td>Miesto konania</td><td>Profil</td></tr>
+					<c:forEach var="alltournaments" items="${alltournaments}" varStatus="status">
+					<tr><td>${alltournaments.name}</td><td>${alltournaments.city} (${alltournaments.country})</td><td><a href="profileTournament?id=${alltournaments.tournament_id}">Profil</a></td></tr>
+					</c:forEach>
+				</table>
 			</div>
 			
 		</div>

@@ -14,7 +14,7 @@ public class Tournament implements Serializable {
 	 */
 	private static final long serialVersionUID = -7254088587054114213L;
 
-	private Long tournament_id;
+	private Integer tournament_id;
 	
 	private Integer user_id;
 	
@@ -52,6 +52,15 @@ public class Tournament implements Serializable {
 	private Integer regpoplatokhrac;
 	private Integer regpoplatoktim;
 	
+	
+	public Integer getTournament_id() {
+		return tournament_id;
+	}
+
+	public void setTournament_id(Integer tournament_id) {
+		this.tournament_id = tournament_id;
+	}
+
 
 	public Date getDate() {
 		return date;
@@ -61,7 +70,7 @@ public class Tournament implements Serializable {
 		this.date = date;
 	}
 	
-	public Long getId_tournament() {
+	public Integer getId_tournament() {
 		return tournament_id;
 	}
 

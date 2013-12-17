@@ -57,6 +57,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 		@Override
 		public Tournament mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Tournament tournament = new Tournament();
+			tournament.setTournament_id(rs.getInt("id_turnaj"));
 			tournament.setName(rs.getString("meno"));
 			tournament.setDisciplines(rs.getString("discipliny"));
 			tournament.setSurface(rs.getString("povrch"));
@@ -89,10 +90,10 @@ public class TournamentsDaoImpl implements TournamentsDao {
 	}
 
 	@Override
-	public List<Team> getTeamsFromTournament(Integer id) {
+	public List<Team> getTeamsFromTournament(Integer id_turnaj) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM supiska_hraci_turnaj, profil_team "
-				+ "WHERE supiska_hraci_turnaj.id_tim = profil_tim.id_tim AND id_turnaj = " + id + " GROUP BY id_tim";
+		String SQL = "SELECT * FROM supiska_hraci_turnaj, profil_tim "
+				+ "WHERE supiska_hraci_turnaj.id_tim=profil_tim.id_tim AND id_turnaj = " + id_turnaj + " GROUP BY supiska_hraci_turnaj.id_tim";
 		List<Team> teamsList = (List<Team>) jdbcTemplate.query(SQL, 
 				new TeamMapper());
 		jdbcTemplate = null;
@@ -103,12 +104,20 @@ public class TournamentsDaoImpl implements TournamentsDao {
 		@Override
 		public Team mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Team team = new Team();
+			team.setTeam_id(rs.getInt("id_tim"));
+			team.setName(rs.getString("nazov"));
+			team.setDisciplines(rs.getString("discipliny"));
 			team.setCity(rs.getString("mesto"));
+			team.setCountry(rs.getString("krajina"));
+			team.setDatumZalozenia(DateFormatCustom.fromDB(rs.getString("datumzalozenia")));
+			team.setContact_name(rs.getString("kontakt_meno"));	
+			team.setContact_phone(rs.getString("kontakt_cislo"));
 			team.setContact_email(rs.getString("kontakt_email"));
 			team.setContact_fb(rs.getString("kontakt_fb"));
-			team.setContact_name(rs.getString("kontakt_meno"));
-			team.setDisciplines(rs.getString("discipliny"));
-			team.setName(rs.getString("nazov"));
+			team.setInformation(rs.getString("zivotopis"));
+			team.setTrainings(rs.getString("treningy"));
+			team.setGpsMiestoTreningu((rs.getString("gpsMiestoTreningu")));
+			team.setUser_id(rs.getInt("id_user"));
 			return team;	
 		}
 	}

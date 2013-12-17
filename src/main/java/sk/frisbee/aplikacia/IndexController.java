@@ -287,11 +287,14 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		
 		Tournament tournament = tournamentsDao.getTournament(Integer.valueOf(tournament_id));
-		
-		
+		List<Team> teamsOnTournament = tournamentsDao.getTeamsFromTournament(Integer.valueOf(tournament_id));
+		for(Team t: teamsOnTournament){
+			System.out.println(t.getName());
+		}
 		ModelAndView maw = new ModelAndView("profileTournament", "date", date);
 		
 		maw.addObject("tournament", tournament);
+		maw.addObject("teamsOnTournament", teamsOnTournament);
 		maw.addObject("pageTitle", "Profil turnaja");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
@@ -360,8 +363,15 @@ public class IndexController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
+		
+		List<Tournament> tournament = tournamentsDao.getAllTournamentsDataByDate();
+		
+		List<Tournament> alltournaments = tournamentsDao.getAllTournamentsData();
+		
 		ModelAndView maw = new ModelAndView("tournaments", "date", date);
 		
+		maw.addObject("alltournaments", alltournaments);
+		maw.addObject("tournament", tournament);
 		maw.addObject("pageTitle", "Turnaje");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
