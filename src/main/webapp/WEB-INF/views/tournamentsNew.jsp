@@ -21,7 +21,7 @@ function addTeam(){
 
 	var second = document.getElementById('zoznamPridanychTimov');
 	var options = second.innerHTML + options;
-	var i = 1;
+
 	second.innerHTML = options;
 	document.getElementById('zoznamTimov').remove(document.getElementById('zoznamTimov').selectedIndex);
 	schedule = true;
@@ -32,7 +32,6 @@ function removeTeam(){
 
 	var second = document.getElementById('zoznamTimov');
 	var options = second.innerHTML + options;
-	var i = 1;
 	second.innerHTML = options;
 	document.getElementById('zoznamPridanychTimov').remove(document.getElementById('zoznamPridanychTimov').selectedIndex);
 	schedule = true;

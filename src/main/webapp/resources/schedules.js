@@ -5,13 +5,21 @@ function schedulegen(minpocet,aktual,tabrozpis,tabskupiny,bool){
 	
 	 var rows = tabrozpis.rows;
 	  var i = rows.length;
+	  if (null != document.getElementById('rozpis').rows[0].cells.item(1)){
+		  tabrozpis.rows[0].deleteCell(1);
+	  }
 	  while (rows.length>1) {
 	    //rows[i].parentNode.removeChild(rows[i]);
 	    // or
-
+		 
 	    tabrozpis.deleteRow(rows.length-1);
-	  //  alert(i);
-	//    i--;
+	    i--;
+//	    var Parent = document.getElementById(tabrozpis).;
+//	    while(Parent.hasChildNodes())
+//	    {
+//	       Parent.removeChild(Parent.firstChild);
+//	    }
+	    
 	  }
 	  
 		 var rows = tabskupiny.rows;
@@ -28,6 +36,17 @@ function schedulegen(minpocet,aktual,tabrozpis,tabskupiny,bool){
 	if (actualTeamNum>=minTeamNum && bool){
 		
 		switch (actualTeamNum){
+		
+		case 0:
+		case 1:
+		case 2:	
+		case 3:
+		case 4:
+		case 5:
+				//document.getElementById('rozpis').innerHTML='Maly pocet timov';
+			alert('maly pocet timov');
+			break;
+			
 		case 6:
 			var table = tabrozpis;// document.getElementById('rozpis');
 
@@ -594,15 +613,163 @@ function schedulegen(minpocet,aktual,tabrozpis,tabskupiny,bool){
 		cell11.innerHTML = 'B4';
 		cell12.innerHTML = 'B5';
 			break;
-		case 0:
-		case 1:
-		case 2:	
-		case 3:
-		case 4:
-		case 5:
-				//document.getElementById('rozpis').innerHTML='Maly pocet timov';
-			alert('maly pocet timov');
+			
+			
+		case 12:
+			
+			var table = tabrozpis;
+			var row0 = table.rows[0];
+			var cell0 = row0.insertCell(1);
+			cell0.innerHTML='Ihrisko 2';
+			var row1 = table.insertRow(1);
+			var row2 = table.insertRow(2);
+			var row3 = table.insertRow(3);
+			var row4 = table.insertRow(4);
+			var row5 = table.insertRow(5);
+			var row6 = table.insertRow(6);								
+			var row7 = table.insertRow(7);
+			var row8 = table.insertRow(8);
+			var row9 = table.insertRow(9);
+			var row10 = table.insertRow(10);
+			var row11 = table.insertRow(11);
+			var row12 = table.insertRow(12);
+			var row13 = table.insertRow(13);
+			var row14 = table.insertRow(14);
+			var row15 = table.insertRow(15);
+			var row16 = table.insertRow(16);
+			var row17 = table.insertRow(17);
+			//var row18 = table.insertRow(18);
+			//var row19 = table.insertRow(19);
+			
+			var cell1 = row1.insertCell(0);
+			var cell2 = row1.insertCell(1);
+			var cell3 = row2.insertCell(0);
+			var cell4 = row2.insertCell(1);
+			var cell5 = row3.insertCell(0);
+			var cell6 = row3.insertCell(1);
+			var cell7 = row4.insertCell(0);
+			var cell8 = row4.insertCell(1);
+			var cell9 = row5.insertCell(0);
+			var cell10 = row5.insertCell(1);
+			var cell11 = row6.insertCell(0);
+			var cell12 = row6.insertCell(1);
+			var cell13 = row7.insertCell(0);
+			var cell14 = row7.insertCell(1);
+			var cell15 = row8.insertCell(0);
+			var cell16 = row8.insertCell(1);
+			var cell17 = row9.insertCell(0);
+			var cell18 = row9.insertCell(1);
+			var cell19 = row10.insertCell(0);
+			var cell20 = row11.insertCell(0);
+			var cell21 = row12.insertCell(0);
+			var cell22 = row12.insertCell(1);
+			var cell23 = row13.insertCell(0);
+			var cell24 = row13.insertCell(1);
+			var cell25 = row14.insertCell(0);
+			var cell26 = row14.insertCell(1);
+			var cell27 = row15.insertCell(0);
+			var cell28 = row15.insertCell(1);
+			var cell29 = row16.insertCell(0);
+			var cell30 = row16.insertCell(1);
+			var cell31 = row17.insertCell(0);
+			var cell32 = row17.insertCell(1);
+		//	var cell33 = row18.insertCell(0);
+		//	var cell34 = row18.insertCell(1);
+			
+			
+			cell1.innerHTML ='A2-A3';	
+			cell2.innerHTML ='B2-B3';
+			cell3.innerHTML ='C2-C3';	
+			cell4.innerHTML ='D2-D3';
+			cell5.innerHTML ='A1-A3';	
+			cell6.innerHTML ='B1-B3';
+			cell7.innerHTML ='C1-C3';	
+			cell9.innerHTML ='D1-D3';
+			cell8.innerHTML ='A1-A2';	
+			cell9.innerHTML ='B1-B2';
+			cell10.innerHTML ='C1-C2';	
+			cell11.innerHTML ='D1-D2';
+			cell12.innerHTML ='x1:2A-3D';
+			cell13.innerHTML ='x2:2B-3C';
+			cell14.innerHTML ='x3:2C-3B';
+			cell15.innerHTML ='x4:2D-3A';
+			cell16.innerHTML ='Q1:wx1-1B';	
+			cell17.innerHTML ='Q2:wx2-1A';
+			cell18.innerHTML ='Q3:wx3-1D';	
+			cell19.innerHTML ='Q4:wx4-1C';
+			cell20.innerHTML ='Den druhy';
+			cell21.innerHTML ='S1:lx1-lx2';	
+			cell22.innerHTML ='S2:lx3-lx4';	
+			cell23.innerHTML ='S3:lQ2-lQ4';
+			cell24.innerHTML ='S4:lQ1-lQ3';
+			cell25.innerHTML ='S5:wQ1-wQ4';	
+			cell26.innerHTML ='S6:wQ2-wQ3';
+			cell27.innerHTML ='11/12:lS1-lS2';	
+			cell28.innerHTML ='9/10:wS1-wS2';
+			cell29.innerHTML ='7/8:lS3-lS4';
+			cell30.innerHTML ='5/6:wS3-wS4';
+			cell31.innerHTML ='3/4:lS5-lS6';	
+			cell32.innerHTML ='1/2:wS5-wS6';
+			
+var table1 = tabskupiny;//document.getElementById('skupiny');
+			
+			
+			var row1 = table1.insertRow(1);
+			var row2 = table1.insertRow(2);
+			var row3 = table1.insertRow(3);
+			var row4 = table1.insertRow(4);
+			var row5 = table1.insertRow(5);
+			var row6 = table1.insertRow(6);
+			var row7 = table1.insertRow(7);
+			var row8 = table1.insertRow(8);
+			var row9 = table1.insertRow(9);
+			var row10 = table1.insertRow(10);
+			var row11 = table1.insertRow(11);
+			var row12 = table1.insertRow(12);
+			var row13 = table1.insertRow(13);
+			var row14 = table1.insertRow(14);
+			var row15 = table1.insertRow(15);
+			var row16 = table1.insertRow(16);
+			
+		var cell1 = row1.insertCell(0);
+		var cell2 = row2.insertCell(0);
+		var cell3 = row3.insertCell(0);
+		var cell4 = row4.insertCell(0);
+		var cell5 = row5.insertCell(0);
+		var cell6 = row6.insertCell(0);
+		var cell7 = row7.insertCell(0);
+		var cell8 = row8.insertCell(0);
+		var cell9 = row9.insertCell(0);
+		var cell10 = row10.insertCell(0);
+		var cell11 = row11.insertCell(0);
+		var cell12 = row12.insertCell(0);
+		var cell13 = row13.insertCell(0);
+		var cell14 = row14.insertCell(0);
+		var cell15 = row15.insertCell(0);
+		var cell16 = row16.insertCell(0);
+		
+		cell1.innerHTML = 'Skupina A';
+		cell2.innerHTML = 'A1';
+		cell3.innerHTML = 'A2';
+		cell4.innerHTML = 'A3';
+		
+		cell5.innerHTML = 'Skupina B';
+		cell6.innerHTML = 'B1';	
+		cell7.innerHTML = 'B2';
+		cell8.innerHTML = 'B3';
+		
+		cell9.innerHTML = 'Skupina C';
+		cell10.innerHTML = 'C1';
+		cell11.innerHTML = 'C2';
+		cell12.innerHTML = 'C3';
+		
+		cell13.innerHTML = 'Skupina D';
+		cell14.innerHTML = 'D1';
+		cell15.innerHTML = 'D2';
+		cell16.innerHTML = 'D3';
+			
 			break;
+			
 		default:
 			alert('Pre takyto pocet timov este nie je rozpis predpripraveny');
 			break;
