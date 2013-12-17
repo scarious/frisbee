@@ -52,7 +52,7 @@ public class TeamsDaoImpl implements TeamsDao {
 			team.setTeam_id(rs.getInt("id_tim"));
 			team.setName(rs.getString("nazov"));
 			team.setDisciplines(rs.getString("discipliny"));
-			team.setCountry(rs.getString("mesto"));
+			team.setCity(rs.getString("mesto"));
 			team.setCountry(rs.getString("krajina"));
 			team.setDatumZalozenia(DateFormatCustom.fromDB(rs.getString("datumzalozenia")));
 			team.setContact_name(rs.getString("kontakt_meno"));	
@@ -99,18 +99,22 @@ public class TeamsDaoImpl implements TeamsDao {
 
 	@Override
 	public void addTeam(Team team) {
+		Date date = team.getDatumZalozenia();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO profil_tim (nazov, discipliny, mesto, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, id_hrac) "
+		String SQL = "INSERT INTO profil_tim (nazov, discipliny, mesto, krajina, datumzalozenia, kontakt_meno, kontakt_cislo, kontakt_email, kontakt_fb, zivotopis, treningy, gpsMiestoTreningu, id_hrac) "
 				+ "VALUES ("
 				+ "\"" + team.getName() + "\", "
 				+ "\"" + team.getDisciplines() + "\", "
 				+ "\"" + team.getCity() + "\", "
+				+ "\"" + team.getCountry() + "\", "
+				+ "\"" + DateFormatCustom.dateForDB(date) + "\", "
 				+ "\"" + team.getContact_name() + "\", "
 				+ "\"" + team.getContactPhone() + "\", "
 				+ "\"" + team.getContact_email() + "\", "
 				+ "\"" + team.getContact_fb() + "\", "
 				+ "\"" + team.getInformation() + "\", "
 				+ "\"" + team.getTrainings() + "\", "
+				+ "\"" + team.getGpsMiestoTreningu() + "\", "
 				+ team.getUserId() + 
 				")";
 		jdbcTemplate.execute(SQL);

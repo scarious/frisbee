@@ -61,6 +61,7 @@
 				<tr><td>Kontakt (email):</td><td><input name="contact_email" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Kontakt (telefon):</td><td><input name="contact_phone" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Kontakt (FB):</td><td><input name="contact_fb" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Doplňujúce info:</td><td><input name="information" type="text" size="30" maxlength="50"/></td></tr>
 
 			</table>
 			<br/>
