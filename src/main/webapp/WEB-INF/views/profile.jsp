@@ -115,8 +115,8 @@
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.disciplines}</p>
 																	<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/>
 															   </td></tr>
-					<tr><td class="boldTextTd" >Fotka (URL):</td><td class="elementsContainer">
-																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.urlImage}</p>
+					<tr id="poleSfoto" style="visibility: hidden;"><td class="boldTextTd" >Fotka (URL):</td><td class="elementsContainer">
+																	<p class="viewOnly" style="visibility: visible;"></p> 
 																	<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="urlImage" value="${loggedPlayerData.urlImage}"/>
 															   </td></tr>
 					<tr class="viewOnlyWithoutStyle"><td class="boldTextTd">Tím(y):</td>
@@ -142,6 +142,7 @@
 									document.getElementsByClassName('editOnly')[i].style.visibility="visible";
 								}
 								document.getElementsByClassName('viewOnlyWithoutStyle')[0].style.visibility="hidden";
+								document.getElementById('poleSfoto').style.visibility="visible";
 							}
 							showEditables();
 						</script>
@@ -158,6 +159,8 @@
 							document.getElementsByClassName('editOnly')[i].style.visibility="visible";
 						}
 						document.getElementsByClassName('viewOnlyWithoutStyle')[0].style.visibility="hidden";
+						document.getElementById('poleSfoto').style.visibility="visible";
+						
 						document.getElementById('updProfileBtn').style.visibility="visible";
 						editable = false;
 					} else {
@@ -166,6 +169,8 @@
 							document.getElementsByClassName('editOnly')[i].style.visibility="hidden";
 						}
 						document.getElementsByClassName('viewOnlyWithoutStyle')[0].style.visibility="visible";
+						document.getElementById('poleSfoto').style.visibility="hidden";
+						
 						document.getElementById('updProfileBtn').style.visibility="hidden";
 						editable = true;
 					}
@@ -204,7 +209,15 @@
 			</script>
 		</div>
 		<c:if test="${not empty loggedPlayerData}">
-			<div id="profileAvatar"><img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/></div>	
+			<div id="profileAvatar">
+				<c:if test="${empty loggedPlayerData.urlImage}">
+					<img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/>
+				</c:if>
+				<c:if test="${not empty loggedPlayerData.urlImage}">
+					<img id="profileAvatarImg" alt="Avatar hraca" src='${loggedPlayerData.urlImage}'/>
+				</c:if>
+				<!-- <img id="profileAvatarImg" alt="Avatar hraca" src='<c:url value="/resources/images/default_avatar.jpg"></c:url>'/> -->
+			</div>	
 			<br/><br/><br/>
 			<div id="centerContent" class="topFiveMain">
 				<p>Štatistika hráča</p>

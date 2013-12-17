@@ -93,7 +93,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 			player.setPohlavie(rs.getString("pohlavie"));
 			player.setHeight(rs.getInt("vyska"));
 			player.setDominantHand(rs.getString("dominantna_ruka"));
-			player.setDominantHand(rs.getString("url_foto"));
+			player.setUrlImage(rs.getString("url_foto"));
 			player.setActiveSince(DateFormatCustom.fromDB(rs.getString("aktivny_od")));
 			//player.setTeams(null);
 			return player;	
@@ -200,8 +200,6 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	public void updatePlayer(Player updatedPlayer) {
 		Date dNar = updatedPlayer.getDateOfBirth();
 		Date dAct = updatedPlayer.getActiveSince();
-		
-		
 		String SQL = "UPDATE profil_hrac SET " +
 				"meno=\"" + updatedPlayer.getFirstName()  + "\", " +
 				"priezvisko=\"" + updatedPlayer.getLastName()  + "\", " +
@@ -288,7 +286,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	@Override
 	public void addPlayer(Player player, Integer user_id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO profil_hrac (id_user, meno, priezvisko, discipliny, mesto, krajina, datum_narodenia , pohlavie, vyska, dominantna_ruka , aktivny_od, aktivny_od, url_foto)" + 
+		String SQL = "INSERT INTO profil_hrac (id_user, meno, priezvisko, discipliny, mesto, krajina, datum_narodenia , pohlavie, vyska, dominantna_ruka , aktivny_od, url_foto)" + 
 		"VALUES (" + 
 						user_id + ", " +
 				"\"" + player.getFirstName() + "\"," +

@@ -33,8 +33,8 @@
 				<tr><td></td><td><input id="loginBtn" onclick="kontrolaLoginForm()" type="button" name="submit" value="Prihlás"/></td></tr>
 			</table>
 			</form>
-			<br/>alebo<br/><br/>
-			<img src='<c:url value="/resources/images/loginFB.png"></c:url>' alt="Facebook login"/>
+			<!--  <br/>alebo<br/><br/>
+			<img src='<c:url value="/resources/images/loginFB.png"></c:url>' alt="Facebook login"/> --><br/>
 		</div>
 	</div>
 	<script type="text/javascript">

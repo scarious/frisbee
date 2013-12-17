@@ -105,8 +105,10 @@ p {
 }
 
 #profileAvatar {
+	margin-left: 5pt;
 	width: 150pt;
-	display: inline-block;
+	float: left;
+	border: 2px solid black;
 }
 
 #profileAvatarImg {
