@@ -45,7 +45,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 	}
 	public List<Tournament> getAllTournamentsDataByDate() {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM profil_turnaj order by datum";
+		String SQL = "SELECT * FROM profil_turnaj WHERE datum >= curdate()  ORDER BY datum";
 		List<Tournament> tournamentList = (List<Tournament>) jdbcTemplate.query(SQL, 
 				new TournamentMapper());
 		jdbcTemplate = null;

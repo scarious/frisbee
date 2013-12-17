@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,8 +64,9 @@
 					
 					<c:forEach var="tournaments" items="${tournamentList}" varStatus="status" end="10">
 					<tr><td></td><td>${tournamentList[status.index].name}</td>
-					<td>${tournamentList[status.index].surface}</td></tr>
-<%-- 					 <fmt:formatDate value="${tournamentList.date}" pattern="yyyy-MM-dd" /> --%>
+					<td><fmt:formatDate value="${tournamentList[status.index].date}" pattern="yyyy-MM-dd" /> </td>
+					</tr>
+ 					 
 					</c:forEach>
 				</table>
 					<script type="text/javascript">

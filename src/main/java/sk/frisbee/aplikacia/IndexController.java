@@ -107,7 +107,7 @@ public class IndexController {
 		}
 		
 		maw.addObject("topPlayersInfo", players);
-		maw.addObject("pageTitle", "Top Players");
+		maw.addObject("pageTitle", "Najlepší hráči");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -273,7 +273,7 @@ public class IndexController {
 		
 		maw.addObject("playersInTeam", playersInTeam);
 		maw.addObject("teamData", teamData);
-		maw.addObject("pageTitle", "Profil tim");
+		maw.addObject("pageTitle", "Profil timu");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -321,7 +321,7 @@ public class IndexController {
 		
 		maw.addObject("teamsList", teamsList);
 		maw.addObject("playersCount", playersCount);
-		maw.addObject("pageTitle", "Teams");
+		maw.addObject("pageTitle", "Tímy");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -348,7 +348,7 @@ public class IndexController {
 		
 		maw.addObject("topTeamsList", topTeamsList);
 		maw.addObject("topTeamsListData", topTeamsListData);
-		maw.addObject("pageTitle", "teamsTop");
+		maw.addObject("pageTitle", "Najlepšie tímy");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -362,7 +362,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("tournaments", "date", date);
 		
-		maw.addObject("pageTitle", "tournaments");
+		maw.addObject("pageTitle", "Turnaje");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;
@@ -376,7 +376,7 @@ public class IndexController {
 		String formattedDate = dateFormat.format(date);
 		ModelAndView maw = new ModelAndView("tournamentsNew", "date", date);
 		
-		maw.addObject("pageTitle", "tournamentsNew");
+		maw.addObject("pageTitle", "Pridaj nový turnaj");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;

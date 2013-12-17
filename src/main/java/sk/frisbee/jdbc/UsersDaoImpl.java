@@ -298,7 +298,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 				"\"" + player.getPohlavie() + "\"," +
 				player.getHeight() + "," +
 				"\"" + player.getDominantHand() + "\"," +
-				"\"" + DateFormatCustom.dateForDB(player.getActiveSince()) + "\"" +
+				"\"" + DateFormatCustom.dateForDB(player.getActiveSince()) + "\"," +
 				"\"" + player.getUrlImage() + "\"" +
 						 ")";
 	   jdbcTemplate.execute(SQL);
