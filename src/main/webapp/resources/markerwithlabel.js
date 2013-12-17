@@ -384,6 +384,7 @@ MarkerLabel_.prototype.setVisible = function () {
 function MarkerWithLabel(opt_options) {
   opt_options = opt_options || {};
   opt_options.labelContent = opt_options.labelContent || "";
+  opt_options.labelLink = opt_options.labelLink || "";
   opt_options.labelAnchor = opt_options.labelAnchor || new google.maps.Point(0, 0);
   opt_options.labelClass = opt_options.labelClass || "markerLabels";
   opt_options.labelStyle = opt_options.labelStyle || {};

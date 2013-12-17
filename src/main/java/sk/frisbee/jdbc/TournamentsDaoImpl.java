@@ -65,7 +65,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 			tournament.setFormat(rs.getString("format"));
 			tournament.setTournamentDate(DateFormatCustom.fromDB(rs.getString("datum")));
 			tournament.setCity(rs.getString("miesto"));
-			tournament.setGps(null);//tournament.setGps(rs.getString("gps"));
+			tournament.setGps_coord(rs.getString("gps"));//tournament.setGps(rs.getString("gps"));
 			tournament.setContact(rs.getString("kontakt"));
 			tournament.setCountry(rs.getString("krajina"));
 			tournament.setId_user(rs.getInt("id_user"));
@@ -236,7 +236,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 					"format=" + updatedTournament.getFormat() + ", " +
 					"datum=\"" + DateFormatCustom.dateForDB(date) + "\", " +
 					"miesto=\"" + updatedTournament.getCity() + "\", " +
-					"gps=\"" + updatedTournament.getGps() + "\", " +
+					"gps=\"" + updatedTournament.getGps_coord() + "\", " +
 					"krajina=\"" + updatedTournament.getCountry() + "\", " +
 					"kontakt=\"" + updatedTournament.getContact() + "\", " +
 					" WHERE id_user=" + updatedTournament.getId_user();
@@ -253,6 +253,16 @@ public class TournamentsDaoImpl implements TournamentsDao {
 		jdbcTemplate.execute(SQL);
 		jdbcTemplate = null;
 		
+	}
+
+	@Override
+	public List<Tournament> getTournamentsWithGps() {
+		String SQL = "SELECT * FROM profil_turnaj WHERE gps IS NOT NULL";
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		List<Tournament> tournamentList = (List<Tournament>) jdbcTemplate.query(SQL, 
+				new TournamentMapper());
+		jdbcTemplate = null;
+		return tournamentList;
 	}
 
 }

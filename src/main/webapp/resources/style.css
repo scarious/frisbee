@@ -184,7 +184,20 @@ p {
    font-weight: bold;
    text-align: center;
    width: 60pt;     
+   max-height: 25pt;
    border: 1pt solid red;
+ }
+
+.popisZnackyTurnaj {
+   color: green;
+   background-color: white;
+   font-family: "Lucida Grande", "Arial", sans-serif;
+   font-size: 11pt;
+   font-weight: bold;
+   text-align: center;
+   width: 60pt;     
+   max-height: 25pt;
+   border: 1pt solid green;
  }
 
 

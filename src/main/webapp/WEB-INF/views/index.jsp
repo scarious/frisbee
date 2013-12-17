@@ -76,16 +76,22 @@
 				<a href="tournaments">Viac...</a>
 			</div>
 		<br/><br/>
+		<c:if test="${not empty teamsWithGps}">
 		<c:forEach var="teamsWithGps" items="${teamsWithGps}" varStatus="status">
 			<input name="treningyNaMapu" type="hidden" value="${teamsWithGps.name};${teamsWithGps.gpsMiestoTreningu}"/>
 		</c:forEach>
-
+		</c:if>
+		<c:if test="${not empty tournamentsWithGps}">
+		<c:forEach var="tournamentsWithGps" items="${tournamentsWithGps}" varStatus="status">
+			<input name="turnajeNaMapu" type="hidden" value="${tournamentsWithGps.name};${tournamentsWithGps.gps_coord}"/>
+		</c:forEach>
+		</c:if>
 		<h3>Najbližšie na mape</h3>
 			<div id="centerContent">
 				<div id="panelMapa">
 			      <input onclick="hideAll();" type=button value="Skry všetko">
 			      <input onclick="putTrainingsOnMap()" type=button value="Zobraz tréningy">
-			      <input onclick="showTournaments();" type=button value="Zobraz turnaje">
+			      <input onclick="putTournamentsOnMap();" type=button value="Zobraz turnaje">
 			    </div>
 			    <div id="map-canvas"></div>
 			</div>

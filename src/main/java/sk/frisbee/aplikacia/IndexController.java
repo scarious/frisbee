@@ -74,6 +74,9 @@ public class IndexController {
 		List<StatisticsPlayer> topUsersList = statsDao.getAllPlayerStats();
 		List<Tournament> tournamentList = tournamentsDao.getAllTournamentsDataByDate();
 		
+		List<Tournament> tournamentsWithGps = tournamentsDao.getTournamentsWithGps();
+		
+		map.addAttribute("tournamentsWithGps", tournamentsWithGps);
 		map.addAttribute("teamsWithGps", teamsWithGps);
 		map.addAttribute("topTeamsList", topTeamsList);
 		map.addAttribute("topTeamsListData", topTeamsListData);

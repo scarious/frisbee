@@ -45,4 +45,6 @@ public interface TournamentsDao {
 	public void updateTournament(Tournament updatedTournament);
 	
 	public void deleteTournament(Integer id);
+	
+	public List<Tournament> getTournamentsWithGps();
 }

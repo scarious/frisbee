@@ -149,11 +149,11 @@ public class Tournament implements Serializable {
 		this.tRosters = tRosters;
 	}
 
-	public String getGps() {
+	public String getGps_coord() {
 		return gps_coord;
 	}
 	
-	public void setGps(String gps){
+	public void setGps_coord(String gps){
 		this.gps_coord = gps;
 	}
 

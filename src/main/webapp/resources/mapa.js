@@ -86,6 +86,8 @@ var marker = [];
 		var pLan = [];
 		var pLng = [];
 		
+		
+		hideTrainingsMarkers();
 		trainingMarkers = [];
 		
 		for(var i = 0; i<unparsed.length; i++){
@@ -94,20 +96,58 @@ var marker = [];
 			pLan[i] = temp[1];
 			pLng[i] = temp[2];
 			
-			trainingMarkers[i] = new MarkerWithLabel({
-				   position: new google.maps.LatLng(pLan[i], pLng[i]),
-				   draggable: false,
-				   animation: google.maps.Animation.DROP,
-				   map: map,
-				   labelContent: pName[i],
-				   labelAnchor: new google.maps.Point(40, 75),
-				   labelClass: "popisZnacky", // the CSS class for the label
-				   labelStyle: {opacity: 0.65}
-				 });
-			//alert("pridavam " + pName[i] + " " + pLan[i] + " " + pLng[i]);
+			if(pName[i] != null && pLan[i] != null && pLng[i] != null){
+				trainingMarkers[i] = new MarkerWithLabel({
+					   position: new google.maps.LatLng(pLan[i], pLng[i]),
+					   draggable: false,
+					   animation: google.maps.Animation.DROP,
+					   map: map,
+					   labelContent: pName[i],
+					   labelAnchor: new google.maps.Point(40, 70),
+					   labelClass: "popisZnacky", // the CSS class for the label
+					   labelStyle: {opacity: 0.65}
+				});
+				//alert("pridavam " + pName[i] + " " + pLan[i] + " " + pLng[i]);	
+			}
 		}
+		if(trainingMarkers.length == 0) alert("Žiadne tréningy s polohou na zobrazenie");
+		hideTournamentsMarkers();
+	}
+	
+	var tournamentsMarkers = [];
+	
+	function putTournamentsOnMap(){
+		var unparsed = document.getElementsByName('turnajeNaMapu');
+		var temp;
+		var pName = [];
+		var pLan = [];
+		var pLng = [];
 		
+		hideTournamentsMarkers();
+		tournamentsMarkers = [];
 		
+		for(var i = 0; i<unparsed.length; i++){
+			temp = unparsed[i].value.split(";");
+			pName[i] = temp[0];
+			pLan[i] = temp[1];
+			pLng[i] = temp[2];
+			
+			if((pName[i] != null) && (pLan[i] != null) && (pLng[i] != null)){
+				tournamentsMarkers[i] = new MarkerWithLabel({
+					   position: new google.maps.LatLng(pLan[i], pLng[i]),
+					   draggable: false,
+					   animation: google.maps.Animation.DROP,
+					   map: map,
+					   labelContent: pName[i],
+					   labelAnchor: new google.maps.Point(40, 70),
+					   labelClass: "popisZnackyTurnaj", // the CSS class for the label
+					   labelStyle: {opacity: 0.65}
+				});
+				//alert("pridavam " + pName[i] + " " + pLan[i] + " " + pLng[i]);	
+			}
+		}
+		if(tournamentsMarkers.length == 0) alert("Žiadne turnaje s polohou na zobrazenie");
+		hideTrainingsMarkers();
 	}
 	
 	function setAllMap(markers ,map) {
@@ -116,10 +156,20 @@ var marker = [];
 		  }
 	}
 	
-	function hideAll() {
-		  setAllMap(trainingMarkers, null);
+	function hideTrainingsMarkers(){
+		setAllMap(trainingMarkers, null);
 	}
 	
+	function hideTournamentsMarkers(){
+		setAllMap(tournamentsMarkers, null);
+	}
+	
+	function hideAll() {
+		hideTrainingsMarkers();
+		hideTournamentsMarkers();
+	}
+	
+	//
 	google.maps.event.addDomListener(window, 'load', initialize);  	
 	
 		
