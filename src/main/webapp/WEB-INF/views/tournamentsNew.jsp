@@ -6,6 +6,11 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link rel="stylesheet" type="text/css" href='<c:url value="/resources/style.css"></c:url>'/>
+<script type="text/javascript"
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYr2Hd6_FhH1YQCtDf4-8AGRM5qN4JiEY&sensor=true">
+</script>
+<script type="text/javascript" src='<c:url value="/resources/markerwithlabel.js"></c:url>'></script>
+<script type="text/javascript" src='<c:url value="/resources/mapa.js"></c:url>'></script>
 <title>${pageTitle}</title>
 <script type="text/javascript" src='<c:url value="/resources/filterlist.js"></c:url>'></script>
 <script type="text/javascript" src='<c:url value="/resources/schedules.js"></c:url>'></script>
@@ -60,7 +65,8 @@ function removeTeam(){
 				<tr><td>Povrch:</td><td><input type="text" name="surface" size="30" maxlength="50"/></td></tr>
 				<tr><td>Uroven hry:</td><td><input type="text" name="level_of_play" size="30" maxlength="50"/></td></tr>	
 				<tr><td>Divizia:</td><td><input name="division" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>GPS:</td><td><input name="gps_coord" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Miesto turnaja:</td><td><input id="gps" value="Klikni na mape!" size="50" name="gps_coord" readonly type="text"/></td></tr>
+			
 				
 				<tr><td>Usporiadatel:</td><td><input type="text" name="organizator" size="30" maxlength="50"/></td></tr>
 				<tr><td>Min. pocet timov:</td><td><input name="minPocet" id="minPocet" type="text" size="30" maxlength="50"/></td></tr>
@@ -81,7 +87,12 @@ function removeTeam(){
 				</tr>
 			</table>
 			<br/>
-		
+			<div onclick="setGpsNewTournament()" id="centerContent"><div id="map-canvas"></div></div>
+				<br/>
+				<br/>
+			
+				
+			
 			<table>
 				<tr><td><p>Pridaj tímy:<br/><small><a href="#">Obnov zoznam</a></small></p></td><td>
 						<!-- <form name="myform">  -->
@@ -111,7 +122,7 @@ function removeTeam(){
 					<input type="button" value="Odober" onclick="removeTeam()" />
 															</td>
 				<td><select id="zoznamPridanychTimov" multiple="multiple" size="6"></select></td></tr>
-				<td><br/><input type="button" id ="gen" value="Generuj rozpis" onclick="
+				<tr><td><br/><input type="button" id ="gen" value="Generuj rozpis" onclick="
 				javascript:
 				var minpocet = document.getElementById('minPocet').value;
 				var aktual = document.getElementById('zoznamPridanychTimov').length;
@@ -132,8 +143,9 @@ function removeTeam(){
 			</table>
 			</div>
 		</div>
-				</br>
-				</br></br>
+				<br/>
+				<br/>
+				<br/>
 			<input type="submit" name="submit" value="Vytvor turnaj"/>
 		</form>
 		</div>

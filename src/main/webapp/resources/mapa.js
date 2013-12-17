@@ -54,6 +54,32 @@ var marker = [];
 			 });
 	}
 	
+	
+	function setGpsNewTournament(){
+		document.getElementById('gps').value = mLat + ";" + mLng;
+		
+		if(marker[0] != undefined)
+			marker[0].setMap(null);
+		
+	//	marker[0] = new google.maps.Marker({
+	//		map:map,
+	//		draggable:false,
+	//		labelContent: "asd",
+	//		animation: google.maps.Animation.DROP,
+	//		position: new google.maps.LatLng(mLat, mLng)
+	//	});
+		
+		marker[0] = new MarkerWithLabel({
+			   position: new google.maps.LatLng(mLat, mLng),
+			   draggable: false,
+			   map: map,
+			   labelContent: "Miesto konania turnaja",
+			   labelAnchor: new google.maps.Point(40, 75),
+			   labelClass: "popisZnacky", // the CSS class for the label
+			   labelStyle: {opacity: 0.65}
+			 });
+	}
+	
 	function putGpsForTeam(){
 		var coordUnparsed = document.getElementById('gpsMiestoTreningu').value.split(";");
 		if(coordUnparsed.length > 1){
