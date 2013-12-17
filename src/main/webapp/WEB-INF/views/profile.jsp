@@ -115,6 +115,10 @@
 																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.disciplines}</p>
 																	<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="disciplines" value="${loggedPlayerData.disciplines}"/>
 															   </td></tr>
+					<tr><td class="boldTextTd" >Fotka (URL):</td><td class="elementsContainer">
+																	<p class="viewOnly" style="visibility: visible;">${loggedPlayerData.urlImage}</p>
+																	<input class="editOnly" size="30" style="visibility: hidden;" type="text" name="urlImage" value="${loggedPlayerData.urlImage}"/>
+															   </td></tr>
 					<tr class="viewOnlyWithoutStyle"><td class="boldTextTd">Tím(y):</td>
 															<td class="elementsContainer"><br/>
 															<c:if test="${(not empty playerTeams)}">

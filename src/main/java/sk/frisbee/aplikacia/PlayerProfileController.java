@@ -72,8 +72,12 @@ public class PlayerProfileController {
 			
 			playerTeams = teamsDao.getPlayersTeams(loggedPlayerData.getPlayer_id());
 			maw.addObject("playerTeams", playerTeams);
-			
-			playerStats = statsDao.getStatsForPlayer(loggedPlayerData.getPlayer_id());
+			try{
+				playerStats = statsDao.getStatsForPlayer(loggedPlayerData.getPlayer_id());	
+			}
+			catch(Exception e){
+				playerStats = null;
+			}
 			maw.addObject("playerStats", playerStats);
 		}
 		

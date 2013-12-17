@@ -90,10 +90,11 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 			player.setDisciplines(rs.getString("discipliny"));
 			player.setAddress(new Address(null, null, rs.getString("mesto"), null, rs.getString("krajina")));
 			player.setDateOfBirth(DateFormatCustom.fromDB(rs.getString("datum_narodenia")));
-			player.setActiveSince(DateFormatCustom.fromDB(rs.getString("aktivny_od")));
 			player.setPohlavie(rs.getString("pohlavie"));
 			player.setHeight(rs.getInt("vyska"));
 			player.setDominantHand(rs.getString("dominantna_ruka"));
+			player.setDominantHand(rs.getString("url_foto"));
+			player.setActiveSince(DateFormatCustom.fromDB(rs.getString("aktivny_od")));
 			//player.setTeams(null);
 			return player;	
 		}
@@ -209,9 +210,10 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 				"krajina=\"" + updatedPlayer.getAddress().getCountry() + "\"," +
 				"datum_narodenia=\"" + DateFormatCustom.dateForDB(dNar) + "\", " +
 				"pohlavie=\"" + updatedPlayer.getPohlavie() + "\", " +
-				"vyska=" + updatedPlayer.getHeight() + ", " +
+				"vyska=\"" + updatedPlayer.getHeight() + "\", " +
 				"dominantna_ruka=\"" + updatedPlayer.getDominantHand() + "\", " +
-				"aktivny_od=\"" + DateFormatCustom.dateForDB(dAct) + "\"" +
+				"aktivny_od=\"" + DateFormatCustom.dateForDB(dAct) + "\"," +
+				"url_foto=\"" + updatedPlayer.getUrlImage() + "\"" +
 				" WHERE id_user=" + updatedPlayer.getUser_id();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.execute(SQL);
@@ -286,7 +288,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 	@Override
 	public void addPlayer(Player player, Integer user_id) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO profil_hrac (`id_user`, `meno`,`priezvisko`,`discipliny`,`mesto`,`krajina`,`datum_narodenia`,`pohlavie`,`vyska`,`dominantna_ruka`,`aktivny_od`)" + 
+		String SQL = "INSERT INTO profil_hrac (id_user, meno, priezvisko, discipliny, mesto, krajina, datum_narodenia , pohlavie, vyska, dominantna_ruka , aktivny_od, aktivny_od, url_foto)" + 
 		"VALUES (" + 
 						user_id + ", " +
 				"\"" + player.getFirstName() + "\"," +
@@ -299,6 +301,7 @@ public class UsersDaoImpl implements UsersDao, UserDetailsService {
 				player.getHeight() + "," +
 				"\"" + player.getDominantHand() + "\"," +
 				"\"" + DateFormatCustom.dateForDB(player.getActiveSince()) + "\"" +
+				"\"" + player.getUrlImage() + "\"" +
 						 ")";
 	   jdbcTemplate.execute(SQL);
 	   jdbcTemplate = null;
