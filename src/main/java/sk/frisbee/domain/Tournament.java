@@ -49,6 +49,14 @@ public class Tournament implements Serializable {
 
 	private String gps_coord;
 
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 	public Long getId_tournament() {
 		return tournament_id;
 	}

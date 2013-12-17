@@ -61,12 +61,13 @@
 			for(var i = 0;i<splitUnparsed.length;i++){
 				var singleDay = splitUnparsed[i];
 				var splitSingleDay = singleDay.split(',');
+
 				if(splitSingleDay[0] == 'Po'){
 					document.getElementById('ponChk').checked = true;
 					document.getElementById('ponHour').innerHTML = "o " + splitSingleDay[1];
 				} else if(splitSingleDay[0] == 'Ut'){
 					document.getElementById('utoChk').checked = true;
-					document.getElementById('tuoHour').innerHTML = "o " + splitSingleDay[1];
+					document.getElementById('utoHour').innerHTML = "o " + splitSingleDay[1];
 				} else if(splitSingleDay[0] == 'Str'){
 					document.getElementById('strChk').checked = true;
 					document.getElementById('strHour').innerHTML = "o " + splitSingleDay[1];

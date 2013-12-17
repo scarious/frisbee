@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -17,11 +18,11 @@
 	<h2>PROFIL Turnaja ::</h2>
 		<div id="profileInfo">		
 			<table>
-				<tr><td class="boldTextTd">Nazov turnaja:</td><td>Vianocny turnaj</td></tr>
-				<tr><td class="boldTextTd">Mesto:</td><td>KE</td></tr>
-				<tr><td class="boldTextTd">Krajina:</td><td>SK</td></tr>
-				<tr><td class="boldTextTd">Dátum zaciatku:</td><td>23.12.2013</td></tr>
-				<tr><td class="boldTextTd">Dátum ukončenia:</td><td>23.12.2013</td></tr>
+				<tr><td class="boldTextTd">Nazov turnaja:</td><td>${tournament.name}</td></tr>
+				<tr><td class="boldTextTd">Mesto:</td><td>${tournament.city}</td></tr>
+				<tr><td class="boldTextTd">Krajina:</td><td>${tournament.country}</td></tr>
+				<tr><td class="boldTextTd">Dátum zaciatku:</td><td><fmt:formatDate value="${tournament.date}" pattern="yyyy-MM-dd" /></td></tr>
+				<tr><td class="boldTextTd">Doba trvania (dní):</td><td>${tournament.durationDays}</td></tr>
 				<tr><td class="boldTextTd">Max. počet timov (prihlásených):</td><td>4 (3)</td></tr>
 				<tr><td class="boldTextTd">Usporiadatel:</td><td>Jano</td></tr>
 				<tr><td class="boldTextTd">Kontakt (email):</td><td>organizator@turnaja.sk</td></tr>

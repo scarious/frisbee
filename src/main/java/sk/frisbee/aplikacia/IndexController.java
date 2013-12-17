@@ -280,14 +280,19 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/profileTournament", method = RequestMethod.GET)
-	public ModelAndView getTournamentProfile() {
+	public ModelAndView getTournamentProfile(@RequestParam(value = "id", required = true) String tournament_id) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 		String formattedDate = dateFormat.format(date);
+		
+		Tournament tournament = tournamentsDao.getTournament(Integer.valueOf(tournament_id));
+		
+		
 		ModelAndView maw = new ModelAndView("profileTournament", "date", date);
 		
-		maw.addObject("pageTitle", "profileTournament");
+		maw.addObject("tournament", tournament);
+		maw.addObject("pageTitle", "Profil turnaja");
 		maw.addObject("serverTime", formattedDate );
 		maw.addObject("loggedUserName", loggedUserName);
 		return maw;

@@ -62,6 +62,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 			tournament.setSurface(rs.getString("povrch"));
 			tournament.setDivision(rs.getString("divizie"));
 			tournament.setLevel_of_play(rs.getString("uroven_hry"));
+			tournament.setDurationDays(1);
 			tournament.setFormat(rs.getString("format"));
 			tournament.setTournamentDate(DateFormatCustom.fromDB(rs.getString("datum")));
 			tournament.setCity(rs.getString("miesto"));
@@ -115,9 +116,14 @@ public class TournamentsDaoImpl implements TournamentsDao {
 	}
 
 	@Override
-	public Tournament getTournament(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Tournament getTournament(Integer id_turnaj) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		String SQL = "SELECT * FROM profil_turnaj WHERE id_turnaj=" + id_turnaj;
+		List<Tournament> tournamentList = (List<Tournament>) jdbcTemplate.query(SQL, 
+				new TournamentMapper());
+		jdbcTemplate = null;
+		if(tournamentList.size() == 0) return null;
+		return tournamentList.get(0);
 	}
 
 	@Override
