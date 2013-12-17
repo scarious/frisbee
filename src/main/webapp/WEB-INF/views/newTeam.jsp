@@ -80,7 +80,8 @@
 			<br/>
 			<table>
 			<div onclick="setGpsNewTeam()" id="centerContent"><div id="map-canvas"></div></div>
-				</br></br>
+				</br>
+				</br>
 				<tr><td><p>Pridaj hráčov:<br/><small><a href="#">Obnov zoznam</a>
 				</small></p></td><td>
 

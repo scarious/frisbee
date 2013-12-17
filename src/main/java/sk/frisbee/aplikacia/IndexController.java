@@ -176,9 +176,9 @@ public class IndexController {
 	@RequestMapping(value = "/newTeam", method = RequestMethod.POST)
 	public ModelAndView getNewTeamAdd(@ModelAttribute Team team) {
 		String loggedUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-		String formattedDate = dateFormat.format(date);
+		//Date date = new Date();
+		//DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+		//String formattedDate = dateFormat.format(date);
 		
 		System.out.println("Vytvoreny tim: " + team.getName() + " " + team.getPlayersForParsing());
 		//ModelAndView maw = new ModelAndView("newTeam", "date", date);

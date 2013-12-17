@@ -86,7 +86,7 @@
 			<input name="turnajeNaMapu" type="hidden" value="${tournamentsWithGps.name};${tournamentsWithGps.gps_coord}"/>
 		</c:forEach>
 		</c:if>
-		<h3>Najbližšie na mape</h3>
+		<h3>Turnaje a tréningy na mape</h3>
 			<div id="centerContent">
 				<div id="panelMapa">
 			      <input onclick="hideAll();" type=button value="Skry všetko">
