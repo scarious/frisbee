@@ -194,8 +194,7 @@ public class TournamentsDaoImpl implements TournamentsDao {
 				ps.setString(4, tournament.getDivision());
 				ps.setString(5, tournament.getLevel_of_play());
 				ps.setInt(6, tournament.getRegpoplatokhrac());
-				ps.setInt(7, tournament.getRegpoplatoktim());
-				
+				ps.setInt(7, tournament.getRegpoplatoktim());	
 				ps.setString(8, tournament.getFormat());
 				ps.setString(9, DateFormatCustom.dateForDB(tournament.getTournamentDate()));
 				ps.setInt(10, tournament.getDurationDays());
@@ -258,10 +257,11 @@ public class TournamentsDaoImpl implements TournamentsDao {
 					"regpoplatoktim=\"" + updatedTournament.getRegpoplatoktim() + "\"," +
 					
 					"format=" + updatedTournament.getFormat() + ", " +
+					"dobatrvania=" + updatedTournament.getDurationDays() + ", " +
 					"datum=\"" + DateFormatCustom.dateForDB(date) + "\", " +
+					"gps=\"" + updatedTournament.getGps_coord() + "\", " +	
 					"miesto=\"" + updatedTournament.getCity() + "\", " +
-					"gps=\"" + updatedTournament.getGps_coord() + "\", " +
-					"krajina=\"" + updatedTournament.getCountry() + "\", " +
+					"krajina=\"" + updatedTournament.getCountry() + "\", " +				
 					"kontakt_email=\"" + updatedTournament.getContact_email() + "\", " +
 					"kontakt_telefon=\"" + updatedTournament.getContact_number() + "\", " +
 					"kontakt_fb=\"" + updatedTournament.getContact_fb() + "\", " +

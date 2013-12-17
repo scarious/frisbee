@@ -52,10 +52,12 @@ function removeTeam(){
 				<tr><td>Nazov turnaja:</td><td><input name="name" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Mesto:</td><td><input name="city" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Krajina:</td><td><input name="country" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Dátum:</td><td><input name="date2" type="text" size="30" maxlength="50"/></td></tr>	
+				<tr><td>Dátum:</td><td><input name="date" type="text" size="30" maxlength="50"/></td></tr>	
+				<tr><td>Dobatrvania:</td><td><input name="durationDays" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Discipliny:</td><td><input name="disciplines" type="text" size="30" maxlength="50"/></td></tr>		
-				<tr><td>Kontakt (email):</td><td><input type="text" name="email2" size="30" maxlength="50"/></td></tr>
-				<tr><td>Kontakt (telefon):</td><td><input type="text" name="contact" size="30" maxlength="50"/></td></tr>
+				<tr><td>Kontakt (email):</td><td><input type="text" name="contact_email" size="30" maxlength="50"/></td></tr>
+				<tr><td>Kontakt (telefon):</td><td><input type="text" name="contact_number" size="30" maxlength="50"/></td></tr>
+				<tr><td>Kontakt (fb):</td><td><input type="text" name="contact_fb" size="30" maxlength="50"/></td></tr>
 				<tr><td>Povrch:</td><td><input type="text" name="surface" size="30" maxlength="50"/></td></tr>
 				<tr><td>Uroven hry:</td><td><input type="text" name="level_of_play" size="30" maxlength="50"/></td></tr>	
 				<tr><td>Divizia:</td><td><input name="division" type="text" size="30" maxlength="50"/></td></tr>
@@ -63,8 +65,8 @@ function removeTeam(){
 				
 				<tr><td>Usporiadatel:</td><td><input type="text" name="organizator" size="30" maxlength="50"/></td></tr>
 				<tr><td>Min. pocet timov:</td><td><input name="minPocet" id="minPocet" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Registračný poplatok: (tím):</td><td><input name="PF2" type="text" size="30" maxlength="50"/></td></tr>
-				<tr><td>Registračný poplatok: (hráč):</td><td><input name="TF2" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Registračný poplatok: (tím):</td><td><input name="regpoplatoktim" type="text" size="30" maxlength="50"/></td></tr>
+				<tr><td>Registračný poplatok: (hráč):</td><td><input name="regpoplatokhrac" type="text" size="30" maxlength="50"/></td></tr>
 				<tr><td>Divízia:</td><td><select>
 												<option>Open</option>
 												<option>Mixed</option>
