@@ -39,7 +39,7 @@ public class Tournament implements Serializable {
 	
 	private String city;
 	
-	private String contact;
+	private String contact_email,contact_fb,contact_number;
 	
 	private List<Team> teams = new ArrayList<Team>(); 
 	
@@ -48,6 +48,10 @@ public class Tournament implements Serializable {
 	private List<TRoster> tRosters = new ArrayList<TRoster>();
 
 	private String gps_coord;
+	
+	private Integer regpoplatokhrac;
+	private Integer regpoplatoktim;
+	
 
 	public Date getDate() {
 		return date;
@@ -125,13 +129,6 @@ public class Tournament implements Serializable {
 		this.date = date;
 	}
 
-	public String getContact() {
-		return contact;
-	}
-
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
 
 	public List<Team> getTeams() {
 		return teams;
@@ -187,6 +184,46 @@ public class Tournament implements Serializable {
 
 	public void setDurationDays(Integer durationDays) {
 		this.durationDays = durationDays;
+	}
+
+	public String getContact_email() {
+		return contact_email;
+	}
+
+	public void setContact_email(String contact_email) {
+		this.contact_email = contact_email;
+	}
+
+	public String getContact_number() {
+		return contact_number;
+	}
+
+	public void setContact_number(String contact_number) {
+		this.contact_number = contact_number;
+	}
+
+	public String getContact_fb() {
+		return contact_fb;
+	}
+
+	public void setContact_fb(String contact_fb) {
+		this.contact_fb = contact_fb;
+	}
+
+	public Integer getRegpoplatokhrac() {
+		return regpoplatokhrac;
+	}
+
+	public void setRegpoplatokhrac(Integer regpoplatokhrac) {
+		this.regpoplatokhrac = regpoplatokhrac;
+	}
+
+	public Integer getRegpoplatoktim() {
+		return regpoplatoktim;
+	}
+
+	public void setRegpoplatoktim(Integer regpoplatoktim) {
+		this.regpoplatoktim = regpoplatoktim;
 	}
 	
 }

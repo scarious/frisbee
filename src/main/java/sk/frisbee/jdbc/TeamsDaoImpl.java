@@ -52,9 +52,9 @@ public class TeamsDaoImpl implements TeamsDao {
 			team.setTeam_id(rs.getInt("id_tim"));
 			team.setName(rs.getString("nazov"));
 			team.setDisciplines(rs.getString("discipliny"));
+			team.setCountry(rs.getString("mesto"));
 			team.setCountry(rs.getString("krajina"));
 			team.setDatumZalozenia(DateFormatCustom.fromDB(rs.getString("datumzalozenia")));
-			team.setCity(rs.getString("mesto"));
 			team.setContact_name(rs.getString("kontakt_meno"));	
 			team.setContact_phone(rs.getString("kontakt_cislo"));
 			team.setContact_email(rs.getString("kontakt_email"));
@@ -160,14 +160,17 @@ public class TeamsDaoImpl implements TeamsDao {
 		String SQL = "UPDATE TABLE profil_tim SET ("
 				+"nazov="+ updatedTeam.getName() + ","
 				+"discipliny="+ updatedTeam.getDisciplines() + ","
-				+"nazov="+ updatedTeam.getCity() + ","
+				+"mesto="+ updatedTeam.getCity() + ","
+				+"mesto="+ updatedTeam.getCountry() + ","
+				+"datumzalozenia=" + DateFormatCustom.dateForDB(updatedTeam.getDatumZalozenia()) + ","
 				+"kontakt_meno="+ updatedTeam.getContact_name() + ","
 				+"kontakt_cislo="+ updatedTeam.getContactPhone() + ","
 				+"kontakt_email="+ updatedTeam.getContact_email() + ","
 				+"kontakt_fb="+ updatedTeam.getContact_fb() + ","
 				+"zivotopis="+ updatedTeam.getInformation() + ","
 				+"treningy="+ updatedTeam.getTrainings() + ","
-				+"id_hrac="+ updatedTeam.getUserId() + 
+				+"id_hrac="+ updatedTeam.getUserId() + ","
+				+"gpsMiestoTreningu="+ updatedTeam.getGpsMiestoTreningu() +
 				")";
 		jdbcTemplate.execute(SQL);
 		jdbcTemplate = null;

@@ -62,14 +62,18 @@ public class TournamentsDaoImpl implements TournamentsDao {
 			tournament.setSurface(rs.getString("povrch"));
 			tournament.setDivision(rs.getString("divizie"));
 			tournament.setLevel_of_play(rs.getString("uroven_hry"));
-			tournament.setDurationDays(1);
+			tournament.setRegpoplatokhrac(rs.getInt("regpoplatokhrac"));
+			tournament.setRegpoplatoktim(rs.getInt("regpoplatoktim"));
+			tournament.setDurationDays(rs.getInt("dobatrvania"));
 			tournament.setFormat(rs.getString("format"));
 			tournament.setTournamentDate(DateFormatCustom.fromDB(rs.getString("datum")));
 			tournament.setCity(rs.getString("miesto"));
-			tournament.setGps_coord(rs.getString("gps"));//tournament.setGps(rs.getString("gps"));
-			tournament.setContact(rs.getString("kontakt"));
 			tournament.setCountry(rs.getString("krajina"));
+			tournament.setGps_coord(rs.getString("gps"));//tournament.setGps(rs.getString("gps"));
+			tournament.setContact_email(rs.getString("kontakt_email"));
+			tournament.setContact_number(rs.getString("kontakt_telefon"));
 			tournament.setId_user(rs.getInt("id_user"));
+			tournament.setContact_fb(rs.getString("kontakt_fb"));
 			return tournament;	
 		}
 	}
@@ -147,20 +151,25 @@ public class TournamentsDaoImpl implements TournamentsDao {
 	@Override
 	public void addTournament(Tournament tournament) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		String SQL = "INSERT INTO profil_turnaj (meno, discipliny, povrch, divizie, uroven_hry, format, datum, miesto, gps, krajina, kontakt, id_user) "
+		String SQL = "INSERT INTO profil_turnaj (meno, discipliny, povrch, divizie, uroven_hry, regpoplatokhrac, regpoplatoktim, format, datum, dobatrvania, gps, miesto, krajina, kontakt_email, kontakt_telefon, id_user, kontakt_fb) "
 				+ "VALUES ("
 				+ "\"" + tournament.getName() + "\", "
 				+ "\"" + tournament.getDisciplines() + "\", "
 				+ "\"" + tournament.getSurface() + "\", "
 				+ "\"" + tournament.getDivision() + "\", "
 				+ "\"" + tournament.getLevel_of_play() + "\", "
+				+ "\"" + tournament.getRegpoplatokhrac() + "\", "
+				+ "\"" + tournament.getRegpoplatoktim() + "\", "
 				+ "\"" + tournament.getFormat() + "\", "
 				+ "\"" + tournament.getTournamentDate() + "\", "
+				+ "\"" + tournament.getDurationDays() + "\", "
+				+ "\"" + tournament.getGps_coord() + "\", "
 				+ "\"" + tournament.getCity() + "\", "
-				+ "\"" + "null" + "\", "//tournament.getGps()
 				+ "\"" + tournament.getCountry() + "\", "
-				+ "\"" + tournament.getContact() + "\", "
-				+ "\"" + tournament.getId_user() +
+				+ "\"" + tournament.getContact_email() + "\", "
+				+ "\"" + tournament.getContact_number() + "\", "
+				+ "\"" + tournament.getId_user() + "\", "
+				+ "\"" + tournament.getContact_fb()+
 				")";
 		jdbcTemplate.execute(SQL);
 		jdbcTemplate = null;
@@ -171,8 +180,8 @@ public class TournamentsDaoImpl implements TournamentsDao {
 		KeyHolder holder = new GeneratedKeyHolder();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		final String SQL = "INSERT INTO profil_turnaj "
-				+ "(meno, discipliny, povrch, divizie, uroven_hry, format, datum, miesto, gps, krajina, kontakt, id_user) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
+				+ "(meno, discipliny, povrch, divizie, uroven_hry, regpoplatokhrac, regpoplatoktim, format, datum, dobatrvania, gps, miesto, krajina, kontakt_email, kontakt_telefon, id_user, kontakt_fb) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection)
@@ -184,13 +193,19 @@ public class TournamentsDaoImpl implements TournamentsDao {
 				ps.setString(3, tournament.getSurface());
 				ps.setString(4, tournament.getDivision());
 				ps.setString(5, tournament.getLevel_of_play());
-				ps.setString(6, tournament.getFormat());
-				ps.setString(7, DateFormatCustom.dateForDB(tournament.getTournamentDate()));
-				ps.setString(8, tournament.getCity() );
-				ps.setString(9, null);
-				ps.setString(10, tournament.getCountry());
-				ps.setString(11, tournament.getContact());
-				ps.setInt(12, tournament.getId_user());
+				ps.setInt(6, tournament.getRegpoplatokhrac());
+				ps.setInt(7, tournament.getRegpoplatoktim());
+				
+				ps.setString(8, tournament.getFormat());
+				ps.setString(9, DateFormatCustom.dateForDB(tournament.getTournamentDate()));
+				ps.setInt(10, tournament.getDurationDays());
+				ps.setString(11, tournament.getGps_coord());
+				ps.setString(12, tournament.getCity() );
+				ps.setString(13, tournament.getCountry());
+				ps.setString(14, tournament.getContact_email());
+				ps.setString(15, tournament.getContact_number());
+				ps.setInt(16, tournament.getId_user());
+				ps.setString(17, tournament.getContact_fb());
 				return ps;
 			}
 		}, holder);
@@ -239,12 +254,17 @@ public class TournamentsDaoImpl implements TournamentsDao {
 					"povrch=\"" + updatedTournament.getSurface() + "\", " +
 					"divizie=\"" + updatedTournament.getDivision() + "\"," +
 					"uroven_hry=\"" + updatedTournament.getLevel_of_play() + "\", " +
+					"regpoplatokhrac=\"" + updatedTournament.getRegpoplatokhrac() + "\"," +
+					"regpoplatoktim=\"" + updatedTournament.getRegpoplatoktim() + "\"," +
+					
 					"format=" + updatedTournament.getFormat() + ", " +
 					"datum=\"" + DateFormatCustom.dateForDB(date) + "\", " +
 					"miesto=\"" + updatedTournament.getCity() + "\", " +
 					"gps=\"" + updatedTournament.getGps_coord() + "\", " +
 					"krajina=\"" + updatedTournament.getCountry() + "\", " +
-					"kontakt=\"" + updatedTournament.getContact() + "\", " +
+					"kontakt_email=\"" + updatedTournament.getContact_email() + "\", " +
+					"kontakt_telefon=\"" + updatedTournament.getContact_number() + "\", " +
+					"kontakt_fb=\"" + updatedTournament.getContact_fb() + "\", " +
 					" WHERE id_user=" + updatedTournament.getId_user();
 			JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 			jdbcTemplate.execute(SQL);
